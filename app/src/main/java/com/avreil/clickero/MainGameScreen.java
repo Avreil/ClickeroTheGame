@@ -40,7 +40,7 @@ public class MainGameScreen extends AppCompatActivity {
 
 
         cash.setGold(loadGame.getInt(playerGold, 0));
-        
+
         final TextView goldDisplay = findViewById(R.id.goldAmmount);
         goldDisplay.setText(cash.getGoldString());
 
