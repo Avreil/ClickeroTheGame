@@ -17,7 +17,7 @@ import android.widget.TextView;
 public class MainGameScreen extends AppCompatActivity {
 
     //game core
-    final ClickAdder cash = new ClickAdder();
+    final ClickAdder cash = new ClickAdder(0);
 
 
     @Override
@@ -73,6 +73,7 @@ public class MainGameScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent startLordUpgrades= new Intent(getApplicationContext(), LordUpgrade.class);
+                Intent.putETHIS P   xtra("Cash",cash);
                 startActivity(startLordUpgrades);
 
             }
