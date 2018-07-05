@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 public class LordUpgrade extends AppCompatActivity {
 
-    public Integer result;
+    private Integer gold,multiplier;
+    private  TextView moneyAmmount;
+    private String goldS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,13 +23,15 @@ public class LordUpgrade extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_lord_upgrade);
 
-        final Intent intent = getIntent();
-        final TextView moneyAmmount = findViewById(R.id.moneyAmmount);
-        final Integer gold = intent.getIntExtra("GoldToLord",0);
-        final String goldS = Integer.toString(gold);
+        Intent intent = getIntent();
+        moneyAmmount = findViewById(R.id.moneyAmmount);
+        gold = intent.getIntExtra("GoldToLord",0);
+        multiplier = intent.getIntExtra("MultiplierToLord",0);
+        goldS = Integer.toString(gold);
 
-        //initialize variable to work with
-        result = gold;
+
+
+
 
 
         moneyAmmount.setText(goldS);
@@ -40,19 +44,23 @@ public class LordUpgrade extends AppCompatActivity {
 
 
             Intent resultIntent = new Intent();
-            resultIntent.putExtra("GoldBack", result);
+            resultIntent.putExtra("GoldBack", gold);
+            resultIntent.putExtra("MultiplierBack",multiplier);
             setResult(RESULT_OK, resultIntent);
             finish();
 
             }
         });
 
+
+
+
         Button buy = findViewById(R.id.buyBtn);
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            result = 10;
-            moneyAmmount.setText(Integer.toString(result));
+            multiplier++;
+            moneyAmmount.setText(Integer.toString(gold));
             }
         });
 

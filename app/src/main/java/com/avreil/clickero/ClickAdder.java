@@ -53,8 +53,8 @@ public class ClickAdder implements Parcelable{
         gold=_gold;
     }
 
-    public Integer raiseGold(){
-        gold++;
+    public Integer raiseGold(int _multiplier){
+        gold = gold+(1*_multiplier);
         return gold;
     }
 
