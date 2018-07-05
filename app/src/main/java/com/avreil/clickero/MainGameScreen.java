@@ -18,6 +18,10 @@ public class MainGameScreen extends AppCompatActivity {
 
 
 
+    private TextView goldDisplay;
+    public ClickAdder cash = new ClickAdder(0);
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,28 +30,19 @@ public class MainGameScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+                             WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main_game_screen);
-
-        //ControlNumber
-        int cn;
 
 
         //game core
-        final ClickAdder cash = new ClickAdder(0);
+
         final String SAVE = "SavedGameFile";
         final String playerGold = " savedPlayerGold";
         final SharedPreferences saveGame = getSharedPreferences(SAVE, 0);
         final SharedPreferences loadGame = getSharedPreferences(SAVE, 0);
         final SharedPreferences.Editor editor = saveGame.edit();
-
-        if(cn==1) { }
-        else{  cash.setGold(loadGame.getInt(playerGold, 0));   }
-
-
-
-        final TextView goldDisplay = findViewById(R.id.goldAmmount);
+        goldDisplay = findViewById(R.id.goldAmmount);
+        cash.setGold(loadGame.getInt(playerGold, 0));
         goldDisplay.setText(cash.getGoldString());
 
         ConstraintLayout gameLayout = findViewById(R.id.MainGameScreen);
@@ -68,21 +63,34 @@ public class MainGameScreen extends AppCompatActivity {
             public void onClick(View v) {
                 cash.setGold(0);
                 goldDisplay.setText(cash.getGoldString());
-                editor.putInt(playerGold, cash.getGold());
-                editor.apply();
+
 
             }
         });
 
+
+        //lordUpgrade activity
         Button lordUp = findViewById(R.id.lordUpgrades);
         lordUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent startLordUpgrades= new Intent(getApplicationContext(), LordUpgrade.class);
-                startLordUpgrades.putExtra("Cash",cash);
-                startActivity(startLordUpgrades);
+                Integer goldOut = cash.getGold();
+                startLordUpgrades.putExtra("GoldToLord", goldOut);
+                startActivityForResult(startLordUpgrades,1);
+
 
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+                Integer result = data.getIntExtra("GoldBack", 0);
+                cash.setGold(result);
+                goldDisplay.setText(Integer.toString(result));
+
     }
 }

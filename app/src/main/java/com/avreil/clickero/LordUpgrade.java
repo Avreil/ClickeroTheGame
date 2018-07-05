@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class LordUpgrade extends AppCompatActivity {
 
-
+    public Integer result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,19 +21,29 @@ public class LordUpgrade extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_lord_upgrade);
 
-        final ClickAdder cash = (ClickAdder)getIntent().getParcelableExtra("Cash");
-        final  TextView moneyAmmount = findViewById(R.id.moneyAmmount);
+        final Intent intent = getIntent();
+        final TextView moneyAmmount = findViewById(R.id.moneyAmmount);
+        final Integer gold = intent.getIntExtra("GoldToLord",0);
+        final String goldS = Integer.toString(gold);
 
+        //initialize variable to work with
+        result = gold;
+
+
+        moneyAmmount.setText(goldS);
 
 
         Button BackButton = findViewById(R.id.backBtn);
         BackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent stopLordUpgrades= new Intent(getApplicationContext(),MainGameScreen.class);
-                stopLordUpgrades.putExtra("CashBack",cash);
-                stopLordUpgrades.putExtra("ControlValue", 1);
-                startActivity(stopLordUpgrades);
+
+
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("GoldBack", result);
+            setResult(RESULT_OK, resultIntent);
+            finish();
+
             }
         });
 
@@ -41,14 +51,14 @@ public class LordUpgrade extends AppCompatActivity {
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            cash.setGold(10);
-            moneyAmmount.setText(cash.getGoldString());
+            result = 10;
+            moneyAmmount.setText(Integer.toString(result));
             }
         });
 
 
 
-        moneyAmmount.setText(cash.getGoldString());
+
 
 
     }
