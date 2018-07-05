@@ -73,7 +73,7 @@ public class MainGameScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent startLordUpgrades= new Intent(getApplicationContext(), LordUpgrade.class);
-                Intent.putETHIS P   xtra("Cash",cash);
+                Intent.putExtra("Cash",);
                 startActivity(startLordUpgrades);
 
             }

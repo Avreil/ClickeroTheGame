@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class ClickAdder implements Parcelable{
-    Integer gold=0;
+    Integer gold;
     String goldS;
 
 
@@ -18,11 +18,7 @@ public class ClickAdder implements Parcelable{
 
 
     protected ClickAdder(Parcel in) {
-        if (in.readByte() == 0) {
-            gold = null;
-        } else {
             gold = in.readInt();
-        }
         goldS = in.readString();
     }
 
@@ -70,12 +66,7 @@ public class ClickAdder implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        if (gold == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(gold);
-        }
+        parcel.writeInt(gold);
         parcel.writeString(goldS);
     }
 }
