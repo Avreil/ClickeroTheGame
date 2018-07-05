@@ -17,7 +17,7 @@ import android.widget.TextView;
 public class MainGameScreen extends AppCompatActivity {
 
     private int multiplier=1;
-    private Integer goldOut;
+    private Integer goldOut, counter1;
     private String SAVE;
     private String playerGold;
     private TextView goldDisplay;
@@ -87,6 +87,7 @@ public class MainGameScreen extends AppCompatActivity {
                 goldOut = cash.getGold();
                 startLordUpgrades.putExtra("GoldToLord", goldOut);
                 startLordUpgrades.putExtra("MultiplierToLord", multiplier);
+                startLordUpgrades.putExtra("UpgradeCounter1",counter1);
                 startActivityForResult(startLordUpgrades,1);
 
 
@@ -100,6 +101,7 @@ public class MainGameScreen extends AppCompatActivity {
 
                 Integer goldFromLord = data.getIntExtra("GoldBack", 0);
                 multiplier = data.getIntExtra("MultiplierBack", 0);
+                counter1 = data.getIntExtra("UpgradeCounter1", 0);
                 cash.setGold(goldFromLord);
                 goldDisplay.setText(Integer.toString(goldFromLord));
 
