@@ -16,8 +16,7 @@ import android.widget.TextView;
 
 public class MainGameScreen extends AppCompatActivity {
 
-    //game core
-    final ClickAdder cash = new ClickAdder(0);
+
 
 
     @Override
@@ -31,15 +30,22 @@ public class MainGameScreen extends AppCompatActivity {
 
         setContentView(R.layout.activity_main_game_screen);
 
+        //ControlNumber
+        int cn;
 
+
+        //game core
+        final ClickAdder cash = new ClickAdder(0);
         final String SAVE = "SavedGameFile";
         final String playerGold = " savedPlayerGold";
         final SharedPreferences saveGame = getSharedPreferences(SAVE, 0);
         final SharedPreferences loadGame = getSharedPreferences(SAVE, 0);
         final SharedPreferences.Editor editor = saveGame.edit();
 
+        if(cn==1) { }
+        else{  cash.setGold(loadGame.getInt(playerGold, 0));   }
 
-        cash.setGold(loadGame.getInt(playerGold, 0));
+
 
         final TextView goldDisplay = findViewById(R.id.goldAmmount);
         goldDisplay.setText(cash.getGoldString());
@@ -73,7 +79,7 @@ public class MainGameScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent startLordUpgrades= new Intent(getApplicationContext(), LordUpgrade.class);
-                Intent.putExtra("Cash",);
+                startLordUpgrades.putExtra("Cash",cash);
                 startActivity(startLordUpgrades);
 
             }
