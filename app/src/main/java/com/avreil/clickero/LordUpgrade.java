@@ -11,9 +11,15 @@ import android.widget.TextView;
 
 public class LordUpgrade extends AppCompatActivity {
 
-    private Integer gold,multiplier;
+    private Integer gold,multiplier,counter1=0,price1;
+    private float priceFloat1=10;
     private  TextView moneyAmmount;
     private String goldS;
+    private TextView upgradeNameLordClick;
+    private TextView boughtCount1;
+    private TextView unitPrice;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +31,21 @@ public class LordUpgrade extends AppCompatActivity {
 
         Intent intent = getIntent();
         moneyAmmount = findViewById(R.id.moneyAmmount);
-        gold = intent.getIntExtra("GoldToLord",0);
-        multiplier = intent.getIntExtra("MultiplierToLord",0);
+        boughtCount1 = findViewById(R.id.boughtCount1);
+        unitPrice = findViewById(R.id.unitPrice1);
+        gold = intent.getIntExtra("GoldToLord", 0);
+        multiplier = intent.getIntExtra("MultiplierToLord", 0);
         goldS = Integer.toString(gold);
+        if (counter1 == 0) {
+                boughtCount1.setText("");
+        } else{ boughtCount1.setText(Integer.toString(counter1)); }
 
+        price1=(int)priceFloat1;
+        unitPrice.setText(Integer.toString(price1));
 
-
-
+        //upgrade names control
+        upgradeNameLordClick = findViewById(R.id.upgradeNameLordClick);
+        upgradeNameLordClick.setText("Power of Taxes");
 
 
         moneyAmmount.setText(goldS);
@@ -59,8 +73,11 @@ public class LordUpgrade extends AppCompatActivity {
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            multiplier++;
+            counter1++;
+            multiplier=multiplier*2;
             moneyAmmount.setText(Integer.toString(gold));
+            boughtCount1.setText(Integer.toString(counter1));
+
             }
         });
 
