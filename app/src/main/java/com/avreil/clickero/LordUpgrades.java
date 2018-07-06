@@ -14,6 +14,9 @@ public class LordUpgrades {
     }
 
 
+    public void riseCounter(){
+        counter++;
+    }
 
 
 
