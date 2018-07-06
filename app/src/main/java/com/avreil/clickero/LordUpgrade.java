@@ -12,28 +12,29 @@ import android.widget.TextView;
 
 public class LordUpgrade extends AppCompatActivity {
 
-    private Integer gold, multiplier, counter1 , price1=10;
-    private double basePriceFloat1 = 10, calculatedPrice1;
+    private Integer gold, multiplier, counter1 , price1,basePrice=10;
+    private double calculatedPrice;
     private String goldS;
     private TextView upgradeNameLordClick, boughtCount1, unitPrice1, moneyAmount;
     private SharedPreferences.Editor editor;
 
-    public void itemBought1() {
-        gold=gold-price1;
+
+
+
+    public void itemBought(Integer _price,Integer _basePrice,Integer _counter,String idNumber) {
+        gold=gold-_price;
         moneyAmount.setText(Integer.toString(gold));
-        calculatedPrice1 = (basePriceFloat1+(basePriceFloat1 * counter1) + (0.4 * price1));
-        price1 = (int) calculatedPrice1;
-        counter1++;
+        calculatedPrice = (_basePrice+(_basePrice * _counter) + (0.4 * _price));
+        _counter++;
         moneyAmount.setText(Integer.toString(gold));
-        boughtCount1.setText(Integer.toString(counter1));
-        unitPrice1.setText(Integer.toString(price1));
-        multiplier = multiplier * 2;
-        editor.putInt("counter1", counter1);
-        editor.putInt("price1", price1);
+        boughtCount1.setText(Integer.toString(_counter));
+        unitPrice1.setText(Integer.toString((int)calculatedPrice));
+        multiplier = multiplier +1;
+        editor.putInt("counter"+idNumber, _counter);
+        editor.putInt("price"+idNumber, _price);
         editor.apply();
 
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +56,8 @@ public class LordUpgrade extends AppCompatActivity {
         unitPrice1 = findViewById(R.id.unitPrice1);
         upgradeNameLordClick = findViewById(R.id.upgradeNameLordClick);
 
-        counter1 = lordSharedPref.getInt("counter1",0);
-        price1 = lordSharedPref.getInt("price1",price1);
+        counter1 = lordSharedPref.getInt("counter"+"1",0);
+        price1 = lordSharedPref.getInt("price"+"1",0);
 
 
         goldS = Integer.toString(gold);
@@ -81,18 +82,11 @@ public class LordUpgrade extends AppCompatActivity {
         BackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("GoldBack", gold);
                 resultIntent.putExtra("MultiplierBack", multiplier);
-
-                
-
                 setResult(RESULT_OK, resultIntent);
-                finish();
-
-            }
+                finish(); }
         });
 
 
@@ -100,16 +94,9 @@ public class LordUpgrade extends AppCompatActivity {
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 if (gold >= price1 && counter1<10) {
-
-                    itemBought1();
-
-                } else {
+                    itemBought(price1,basePrice,counter1,"1"); }
                 }
-
-            }
         });
 
         //DevReset
