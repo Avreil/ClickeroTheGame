@@ -14,19 +14,23 @@ public class LordUpgrade extends AppCompatActivity {
 
     private Integer gold, multiplier, counter1 , price1=10;
     private double basePriceFloat1 = 10, calculatedPrice1;
-    private TextView moneyAmmount;
     private String goldS;
-    private TextView upgradeNameLordClick;
-    private TextView boughtCount1;
-    private TextView unitPrice1;
+    private TextView upgradeNameLordClick, boughtCount1, unitPrice1, moneyAmount;
     private SharedPreferences.Editor editor;
 
-    public Integer itemBought1() {
-
-        moneyAmmount.setText(Integer.toString(gold));
+    public void itemBought1() {
+        gold=gold-price1;
+        moneyAmount.setText(Integer.toString(gold));
+        calculatedPrice1 = (basePriceFloat1+(basePriceFloat1 * counter1) + (0.4 * price1));
+        price1 = (int) calculatedPrice1;
+        counter1++;
+        moneyAmount.setText(Integer.toString(gold));
         boughtCount1.setText(Integer.toString(counter1));
         unitPrice1.setText(Integer.toString(price1));
-        return price1;
+        multiplier = multiplier * 2;
+        editor.putInt("counter1", counter1);
+        editor.putInt("price1", price1);
+        editor.apply();
 
     }
 
@@ -46,7 +50,7 @@ public class LordUpgrade extends AppCompatActivity {
         gold = intent.getIntExtra("GoldToLord", 0);
         multiplier = intent.getIntExtra("MultiplierToLord", 0);
 
-        moneyAmmount = findViewById(R.id.moneyAmmount);
+        moneyAmount = findViewById(R.id.moneyAmmount);
         boughtCount1 = findViewById(R.id.boughtCount1);
         unitPrice1 = findViewById(R.id.unitPrice1);
         upgradeNameLordClick = findViewById(R.id.upgradeNameLordClick);
@@ -61,7 +65,7 @@ public class LordUpgrade extends AppCompatActivity {
 
         boughtCount1.setText(Integer.toString(lordSharedPref.getInt("counter1",0)));
         upgradeNameLordClick.setText("Power of Taxes");
-        moneyAmmount.setText(goldS);
+        moneyAmount.setText(goldS);
         unitPrice1.setText(Integer.toString(price1));
 
 
@@ -99,14 +103,9 @@ public class LordUpgrade extends AppCompatActivity {
 
 
                 if (gold >= price1 && counter1<10) {
-                    calculatedPrice1 = (basePriceFloat1+(basePriceFloat1 * counter1) + (0.4 * price1));
-                    price1 = (int) calculatedPrice1;
-                    counter1++;
+
                     itemBought1();
-                    multiplier = multiplier * 2;
-                    editor.putInt("counter1", counter1);
-                    editor.putInt("price1", price1);
-                    editor.apply();
+
                 } else {
                 }
 
