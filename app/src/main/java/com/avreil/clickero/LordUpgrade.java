@@ -22,6 +22,7 @@ public class LordUpgrade extends AppCompatActivity {
 
 
 
+
     public void itemBought(LordUpgrades _upgrade) {
         gold=gold-_upgrade.getPrice();
         moneyAmount.setText(Integer.toString(gold));
