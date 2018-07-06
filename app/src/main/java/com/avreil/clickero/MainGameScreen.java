@@ -16,13 +16,11 @@ import android.widget.TextView;
 
 public class MainGameScreen extends AppCompatActivity {
 
-    private int multiplier=1;
-    private Integer goldOut, counter1;
-    private String SAVE;
-    private String playerGold;
+    private int multiplier;
+    private Integer goldOut;
+    private String SAVE,playerGold;
     private TextView goldDisplay;
-    private SharedPreferences saveGame;
-    private SharedPreferences loadGame;
+    private SharedPreferences saveGame, loadGame;
     private SharedPreferences.Editor editor;
     private ClickAdder cash = new ClickAdder(0);
     private Bundle extras;
@@ -52,8 +50,11 @@ public class MainGameScreen extends AppCompatActivity {
         goldDisplay = findViewById(R.id.goldAmmount);
         cash.setGold(loadGame.getInt(playerGold, 0));
         goldDisplay.setText(cash.getGoldString());
+        multiplier=loadGame.getInt("Multiplier", 1);
 
 
+
+        //GamePlay
         ConstraintLayout gameLayout = findViewById(R.id.MainGameScreen);
         gameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,13 +67,17 @@ public class MainGameScreen extends AppCompatActivity {
             }
         });
 
+        //DevReset
         Button resetButton = findViewById(R.id.resetBtn);
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cash.setGold(0);
+                multiplier=1;
                 goldDisplay.setText(cash.getGoldString());
-
+                editor.putInt("Multiplier",multiplier);
+                editor.putInt(playerGold, cash.getGold());
+                editor.apply();
 
             }
         });
@@ -87,7 +92,7 @@ public class MainGameScreen extends AppCompatActivity {
                 goldOut = cash.getGold();
                 startLordUpgrades.putExtra("GoldToLord", goldOut);
                 startLordUpgrades.putExtra("MultiplierToLord", multiplier);
-                startLordUpgrades.putExtra("UpgradeCounter1",counter1);
+
                 startActivityForResult(startLordUpgrades,1);
 
 
@@ -101,15 +106,17 @@ public class MainGameScreen extends AppCompatActivity {
 
                 Integer goldFromLord = data.getIntExtra("GoldBack", 0);
                 multiplier = data.getIntExtra("MultiplierBack", 0);
-                counter1 = data.getIntExtra("UpgradeCounter1", 0);
+
                 cash.setGold(goldFromLord);
                 goldDisplay.setText(Integer.toString(goldFromLord));
 
 
 
                 //save after coming back
+                editor.putInt("Multiplier",multiplier);
                 editor.putInt(playerGold, cash.getGold());
                 editor.apply();
 
     }
+
 }

@@ -1,6 +1,7 @@
 package com.avreil.clickero;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,13 +12,14 @@ import android.widget.TextView;
 
 public class LordUpgrade extends AppCompatActivity {
 
-    private Integer gold, multiplier, counter1 = 0, price1;
+    private Integer gold, multiplier, counter1 , price1=10;
     private double basePriceFloat1 = 10, calculatedPrice1;
     private TextView moneyAmmount;
     private String goldS;
     private TextView upgradeNameLordClick;
     private TextView boughtCount1;
     private TextView unitPrice1;
+    private SharedPreferences.Editor editor;
 
     public Integer itemBought1() {
 
@@ -36,31 +38,39 @@ public class LordUpgrade extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_lord_upgrade);
+        SharedPreferences lordSharedPref = getSharedPreferences("LordUpgradeInfo", MODE_PRIVATE);
+        editor = lordSharedPref.edit();
+
 
         Intent intent = getIntent();
+        gold = intent.getIntExtra("GoldToLord", 0);
+        multiplier = intent.getIntExtra("MultiplierToLord", 0);
+
         moneyAmmount = findViewById(R.id.moneyAmmount);
         boughtCount1 = findViewById(R.id.boughtCount1);
         unitPrice1 = findViewById(R.id.unitPrice1);
-        gold = intent.getIntExtra("GoldToLord", 0);
-        multiplier = intent.getIntExtra("MultiplierToLord", 0);
-        counter1 = intent.getIntExtra("UpgradeCounter1",0);
+        upgradeNameLordClick = findViewById(R.id.upgradeNameLordClick);
+
+        counter1 = lordSharedPref.getInt("counter1",0);
+        price1 = lordSharedPref.getInt("price1",price1);
+
+
         goldS = Integer.toString(gold);
-        if (counter1 == 0) {
-            boughtCount1.setText("");
 
-        } else {
-            boughtCount1.setText(Integer.toString(counter1));
-        }
 
-        price1 = (int) basePriceFloat1;
+
+        boughtCount1.setText(Integer.toString(lordSharedPref.getInt("counter1",0)));
+        upgradeNameLordClick.setText("Power of Taxes");
+        moneyAmmount.setText(goldS);
         unitPrice1.setText(Integer.toString(price1));
 
-        //upgrades control
-        upgradeNameLordClick = findViewById(R.id.upgradeNameLordClick);
-        upgradeNameLordClick.setText("Power of Taxes");
 
 
-        moneyAmmount.setText(goldS);
+
+
+
+
+
 
 
         Button BackButton = findViewById(R.id.backBtn);
@@ -72,7 +82,7 @@ public class LordUpgrade extends AppCompatActivity {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("GoldBack", gold);
                 resultIntent.putExtra("MultiplierBack", multiplier);
-                resultIntent.putExtra("UpgradeCounter1",counter1);
+
                 
 
                 setResult(RESULT_OK, resultIntent);
@@ -88,18 +98,40 @@ public class LordUpgrade extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                if (gold >= price1 && counter1<=10) {
-                    calculatedPrice1 = ((basePriceFloat1 * counter1) + (0.4 * calculatedPrice1));
+                if (gold >= price1 && counter1<10) {
+                    calculatedPrice1 = (basePriceFloat1+(basePriceFloat1 * counter1) + (0.4 * price1));
                     price1 = (int) calculatedPrice1;
-                    itemBought1();
                     counter1++;
+                    itemBought1();
                     multiplier = multiplier * 2;
+                    editor.putInt("counter1", counter1);
+                    editor.putInt("price1", price1);
+                    editor.apply();
                 } else {
                 }
 
             }
         });
 
+        //DevReset
+        Button resetButton = findViewById(R.id.resetBtn);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                counter1=0;
+                price1=10;
+                multiplier=1;
+                editor.putInt("counter1", counter1);
+                editor.putInt("price1", price1);
+                editor.apply();
+                boughtCount1.setText(Integer.toString(counter1));
+                unitPrice1.setText(Integer.toString(price1));
+
+            }
+        });
 
     }
+
+
+
 }
