@@ -5,11 +5,9 @@ public class LordUpgrades {
     public Integer price, basePrice, counter;
     public String idNumber;
 
-    public LordUpgrades(Integer _price,Integer _basePrice,Integer _counter,String _idNumber)
+    public LordUpgrades(Integer _basePrice,String _idNumber)
     {
-        price=_price;
         basePrice=_basePrice;
-        counter=_counter;
         idNumber=_idNumber;
     }
 
