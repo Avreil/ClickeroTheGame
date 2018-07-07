@@ -6,4 +6,7 @@
     <string name="playergoldammount">playerGoldAmmount</string>
     <string name="dev_reset">DEV:Reset</string>
     <string name="back">Back</string>
+    <string name="upgrade">Upgrade</string>
+    <string name="dev_resetLordUpgrade">DEV:RESET</string>
+
 </resources>

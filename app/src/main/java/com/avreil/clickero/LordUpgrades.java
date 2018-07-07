@@ -11,7 +11,14 @@ public class LordUpgrades {
         idNumber=_idNumber;
         price=_basePrice;
         limit=_limit;
+        counter=0;
 
+    }
+
+    public void resetData(){
+
+        this.setPrice(basePrice);
+        this.setCounter(0);
     }
 
 

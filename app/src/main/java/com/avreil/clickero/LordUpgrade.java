@@ -14,30 +14,17 @@ public class LordUpgrade extends AppCompatActivity {
 
     private Integer gold, multiplier;
     private double calculatedPrice;
-    private String goldS;
-    private TextView upgradeNameLordClick, boughtCount1, unitPrice1, moneyAmount;
+    private TextView upgradeName1, boughtCount1, unitPrice1, moneyAmount;
     private SharedPreferences.Editor editor;
     private LordUpgrades upgrade1;
+    private SharedPreferences lordSharedPref;
 
 
 
 
 
-    public void itemBought(LordUpgrades _upgrade) {
-        gold=gold-_upgrade.getPrice();
-        moneyAmount.setText(Integer.toString(gold));
-        calculatedPrice = (_upgrade.getBasePrice()+(_upgrade.getBasePrice() * _upgrade.getCounter()) + (0.4 * _upgrade.getPrice()));
-        _upgrade.riseCounter();
-        _upgrade.setPrice((int)calculatedPrice);
-        moneyAmount.setText(Integer.toString(gold));
-        boughtCount1.setText(Integer.toString(_upgrade.getCounter()));
-        unitPrice1.setText(Integer.toString((_upgrade.getPrice())));
-        multiplier = multiplier +1;
-        editor.putInt("counter"+_upgrade.getIdNumber(), _upgrade.getCounter());
-        editor.putInt("price"+_upgrade.getIdNumber(), _upgrade.getPrice());
-        editor.apply();
 
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,34 +33,34 @@ public class LordUpgrade extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_lord_upgrade);
-        SharedPreferences lordSharedPref = getSharedPreferences("LordUpgradeInfo", MODE_PRIVATE);
+        lordSharedPref = getSharedPreferences("LordUpgradeInfo", MODE_PRIVATE);
+        editor = lordSharedPref.edit();
 
-        //initialize upgrade1 Class
-        upgrade1 = new LordUpgrades(10,5,"1");
+
 
         //load intent
         Intent intent = getIntent();
         gold = intent.getIntExtra("GoldToLord", 0);
-        goldS = Integer.toString(gold);
         multiplier = intent.getIntExtra("MultiplierToLord", 0);
 
 
+        //initialize upgrade Class'es
+        upgrade1 = new LordUpgrades(10,5,"1");
 
-        //load upgrade1 data
-        editor = lordSharedPref.edit();
-        upgrade1.setCounter(lordSharedPref.getInt("counter"+"1",0));
-        upgrade1.setPrice(lordSharedPref.getInt("price"+"1", upgrade1.getPrice()));
+        //load upgrade data
+        loadData(upgrade1);
+
 
         //initialize TextViews
         moneyAmount = findViewById(R.id.moneyAmmount);
         boughtCount1 = findViewById(R.id.boughtCount1);
         unitPrice1 = findViewById(R.id.unitPrice1);
-        upgradeNameLordClick = findViewById(R.id.upgradeNameLordClick);
+        upgradeName1 = findViewById(R.id.upgradeName1);
 
         //set TextViews
         boughtCount1.setText(Integer.toString(lordSharedPref.getInt("counter1",0)));
-        upgradeNameLordClick.setText("Power of Taxes");
-        moneyAmount.setText(goldS);
+        upgradeName1.setText("Power of Taxes");
+        moneyAmount.setText(Integer.toString(gold));
         unitPrice1.setText(Integer.toString(upgrade1.getPrice()));
 
 
@@ -90,8 +77,8 @@ public class LordUpgrade extends AppCompatActivity {
         });
 
         //FirstUpgradeBuyBtn
-        Button buy = findViewById(R.id.buyBtn);
-        buy.setOnClickListener(new View.OnClickListener() {
+        Button buy1 = findViewById(R.id.buyBtn1);
+        buy1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (gold >= upgrade1.getPrice() && upgrade1.getCounter()<upgrade1.getLimit()) {
@@ -104,12 +91,9 @@ public class LordUpgrade extends AppCompatActivity {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                upgrade1.setCounter(0);
-                upgrade1.setPrice(10);
+                upgrade1.resetData();
                 multiplier=1;
-                editor.putInt("counter1", upgrade1.getCounter());
-                editor.putInt("price1", upgrade1.getPrice());
-                editor.apply();
+                saveData(upgrade1);
                 boughtCount1.setText(Integer.toString(upgrade1.getCounter()));
                 unitPrice1.setText(Integer.toString(upgrade1.getPrice()));
 
@@ -119,5 +103,28 @@ public class LordUpgrade extends AppCompatActivity {
     }
 
 
+    public void loadData(LordUpgrades _upgrade){
+        _upgrade.setCounter(lordSharedPref.getInt("counter"+_upgrade.getIdNumber(),_upgrade.getCounter()));
+        _upgrade.setPrice(lordSharedPref.getInt("price"+_upgrade.getIdNumber(),_upgrade.getPrice()));
+    }
 
+    public void saveData (LordUpgrades _upgrade){
+        editor.putInt("counter"+_upgrade.getIdNumber(), _upgrade.getCounter());
+        editor.putInt("price"+_upgrade.getIdNumber(), _upgrade.getPrice());
+        editor.apply();
+    }
+
+    public void itemBought(LordUpgrades _upgrade) {
+        gold=gold-_upgrade.getPrice();
+        moneyAmount.setText(Integer.toString(gold));
+        calculatedPrice = (_upgrade.getBasePrice()+(_upgrade.getBasePrice() * _upgrade.getCounter()) + (0.4 * _upgrade.getPrice()));
+        _upgrade.riseCounter();
+        _upgrade.setPrice((int)calculatedPrice);
+        moneyAmount.setText(Integer.toString(gold));
+        boughtCount1.setText(Integer.toString(_upgrade.getCounter()));
+        unitPrice1.setText(Integer.toString((_upgrade.getPrice())));
+        multiplier = multiplier +1;
+        saveData(_upgrade);
+
+    }
 }
