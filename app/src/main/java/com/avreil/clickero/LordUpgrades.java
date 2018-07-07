@@ -2,13 +2,16 @@ package com.avreil.clickero;
 
 public class LordUpgrades {
 
-    public Integer price, basePrice, counter;
+    public Integer price, basePrice, counter, limit;
     public String idNumber;
 
-    public LordUpgrades(Integer _basePrice,String _idNumber)
+    public LordUpgrades(Integer _basePrice,Integer _limit,String _idNumber)
     {
         basePrice=_basePrice;
         idNumber=_idNumber;
+        price=_basePrice;
+        limit=_limit;
+
     }
 
 
@@ -16,38 +19,14 @@ public class LordUpgrades {
         counter++;
     }
 
-    
 
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public Integer getLimit() {
+        return limit;
+    }
 
     public void setBasePrice(Integer basePrice) {
         this.basePrice = basePrice;
