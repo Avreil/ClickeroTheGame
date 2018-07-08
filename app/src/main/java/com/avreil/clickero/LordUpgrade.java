@@ -29,6 +29,7 @@ public class LordUpgrade extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +39,11 @@ public class LordUpgrade extends AppCompatActivity {
         setContentView(R.layout.activity_lord_upgrade);
         lordSharedPref = getSharedPreferences("LordUpgradeInfo", MODE_PRIVATE);
         editor = lordSharedPref.edit();
+
+
+        //workspace
+
+
 
 
 
@@ -69,8 +75,8 @@ public class LordUpgrade extends AppCompatActivity {
         moneyAmount.setText(Integer.toString(gold));
 
         boughtCount1.setText(Integer.toString(lordSharedPref.getInt(counter+upgrade1.getIdNumber(),0)));
-        upgradeName1.setText("Power of Taxes");
         unitPrice1.setText(Integer.toString(upgrade1.getPrice()));
+        upgradeName1.setText("Power of Taxes");
 
         boughtCount2.setText(Integer.toString(lordSharedPref.getInt(counter+upgrade2.getIdNumber(),0)));
         unitPrice2.setText(Integer.toString(upgrade2.getPrice()));
@@ -102,6 +108,7 @@ public class LordUpgrade extends AppCompatActivity {
                 }
                 }
         });
+        //SecondUpgradeBuyBtn
         Button buy2 = findViewById(R.id.buyBtn2);
         buy2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +121,7 @@ public class LordUpgrade extends AppCompatActivity {
             }
         });
 
-        //SecondUpgradeBuyBtn
+
 
         //DevReset
         Button resetButton = findViewById(R.id.resetBtn);
@@ -154,9 +161,6 @@ public class LordUpgrade extends AppCompatActivity {
         calculatedPrice = (_upgrade.getBasePrice()+(_upgrade.getBasePrice() * _upgrade.getCounter()) + (0.4 * _upgrade.getPrice()));
         _upgrade.riseCounter();
         _upgrade.setPrice((int)calculatedPrice);
-
-
-
         saveData(_upgrade);
 
     }

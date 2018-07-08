@@ -2,13 +2,10 @@ package com.avreil.clickero;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
-import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewDebug;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -18,14 +15,16 @@ public class MainGameScreen extends AppCompatActivity {
 
     private int multiplier;
     private Integer goldOut;
-    private String SAVE,playerGold;
+    private String mult ="Multiplier";
     private TextView goldDisplay;
-    private SharedPreferences saveGame, loadGame;
+    private SharedPreferences mainGameSharedPref,saveGame, loadGame;
     private SharedPreferences.Editor editor;
-    private ClickAdder cash = new ClickAdder(0);
+    private ClickAdder cash;
     private Bundle extras;
 
-
+public void loadData(ClickAdder _cash){
+    
+}
 
 
     @Override
@@ -37,20 +36,22 @@ public class MainGameScreen extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                              WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main_game_screen);
+        editor = mainGameSharedPref.edit();
+        mainGameSharedPref = getSharedPreferences("MainGameInfo", MODE_PRIVATE);
 
 
+        cash = new ClickAdder(0);
         //game core
 
         extras = new Bundle();
-        SAVE = "SavedGameFile";
-        playerGold = " savedPlayerGold";
-        saveGame = getSharedPreferences(SAVE, 0);
-        loadGame = getSharedPreferences(SAVE, 0);
-        editor = saveGame.edit();
+
+
+
+        loadGame();
         goldDisplay = findViewById(R.id.goldAmmount);
         cash.setGold(loadGame.getInt(playerGold, 0));
         goldDisplay.setText(cash.getGoldString());
-        multiplier=loadGame.getInt("Multiplier", 1);
+        multiplier=loadGame.getInt(mult, 1);
 
 
 
@@ -75,7 +76,7 @@ public class MainGameScreen extends AppCompatActivity {
                 cash.setGold(0);
                 multiplier=1;
                 goldDisplay.setText(cash.getGoldString());
-                editor.putInt("Multiplier",multiplier);
+                editor.putInt(mult,multiplier);
                 editor.putInt(playerGold, cash.getGold());
                 editor.apply();
 
@@ -113,7 +114,7 @@ public class MainGameScreen extends AppCompatActivity {
 
 
                 //save after coming back
-                editor.putInt("Multiplier",multiplier);
+                editor.putInt(mult,multiplier);
                 editor.putInt(playerGold, cash.getGold());
                 editor.apply();
 
