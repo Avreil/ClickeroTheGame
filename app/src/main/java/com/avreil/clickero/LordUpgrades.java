@@ -2,15 +2,23 @@ package com.avreil.clickero;
 
 public class LordUpgrades {
 
-    public Integer price, basePrice, counter;
+    public Integer price, basePrice, counter, limit;
     public String idNumber;
 
-    public LordUpgrades(Integer _price,Integer _basePrice,Integer _counter,String _idNumber)
+    public LordUpgrades(Integer _basePrice,Integer _limit,String _idNumber)
     {
-        price=_price;
         basePrice=_basePrice;
-        counter=_counter;
         idNumber=_idNumber;
+        price=_basePrice;
+        limit=_limit;
+        counter=0;
+
+    }
+
+    public void resetData(){
+
+        this.setPrice(basePrice);
+        this.setCounter(0);
     }
 
 
@@ -19,37 +27,13 @@ public class LordUpgrades {
     }
 
 
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public Integer getLimit() {
+        return limit;
+    }
 
     public void setBasePrice(Integer basePrice) {
         this.basePrice = basePrice;
