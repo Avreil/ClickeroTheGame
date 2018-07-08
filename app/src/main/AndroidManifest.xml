@@ -21,8 +21,9 @@
         <activity
             android:name=".MainGameScreen"
             android:screenOrientation="landscape" />
-        <activity android:name=".LordUpgrade"
-            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".LordUpgrade"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

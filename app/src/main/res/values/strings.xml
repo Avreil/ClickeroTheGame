@@ -8,5 +8,6 @@
     <string name="back">Back</string>
     <string name="upgrade">Upgrade</string>
     <string name="dev_resetLordUpgrade">DEV:RESET</string>
+    <string name="title_activity_buildings">Buildings</string>
 
 </resources>
