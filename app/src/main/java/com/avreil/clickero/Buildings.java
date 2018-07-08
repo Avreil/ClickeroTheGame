@@ -16,15 +16,18 @@ public class Buildings extends AppCompatActivity {
     private SharedPreferences buildingsSharedPref;
     private SharedPreferences.Editor editor;
     private Building building1;
-    private TextView moneyAmount;
+    private TextView moneyAmount,stoneAmount,woodAmount;
+    private Materials materials;
 
 
-public void loadData(Building _building){
+
+
+    public void loadData(Building _building){
 
 
 }
 
-public void saveData(Building _building){
+    public void saveData(Building _building){
 
 
         editor.apply();
@@ -37,11 +40,10 @@ public void saveData(Building _building){
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_buildings);
-
             buildingsSharedPref = getSharedPreferences("BuildingsUpgradeInfo",0);
             editor = buildingsSharedPref.edit();
-            building1= new Building();
-
+            materials = new Materials();
+            //intent
         Intent intent = getIntent();
         gold = intent.getIntExtra("GoldToActivity", 0);
 
@@ -49,6 +51,17 @@ public void saveData(Building _building){
         //initialize TextView
         moneyAmount = findViewById(R.id.moneyAmmount);
         moneyAmount.setText(Integer.toString(gold));
+        woodAmount = findViewById(R.id.woodAmount);
+        woodAmount.setText(Integer.toString(materials.getWood()));
+        stoneAmount = findViewById(R.id.stoneAmount);
+        stoneAmount.setText(Integer.toString(materials.getStone()));
+
+        //buildings
+        building1= new Building();
+
+
+
+
 
 
 
@@ -72,6 +85,11 @@ public void saveData(Building _building){
                 finish(); }
         });
     }
+
+
+
+
+
 
 
 }
