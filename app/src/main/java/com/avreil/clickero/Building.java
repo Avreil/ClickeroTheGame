@@ -2,7 +2,7 @@ package com.avreil.clickero;
 
 public class Building {
 
-    String id;
+    String id; 
 
 
     public void setId(String id) {
