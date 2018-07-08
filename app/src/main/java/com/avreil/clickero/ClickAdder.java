@@ -3,9 +3,9 @@ package com.avreil.clickero;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ClickAdder implements Parcelable{
-    Integer gold;
-    String goldS;
+public class ClickAdder{
+    Integer gold,multiplier,critical;
+
 
 
 
@@ -13,26 +13,31 @@ public class ClickAdder implements Parcelable{
     public ClickAdder(Integer _gold){
 
         gold=_gold;
-        goldS = getGoldString();
+        multiplier=1;
+        critical=0;
+    }
+
+    public Integer getCritical() {
+        return critical;
+    }
+
+    public void setCritical(Integer critical) {
+        this.critical = critical;
+    }
+
+    public Integer getMultiplier() {
+        return multiplier;
+    }
+
+    public void setMultiplier(Integer multiplier) {
+        this.multiplier = multiplier;
+    }
+
+    public void setGold(Integer gold) {
+        this.gold = gold;
     }
 
 
-    protected ClickAdder(Parcel in) {
-            gold = in.readInt();
-        goldS = in.readString();
-    }
-
-    public static final Creator<ClickAdder> CREATOR = new Creator<ClickAdder>() {
-        @Override
-        public ClickAdder createFromParcel(Parcel in) {
-            return new ClickAdder(in);
-        }
-
-        @Override
-        public ClickAdder[] newArray(int size) {
-            return new ClickAdder[size];
-        }
-    };
 
     public Integer getGold(){
 
@@ -40,33 +45,25 @@ public class ClickAdder implements Parcelable{
     }
 
 
-    public String getGoldString(){
 
-        goldS = Integer.toString(gold);
-
-        return goldS;
-
-    }
 
     public void setGold(int _gold){
 
         gold=_gold;
     }
 
-    public Integer raiseGold(int _multiplier){
-        gold = gold+(1*_multiplier);
-        return gold;
+    public void raiseGold(){
+
+
+        gold = gold+(1*multiplier);
+
+    }
+
+    public void raiseGoldCrit(){
+        gold=gold+(5*multiplier);
+
     }
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(gold);
-        parcel.writeString(goldS);
-    }
 }

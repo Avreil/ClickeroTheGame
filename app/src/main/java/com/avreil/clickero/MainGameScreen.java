@@ -2,28 +2,27 @@ package com.avreil.clickero;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
-import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewDebug;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainGameScreen extends AppCompatActivity {
 
-    private int multiplier;
-    private Integer goldOut;
-    private String SAVE,playerGold;
+
+    private String multiplier ="Multiplier",playerGold="Player Gold",critical="Critical";
     private TextView goldDisplay;
-    private SharedPreferences saveGame, loadGame;
+    private SharedPreferences mainGameSharedPref;
     private SharedPreferences.Editor editor;
-    private ClickAdder cash = new ClickAdder(0);
-    private Bundle extras;
+    private ClickAdder cash;
+    private Toast criticalToast;
+
+
 
 
 
@@ -37,20 +36,15 @@ public class MainGameScreen extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                              WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main_game_screen);
+        mainGameSharedPref = getSharedPreferences("MainGameInfo", MODE_PRIVATE);
+        editor = mainGameSharedPref.edit();
+        cash = new ClickAdder(0);
+        loadData(cash);
 
-
-        //game core
-
-        extras = new Bundle();
-        SAVE = "SavedGameFile";
-        playerGold = " savedPlayerGold";
-        saveGame = getSharedPreferences(SAVE, 0);
-        loadGame = getSharedPreferences(SAVE, 0);
-        editor = saveGame.edit();
+        //mainGme TextViews
         goldDisplay = findViewById(R.id.goldAmmount);
-        cash.setGold(loadGame.getInt(playerGold, 0));
-        goldDisplay.setText(cash.getGoldString());
-        multiplier=loadGame.getInt("Multiplier", 1);
+        goldDisplay.setText(Integer.toString(cash.getGold()));
+
 
 
 
@@ -59,10 +53,17 @@ public class MainGameScreen extends AppCompatActivity {
         gameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cash.raiseGold(multiplier);
-                goldDisplay.setText(cash.getGoldString());
-                editor.putInt(playerGold, cash.getGold());
-                editor.apply();
+
+                if(((int)(Math.random()*100)) <= cash.critical) {
+                    criticalToast.makeText(getApplicationContext(), "Critical Hit!",
+                            Toast.LENGTH_SHORT).show();
+                    cash.raiseGoldCrit();
+
+                }else{
+                    cash.raiseGold();}
+
+                goldDisplay.setText(Integer.toString(cash.getGold()));
+                saveData();
 
             }
         });
@@ -73,11 +74,10 @@ public class MainGameScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cash.setGold(0);
-                multiplier=1;
-                goldDisplay.setText(cash.getGoldString());
-                editor.putInt("Multiplier",multiplier);
-                editor.putInt(playerGold, cash.getGold());
-                editor.apply();
+                cash.setMultiplier(1);
+                cash.setCritical(0);
+                goldDisplay.setText(Integer.toString(cash.getGold()));
+                saveData();
 
             }
         });
@@ -89,34 +89,56 @@ public class MainGameScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent startLordUpgrades= new Intent(getApplicationContext(), LordUpgrade.class);
-                goldOut = cash.getGold();
-                startLordUpgrades.putExtra("GoldToLord", goldOut);
-                startLordUpgrades.putExtra("MultiplierToLord", multiplier);
+                startLordUpgrades.putExtra("GoldToActivity", cash.getGold());
+                startLordUpgrades.putExtra("MultiplierToLord", cash.getMultiplier());
+                startLordUpgrades.putExtra("CriticalToLord",cash.getCritical());
 
                 startActivityForResult(startLordUpgrades,1);
 
 
             }
         });
+        Button buildUp = findViewById(R.id.buildings);
+        buildUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent startBuildingUpgrades= new Intent(getApplicationContext(), Buildings.class);
+                startBuildingUpgrades.putExtra("GoldToActivity", cash.getGold());
+                startActivityForResult(startBuildingUpgrades,1);
+
+
+            }
+        });
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-                Integer goldFromLord = data.getIntExtra("GoldBack", 0);
-                multiplier = data.getIntExtra("MultiplierBack", 0);
-
-                cash.setGold(goldFromLord);
-                goldDisplay.setText(Integer.toString(goldFromLord));
-
-
-
+                cash.setGold(data.getIntExtra("GoldBack", cash.getGold()));
+                cash.setMultiplier(data.getIntExtra("MultiplierBack",cash.getMultiplier()));
+                cash.setCritical(data.getIntExtra("CriticalBack",cash.getCritical()));
+                goldDisplay.setText(Integer.toString(cash.getGold()));
                 //save after coming back
-                editor.putInt("Multiplier",multiplier);
-                editor.putInt(playerGold, cash.getGold());
-                editor.apply();
+                saveData();
 
+
+
+    }
+
+    public void saveData(){
+        editor.putInt(multiplier, cash.getMultiplier());
+        editor.putInt(playerGold, cash.getGold());
+        editor.putInt(critical, cash.getCritical());
+        editor.apply();
+    }
+
+    public void loadData(ClickAdder _cash){
+        _cash.setGold(mainGameSharedPref.getInt(playerGold,0));
+        _cash.setGold(mainGameSharedPref.getInt(multiplier,0));
+        _cash.setCritical(mainGameSharedPref.getInt(critical,0));
     }
 
 }
