@@ -89,7 +89,7 @@ public class MainGameScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent startLordUpgrades= new Intent(getApplicationContext(), LordUpgrade.class);
-                startLordUpgrades.putExtra("GoldToLord", cash.getGold());
+                startLordUpgrades.putExtra("GoldToActivity", cash.getGold());
                 startLordUpgrades.putExtra("MultiplierToLord", cash.getMultiplier());
                 startLordUpgrades.putExtra("CriticalToLord",cash.getCritical());
 
@@ -98,15 +98,28 @@ public class MainGameScreen extends AppCompatActivity {
 
             }
         });
+        Button buildUp = findViewById(R.id.buildings);
+        buildUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent startBuildingUpgrades= new Intent(getApplicationContext(), Buildings.class);
+                startBuildingUpgrades.putExtra("GoldToActivity", cash.getGold());
+                startActivityForResult(startBuildingUpgrades,1);
+
+
+            }
+        });
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-                cash.setGold(data.getIntExtra("GoldBack", 0));
-                cash.setMultiplier(data.getIntExtra("MultiplierBack",0));
-                cash.setCritical(data.getIntExtra("CriticalBack",0));
+                cash.setGold(data.getIntExtra("GoldBack", cash.getGold()));
+                cash.setMultiplier(data.getIntExtra("MultiplierBack",cash.getMultiplier()));
+                cash.setCritical(data.getIntExtra("CriticalBack",cash.getCritical()));
                 goldDisplay.setText(Integer.toString(cash.getGold()));
                 //save after coming back
                 saveData();

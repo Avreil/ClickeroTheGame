@@ -24,6 +24,10 @@
         <activity
             android:name=".LordUpgrade"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".Buildings"
+            android:screenOrientation="landscape"  >
+        </activity>
     </application>
 
 </manifest>

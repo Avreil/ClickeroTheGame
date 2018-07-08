@@ -49,7 +49,7 @@ public class LordUpgrade extends AppCompatActivity {
 
         //load intent
         Intent intent = getIntent();
-        gold = intent.getIntExtra("GoldToLord", 0);
+        gold = intent.getIntExtra("GoldToActivity", 0);
         multiplier = intent.getIntExtra("MultiplierToLord", 0);
         critical = intent.getIntExtra("CriticalToLord",0);
 
