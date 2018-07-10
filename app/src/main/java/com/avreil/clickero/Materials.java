@@ -13,16 +13,16 @@ public class Materials {
         return Stone;
     }
 
-    public void setStone(Integer stone) {
-        Stone = stone;
+    public void setStone(Integer _stone) {
+        Stone = _stone;
     }
 
     public Integer getWood() {
         return Wood;
     }
 
-    public void setWood(Integer wood) {
-        Wood = wood;
+    public void setWood(Integer _wood) {
+        Wood = _wood;
     }
 
 }

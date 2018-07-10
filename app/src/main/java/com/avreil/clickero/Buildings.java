@@ -16,8 +16,9 @@ public class Buildings extends AppCompatActivity {
     private SharedPreferences buildingsSharedPref;
     private SharedPreferences.Editor editor;
     private Building building1;
-    private TextView moneyAmount,stoneAmount,woodAmount;
     private Materials materials;
+    private TextView moneyAmount,stoneAmount,woodAmount;
+    private TextView productionName1, productionDesc1, productionCounter1, productionPerSecond1, productionCost1;
 
 
 
@@ -55,6 +56,17 @@ public class Buildings extends AppCompatActivity {
         woodAmount.setText(Integer.toString(materials.getWood()));
         stoneAmount = findViewById(R.id.stoneAmount);
         stoneAmount.setText(Integer.toString(materials.getStone()));
+
+        //initialize production textViews
+        productionName1 = findViewById(R.id.productionName1);
+        productionDesc1 = findViewById(R.id.productionDesc1);
+        productionCounter1 = findViewById(R.id.productionCounter1);
+        productionPerSecond1 = findViewById(R.id.productionPerSecond1);
+        productionCost1 = findViewById(R.id.productionCost1);
+
+
+
+
 
         //buildings
         building1= new Building();

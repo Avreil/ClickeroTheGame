@@ -32,7 +32,7 @@
         app:layout_constraintVertical_bias="0.98" />
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/Infrastructure"
         android:layout_width="225dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/DownGuideLine"
@@ -83,25 +83,12 @@
         </LinearLayout>
     </ScrollView>
 
-    <android.support.constraint.Guideline
-        android:id="@+id/UpGuideLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="66dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/DownGuideLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="301dp" />
-
     <ScrollView
+        android:id="@+id/Resources"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/DownGuideLine"
-        app:layout_constraintEnd_toStartOf="@+id/scrollView3"
+        app:layout_constraintEnd_toStartOf="@+id/Production"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/UpGuideLine"
@@ -139,7 +126,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/textview"
-                        app:layout_constraintEnd_toStartOf="@+id/scrollView3"
+                        app:layout_constraintEnd_toStartOf="@+id/Production"
                         tools:layout_editor_absoluteY="66dp" />
 
                 </TableRow>
@@ -191,11 +178,11 @@
     </ScrollView>
 
     <ScrollView
-        android:id="@+id/scrollView3"
+        android:id="@+id/Production"
         android:layout_width="225dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/DownGuideLine"
-        app:layout_constraintEnd_toStartOf="@+id/scrollView2"
+        app:layout_constraintEnd_toStartOf="@+id/Infrastructure"
         app:layout_constraintTop_toTopOf="@+id/UpGuideLine"
         app:layout_constraintVertical_bias="1.0">
 
@@ -215,31 +202,69 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/productionName1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/productionDesc1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:id="@+id/productionCounter1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
 
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/productionPerSecond1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
 
                     <Button
-                        android:id="@+id/button"
+                        android:id="@+id/productionBuyBtn1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Button" />
+                        android:text="Build" />
+
+                    <TextView
+                        android:id="@+id/productionCost1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
                 </TableRow>
+
             </TableLayout>
         </LinearLayout>
     </ScrollView>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/UpGuideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="66dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/DownGuideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="301dp" />
 
 </android.support.constraint.ConstraintLayout>
