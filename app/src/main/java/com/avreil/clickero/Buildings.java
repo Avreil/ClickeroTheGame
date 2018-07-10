@@ -51,7 +51,7 @@ public class Buildings extends AppCompatActivity {
 
         //work classes
             materials = new Materials();
-            building1= new Building("Lumbermill","Producess wood", 10000);
+            building1= new Building("Lumber mill","Produces wood", 10000);
             building2 = new Building("Quarry", "Mine Stone", 50000);
 
 
@@ -106,7 +106,12 @@ public class Buildings extends AppCompatActivity {
                 setResult(RESULT_OK, resultIntent);
                 finish(); }
         });
-    }
+
+
+
+
+
+    }//END OF ON CREATE
 
 
     private void initialize(){
@@ -127,11 +132,9 @@ public class Buildings extends AppCompatActivity {
         //Infrastructure buildings
 
 
-
-
-    }
+    }//END OF INITIALIZE
 
 
 
 
-}
+}//END OF CLASS
