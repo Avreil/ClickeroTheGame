@@ -15,10 +15,11 @@ public class Buildings extends AppCompatActivity {
     private Integer gold;
     private SharedPreferences buildingsSharedPref;
     private SharedPreferences.Editor editor;
-    private Building building1;
+    private Building building1,building2;
     private Materials materials;
     private TextView moneyAmount,stoneAmount,woodAmount;
     private TextView productionName1, productionDesc1, productionCounter1, productionPerSecond1, productionCost1;
+
 
 
 
@@ -41,35 +42,44 @@ public class Buildings extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_buildings);
-            buildingsSharedPref = getSharedPreferences("BuildingsUpgradeInfo",0);
-            editor = buildingsSharedPref.edit();
-            materials = new Materials();
-            //intent
         Intent intent = getIntent();
         gold = intent.getIntExtra("GoldToActivity", 0);
+        buildingsSharedPref = getSharedPreferences("BuildingsUpgradeInfo",0);
+        editor = buildingsSharedPref.edit();
+        //intent
 
 
-        //initialize TextView
-        moneyAmount = findViewById(R.id.moneyAmmount);
+        //work classes
+            materials = new Materials();
+            building1= new Building("Lumbermill","Producess wood", 10000);
+            building2 = new Building("Quarry", "Mine Stone", 50000);
+
+
+
+
+            //initialize textViews
+            initialize();
+
+
+        //declare list TextView
         moneyAmount.setText(Integer.toString(gold));
-        woodAmount = findViewById(R.id.woodAmount);
         woodAmount.setText(Integer.toString(materials.getWood()));
-        stoneAmount = findViewById(R.id.stoneAmount);
         stoneAmount.setText(Integer.toString(materials.getStone()));
 
-        //initialize production textViews
-        productionName1 = findViewById(R.id.productionName1);
-        productionDesc1 = findViewById(R.id.productionDesc1);
-        productionCounter1 = findViewById(R.id.productionCounter1);
-        productionPerSecond1 = findViewById(R.id.productionPerSecond1);
-        productionCost1 = findViewById(R.id.productionCost1);
+        //declare production textViews
+
+        productionName1.setText(building1.getName());
+        productionDesc1.setText(building1.getDesc());
+        productionCounter1.setText("Level:\n "+Integer.toString(building1.getCounter()));
+        productionPerSecond1.setText(Double.toString(building1.getPerSecond()));
+        productionCost1.setText(Integer.toString(building1.getPrice()));
 
 
 
 
 
-        //buildings
-        building1= new Building();
+
+
 
 
 
@@ -99,7 +109,27 @@ public class Buildings extends AppCompatActivity {
     }
 
 
+    private void initialize(){
+        //list of materials
+        moneyAmount = findViewById(R.id.moneyAmmount);
+        woodAmount = findViewById(R.id.woodAmount);
+        stoneAmount = findViewById(R.id.stoneAmount);
 
+
+        //production buildings
+        productionName1 = findViewById(R.id.productionName1);
+        productionDesc1 = findViewById(R.id.productionDesc1);
+        productionCounter1 = findViewById(R.id.productionCounter1);
+        productionPerSecond1 = findViewById(R.id.productionPerSecond1);
+        productionCost1 = findViewById(R.id.productionCost1);
+
+
+        //Infrastructure buildings
+
+
+
+
+    }
 
 
 

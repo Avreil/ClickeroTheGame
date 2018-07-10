@@ -4,7 +4,7 @@ public class Building {
 
     String name, desc;
     Integer counter,price;
-    float perSecond;
+    Double perSecond;
 
 
     public Building(String _name, String _desc,Integer _basePrice){
@@ -12,7 +12,7 @@ public class Building {
         desc = _desc;
         price = _basePrice;
         counter = 0;
-        perSecond =0;
+        perSecond = 1.0 ;
 
     }
 
@@ -43,7 +43,7 @@ public class Building {
         this.name = name;
     }
 
-    public void setPerSecond(float perSecond) {
+    public void setPerSecond(Double perSecond) {
         this.perSecond = perSecond;
     }
 
@@ -51,7 +51,7 @@ public class Building {
         this.price = price;
     }
 
-    public float getPerSecond() {
+    public Double getPerSecond() {
         return perSecond;
     }
 
