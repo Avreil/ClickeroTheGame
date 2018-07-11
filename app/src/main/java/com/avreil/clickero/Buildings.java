@@ -39,7 +39,7 @@ public class Buildings extends AppCompatActivity {
     }
 
     public void setText(){
-        
+
     }
 
 
