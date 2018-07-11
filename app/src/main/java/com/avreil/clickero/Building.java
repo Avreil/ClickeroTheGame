@@ -5,31 +5,24 @@ public class Building {
     String name, desc;
     Integer counter,price;
     Double perSecond;
+    int id;
 
-
-    public Building(String _name, String _desc,Integer _basePrice){
+    public Building(String _name, String _desc,Integer _basePrice,int _id){
         name = _name;
         desc = _desc;
         price = _basePrice;
         counter = 0;
         perSecond = 1.0 ;
-
+        id=_id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public int getId() {
+        return id;
+    }
 
     public void setCounter(Integer counter) {
         this.counter = counter;

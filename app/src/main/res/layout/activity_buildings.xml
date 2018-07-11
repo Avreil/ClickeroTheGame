@@ -202,13 +202,13 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/productionName1"
+                        android:id="@+id/productionWood0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
 
                     <TextView
-                        android:id="@+id/productionDesc1"
+                        android:id="@+id/productionWood1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
@@ -220,13 +220,13 @@
                     android:layout_height="match_parent" >
 
                     <TextView
-                        android:id="@+id/productionCounter1"
+                        android:id="@+id/productionWood2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
 
                     <TextView
-                        android:id="@+id/productionPerSecond1"
+                        android:id="@+id/productionWood3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
@@ -243,7 +243,7 @@
                         android:text="Build" />
 
                     <TextView
-                        android:id="@+id/productionCost1"
+                        android:id="@+id/productionWood4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView" />

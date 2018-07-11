@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class Buildings extends AppCompatActivity {
-
+    int productionBuildingsCounter = 1;
     private Integer gold;
     private SharedPreferences buildingsSharedPref;
     private SharedPreferences.Editor editor;
@@ -19,24 +19,48 @@ public class Buildings extends AppCompatActivity {
     private Materials materials;
     private TextView moneyAmount,stoneAmount,woodAmount;
     private TextView productionName1, productionDesc1, productionCounter1, productionPerSecond1, productionCost1;
+    //production
+    String prod = "production";
+    private TextView[][] production;
 
+/*
 
-    public void declareText(TextView[] _input){
-       // https://stackoverflow.com/questions/30228411/using-findviewbyid-inside-a-for-loop-for-multiple-checkboxes
-        //https://stackoverflow.com/questions/4730100/android-and-getting-a-view-with-id-cast-as-a-string
-        //https://stackoverflow.com/questions/3937010/array-of-imagebuttons-assign-r-view-id-from-a-variable/3937078#3937078
-    }
+TEXT VIEWS
+name 0
+description 1
+counter 2
+perSecond 3
+cost 4
+ */
 
-    public void initializeArray(int _i,TextView[] _inputText, String button){
-        int i;
+/*
+ID's
+Production
+0 = wood
+
+ */
+
+    public void initializeTextView(TextView[][] _inputText, String _string, int _id){
+
         int ID;
-        for ( i=0;i<=_i;i++){
-            ID = getResources().getIdentifier("production" + Integer.toString(i),
-                    "id", getPackageName());
-            _inputText[i] = findViewById(ID);
-        }
+        for (int i=0;i<5;i++){
+
+                ID = getResources().getIdentifier(_string + Integer.toString(i),
+                        "id", getPackageName());
+                _inputText[_id][i] = findViewById(ID);
+
+            }
+    }
+
+    public void setTextView(TextView[][] _inputText, Building _inputBuilding,int _id){
+
+        for()
+
 
     }
+
+
+
 
     public void setText(){
 
@@ -65,46 +89,33 @@ public class Buildings extends AppCompatActivity {
         gold = intent.getIntExtra("GoldToActivity", 0);
         buildingsSharedPref = getSharedPreferences("BuildingsUpgradeInfo",0);
         editor = buildingsSharedPref.edit();
+        production = new TextView[productionBuildingsCounter][5];
         //intent
 
 
         //work classes
             materials = new Materials();
-            building1= new Building("Lumber mill","Produces wood", 10000);
-            building2 = new Building("Quarry", "Mine Stone", 50000);
-
-
-
+            building1= new Building("Lumber mill","Produces wood", 10000,0);
+            building2 = new Building("Quarry", "Mine Stone", 50000,1);
 
             //initialize textViews
+            //initialize();
+           initializeTextView(production,prod+"Wood",building1.getId());
             initialize();
-
-
         //declare list TextView
         moneyAmount.setText(Integer.toString(gold));
         woodAmount.setText(Integer.toString(materials.getWood()));
         stoneAmount.setText(Integer.toString(materials.getStone()));
 
         //declare production textViews
-
+        /*
         productionName1.setText(building1.getName());
         productionDesc1.setText(building1.getDesc());
         productionCounter1.setText("Level:\n "+Integer.toString(building1.getCounter()));
         productionPerSecond1.setText(Double.toString(building1.getPerSecond()));
         productionCost1.setText(Integer.toString(building1.getPrice()));
 
-
-
-
-
-
-
-
-
-
-
-
-
+        */
 
         //DevReset
         Button resetButton = findViewById(R.id.resetBtn);
@@ -138,17 +149,6 @@ public class Buildings extends AppCompatActivity {
         moneyAmount = findViewById(R.id.moneyAmmount);
         woodAmount = findViewById(R.id.woodAmount);
         stoneAmount = findViewById(R.id.stoneAmount);
-
-
-        //production buildings
-        productionName1 = findViewById(R.id.productionName1);
-        productionDesc1 = findViewById(R.id.productionDesc1);
-        productionCounter1 = findViewById(R.id.productionCounter1);
-        productionPerSecond1 = findViewById(R.id.productionPerSecond1);
-        productionCost1 = findViewById(R.id.productionCost1);
-
-
-        //Infrastructure buildings
 
 
     }//END OF INITIALIZE
