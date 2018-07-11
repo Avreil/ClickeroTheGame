@@ -54,7 +54,26 @@ Production
 
     public void setTextView(TextView[][] _inputText, Building _inputBuilding,int _id){
 
-        for()
+        for(int i =0;i<5;i++){
+            switch(i)
+            {
+                case 0:
+                    _inputText[_id][i].setText(_inputBuilding.getName());
+                    break;
+                case 1:
+                    _inputText[_id][i].setText(_inputBuilding.getDesc());
+                    break;
+                case 2:
+                    _inputText[_id][i].setText();
+                    break;
+                case 3:
+                    _inputText[_id][i].setText();
+                    break;
+                case 4:
+                    _inputText[_id][i].setText();
+                    break;
+            }
+        }
 
 
     }

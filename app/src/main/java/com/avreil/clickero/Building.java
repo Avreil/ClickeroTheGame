@@ -16,6 +16,21 @@ public class Building {
         id=_id;
     }
 
+    public String getCounterString(){
+        return Integer.toString(counter);
+
+    }
+
+
+    public String getPriceString(){
+        return Integer.toString(price);
+    }
+
+    public String getPerSecondString(){
+        return Double.toString(perSecond);
+
+    }
+
     public void setId(int id) {
         this.id = id;
     }
