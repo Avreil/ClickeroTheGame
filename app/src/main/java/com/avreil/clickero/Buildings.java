@@ -52,25 +52,25 @@ Production
             }
     }
 
-    public void setTextView(TextView[][] _inputText, Building _inputBuilding,int _id){
+    public void setTextView(TextView[][] _inputText, Building _inputBuilding){
 
         for(int i =0;i<5;i++){
             switch(i)
             {
                 case 0:
-                    _inputText[_id][i].setText(_inputBuilding.getName());
+                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getName());
                     break;
                 case 1:
-                    _inputText[_id][i].setText(_inputBuilding.getDesc());
+                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getDesc());
                     break;
                 case 2:
-                    _inputText[_id][i].setText();
+                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getCounterString());
                     break;
                 case 3:
-                    _inputText[_id][i].setText();
+                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getPerSecondString());
                     break;
                 case 4:
-                    _inputText[_id][i].setText();
+                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getPriceString());
                     break;
             }
         }
@@ -117,11 +117,13 @@ Production
             building1= new Building("Lumber mill","Produces wood", 10000,0);
             building2 = new Building("Quarry", "Mine Stone", 50000,1);
 
-            //initialize textViews
-            //initialize();
-           initializeTextView(production,prod+"Wood",building1.getId());
-            initialize();
-        //declare list TextView
+            //initialize and preset textViews
+
+        initialize();
+        initializeTextView(production,prod+"Wood",building1.getId());
+        setTextView(production,building1);
+
+        //declare amount list TextView
         moneyAmount.setText(Integer.toString(gold));
         woodAmount.setText(Integer.toString(materials.getWood()));
         stoneAmount.setText(Integer.toString(materials.getStone()));
