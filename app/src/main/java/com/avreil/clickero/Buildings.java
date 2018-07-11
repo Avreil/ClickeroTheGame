@@ -20,7 +20,7 @@ public class Buildings extends AppCompatActivity {
     private TextView moneyAmount,stoneAmount,woodAmount;
     private TextView productionName1, productionDesc1, productionCounter1, productionPerSecond1, productionCost1;
     //production
-    String prod = "production";
+    private String prod = "production";
     private TextView[][] production;
 
 /*
@@ -40,43 +40,10 @@ Production
 
  */
 
-    public void initializeTextView(TextView[][] _inputText, String _string, int _id){
-
-        int ID;
-        for (int i=0;i<5;i++){
-
-                ID = getResources().getIdentifier(_string + Integer.toString(i),
-                        "id", getPackageName());
-                _inputText[_id][i] = findViewById(ID);
-
-            }
-    }
-
-    public void setTextView(TextView[][] _inputText, Building _inputBuilding){
-
-        for(int i =0;i<5;i++){
-            switch(i)
-            {
-                case 0:
-                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getName());
-                    break;
-                case 1:
-                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getDesc());
-                    break;
-                case 2:
-                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getCounterString());
-                    break;
-                case 3:
-                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getPerSecondString());
-                    break;
-                case 4:
-                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getPriceString());
-                    break;
-            }
-        }
 
 
-    }
+
+
 
 
 
@@ -108,37 +75,27 @@ Production
         gold = intent.getIntExtra("GoldToActivity", 0);
         buildingsSharedPref = getSharedPreferences("BuildingsUpgradeInfo",0);
         editor = buildingsSharedPref.edit();
+
+            //work classes
         production = new TextView[productionBuildingsCounter][5];
-        //intent
+        materials = new Materials();
+        building1= new Building("Lumber mill","Produces wood", 10000,0);
+        building2 = new Building("Quarry", "Mine Stone", 50000,1);
 
-
-        //work classes
-            materials = new Materials();
-            building1= new Building("Lumber mill","Produces wood", 10000,0);
-            building2 = new Building("Quarry", "Mine Stone", 50000,1);
 
             //initialize and preset textViews
-
         initialize();
         initializeTextView(production,prod+"Wood",building1.getId());
         setTextView(production,building1);
 
-        //declare amount list TextView
+            //declare amount list TextView
         moneyAmount.setText(Integer.toString(gold));
         woodAmount.setText(Integer.toString(materials.getWood()));
         stoneAmount.setText(Integer.toString(materials.getStone()));
 
-        //declare production textViews
-        /*
-        productionName1.setText(building1.getName());
-        productionDesc1.setText(building1.getDesc());
-        productionCounter1.setText("Level:\n "+Integer.toString(building1.getCounter()));
-        productionPerSecond1.setText(Double.toString(building1.getPerSecond()));
-        productionCost1.setText(Integer.toString(building1.getPrice()));
 
-        */
 
-        //DevReset
+            //DevReset
         Button resetButton = findViewById(R.id.resetBtn);
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,7 +123,7 @@ Production
 
 
     private void initialize(){
-        //list of materials
+            //list of materials
         moneyAmount = findViewById(R.id.moneyAmmount);
         woodAmount = findViewById(R.id.woodAmount);
         stoneAmount = findViewById(R.id.stoneAmount);
@@ -174,6 +131,40 @@ Production
 
     }//END OF INITIALIZE
 
+    public void initializeTextView(TextView[][] _inputText, String _string, int _id){
+
+        int ID;
+        for (int i=0;i<5;i++){
+
+            ID = getResources().getIdentifier(_string + Integer.toString(i),
+                    "id", getPackageName());
+            _inputText[_id][i] = findViewById(ID);
+
+        }
+    }
+
+    public void setTextView(TextView[][] _inputText, Building _inputBuilding) {
+
+        for (int i = 0; i < 5; i++) {
+            switch (i) {
+                case 0:
+                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getName());
+                    break;
+                case 1:
+                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getDesc());
+                    break;
+                case 2:
+                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getCounterString());
+                    break;
+                case 3:
+                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getPerSecondString());
+                    break;
+                case 4:
+                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getPriceString());
+                    break;
+            }
+        }
+    }
 
 
 
