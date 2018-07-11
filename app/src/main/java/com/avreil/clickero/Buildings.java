@@ -22,14 +22,24 @@ public class Buildings extends AppCompatActivity {
 
 
     public void declareText(TextView[] _input){
-        //https://stackoverflow.com/questions/30228411/using-findviewbyid-inside-a-for-loop-for-multiple-checkboxes
+       // https://stackoverflow.com/questions/30228411/using-findviewbyid-inside-a-for-loop-for-multiple-checkboxes
         //https://stackoverflow.com/questions/4730100/android-and-getting-a-view-with-id-cast-as-a-string
         //https://stackoverflow.com/questions/3937010/array-of-imagebuttons-assign-r-view-id-from-a-variable/3937078#3937078
     }
 
-    public void initializeArray(TextView[] _input){
-        for(int i = 0;i<=4;i++);
+    public void initializeArray(int _i,TextView[] _inputText, String button){
+        int i;
+        int ID;
+        for ( i=0;i<=_i;i++){
+            ID = getResources().getIdentifier("production" + Integer.toString(i),
+                    "id", getPackageName());
+            _inputText[i] = findViewById(ID);
+        }
 
+    }
+
+    public void setText(){
+        
     }
 
 
