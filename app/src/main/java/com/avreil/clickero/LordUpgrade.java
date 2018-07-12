@@ -55,7 +55,7 @@ public class LordUpgrade extends AppCompatActivity {
 
 
         //initialize upgrade Class'es
-        upgrade1 = new LordUpgrades(10,20,"1");
+        upgrade1 = new LordUpgrades(10,5,"1");
         upgrade2 = new LordUpgrades(200,10,"2");
 
         //load upgrade data
@@ -104,7 +104,7 @@ public class LordUpgrade extends AppCompatActivity {
                     itemBought(upgrade1);
                     boughtCount1.setText(Integer.toString(upgrade1.getCounter()));
                     unitPrice1.setText(Integer.toString((upgrade1.getPrice())));
-                    multiplier = multiplier *3;
+                    multiplier ++;
                 }
                 }
         });

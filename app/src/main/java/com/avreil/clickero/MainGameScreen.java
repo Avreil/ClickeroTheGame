@@ -16,7 +16,7 @@ public class MainGameScreen extends AppCompatActivity {
 
 
     private String multiplier ="Multiplier",playerGold="Player Gold",critical="Critical";
-    private TextView goldDisplay;
+    private TextView goldDisplay,multiplierDisplay;
     private SharedPreferences mainGameSharedPref;
     private SharedPreferences.Editor editor;
     private ClickAdder cash;
@@ -44,6 +44,8 @@ public class MainGameScreen extends AppCompatActivity {
         //mainGme TextViews
         goldDisplay = findViewById(R.id.goldAmmount);
         goldDisplay.setText(Integer.toString(cash.getGold()));
+        multiplierDisplay = findViewById(R.id.multiplierAmount);
+        multiplierDisplay.setText("Per Click: "+Integer.toString(cash.getMultiplier()));
 
 
 
@@ -55,7 +57,7 @@ public class MainGameScreen extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(((int)(Math.random()*100)) <= cash.critical) {
-                    criticalToast.makeText(getApplicationContext(), "Critical Hit!",
+                    criticalToast.makeText(getApplicationContext(), "Critical Hit! +"+Integer.toString(5*cash.getMultiplier()),
                             Toast.LENGTH_SHORT).show();
                     cash.raiseGoldCrit();
 
@@ -79,6 +81,17 @@ public class MainGameScreen extends AppCompatActivity {
                 goldDisplay.setText(Integer.toString(cash.getGold()));
                 saveData();
 
+            }
+        });
+
+        //DevGoldBtn
+        Button devGoldBtn = findViewById(R.id.devGoldBtn);
+        devGoldBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cash.setGold(10000);
+                goldDisplay.setText(Integer.toString(cash.getGold()));
+                saveData();
             }
         });
 
@@ -121,6 +134,7 @@ public class MainGameScreen extends AppCompatActivity {
                 cash.setMultiplier(data.getIntExtra("MultiplierBack",cash.getMultiplier()));
                 cash.setCritical(data.getIntExtra("CriticalBack",cash.getCritical()));
                 goldDisplay.setText(Integer.toString(cash.getGold()));
+                multiplierDisplay.setText("Per Click: "+Integer.toString(cash.getMultiplier()));
                 //save after coming back
                 saveData();
 
@@ -133,11 +147,12 @@ public class MainGameScreen extends AppCompatActivity {
         editor.putInt(playerGold, cash.getGold());
         editor.putInt(critical, cash.getCritical());
         editor.apply();
+
     }
 
     public void loadData(ClickAdder _cash){
         _cash.setGold(mainGameSharedPref.getInt(playerGold,0));
-        _cash.setGold(mainGameSharedPref.getInt(multiplier,0));
+        _cash.setMultiplier(mainGameSharedPref.getInt(multiplier,0));
         _cash.setCritical(mainGameSharedPref.getInt(critical,0));
     }
 

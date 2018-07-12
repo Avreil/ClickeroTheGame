@@ -1,6 +1,7 @@
 package com.avreil.clickero;
 
 public class Building {
+    protected Integer TEMPbaseprice;
 
     String name, desc,material;
     Integer counter,price;
@@ -11,6 +12,7 @@ public class Building {
         name = _name;
         desc = _desc;
         price = _basePrice;
+        TEMPbaseprice=_basePrice;
         counter = 0;
         perSecond = 0.0 ;
         id=_id;
@@ -46,7 +48,12 @@ public class Building {
         perSecond = ((double)((int)(100*(perSecond+1.0+(0.2*perSecond)))))/100;
     }
 
+    public void reset(){
+        price = TEMPbaseprice;
+        counter = 0;
+        perSecond = 0.0 ;
 
+    }
 
     public void setId(int id) {
         this.id = id;

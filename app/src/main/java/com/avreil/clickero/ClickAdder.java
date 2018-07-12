@@ -10,6 +10,7 @@ public class ClickAdder{
 
 
 
+
     public ClickAdder(Integer _gold){
 
         gold=_gold;
@@ -55,7 +56,7 @@ public class ClickAdder{
     public void raiseGold(){
 
 
-        gold = gold+(1*multiplier);
+        gold = gold+multiplier;
 
     }
 
