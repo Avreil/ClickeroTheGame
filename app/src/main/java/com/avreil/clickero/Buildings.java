@@ -11,21 +11,31 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class Buildings extends AppCompatActivity {
-    int productionBuildingsCounter = 1;
+    private int productionBuildingsCounter = 2;
+    private int materialCounter=3;
+    private int infrastructureBuildingsCounter;
     private Integer gold;
     private SharedPreferences buildingsSharedPref;
     private SharedPreferences.Editor editor;
-    private Building building1,building2;
     private Materials materials;
-    private TextView moneyAmount,stoneAmount,woodAmount;
-    private TextView productionName1, productionDesc1, productionCounter1, productionPerSecond1, productionCost1;
+    private Building[] buildingProduction;
     //production
     private String prod = "production";
     private TextView[][] production;
+    //materials
+    private TextView[] amount;
+    private String amo = "amount";
 
 /*
+Material List TextViews
+0 gold
+1 wood
+2 stone
+ */
 
-TEXT VIEWS
+    /*
+
+TEXT VIEWS ON PRODUCTION LIST
 name 0
 description 1
 counter 2
@@ -39,19 +49,6 @@ Production
 0 = wood
 
  */
-
-
-
-
-
-
-
-
-
-    public void setText(){
-
-    }
-
 
     public void loadData(Building _building){
 
@@ -78,20 +75,22 @@ Production
 
             //work classes
         production = new TextView[productionBuildingsCounter][5];
+        amount = new TextView[materialCounter];
+        buildingProduction = new Building[productionBuildingsCounter];
         materials = new Materials();
-        building1= new Building("Lumber mill","Produces wood", 10000,0);
-        building2 = new Building("Quarry", "Mine Stone", 50000,1);
+        buildingProduction[0]= new Building("Lumber mill","Produces wood","Wood", 10000,0);
+        buildingProduction[1] = new Building("Quarry", "Mine Stone","Stone", 50000,1);
 
 
             //initialize and preset textViews
-        initialize();
-        initializeTextView(production,prod+"Wood",building1.getId());
-        setTextView(production,building1);
+        initializeMaterialTextView(amount,materialCounter);
+        initializeProductionTextView(production,buildingProduction[0]);
+        //setTextView(production,buildingProduction[0]);
 
             //declare amount list TextView
-        moneyAmount.setText(Integer.toString(gold));
-        woodAmount.setText(Integer.toString(materials.getWood()));
-        stoneAmount.setText(Integer.toString(materials.getStone()));
+        amount[0].setText(Integer.toString(gold));
+        amount[1].setText(Integer.toString(materials.getWood()));
+        //amount[2].setText(Integer.toString(materials.getStone()));
 
 
 
@@ -101,7 +100,7 @@ Production
             @Override
             public void onClick(View v) {
                 gold = 0;
-                moneyAmount.setText("0");
+                amount[0].setText("0");
             }
         });
 
@@ -122,23 +121,24 @@ Production
     }//END OF ON CREATE
 
 
-    private void initialize(){
-            //list of materials
-        moneyAmount = findViewById(R.id.moneyAmmount);
-        woodAmount = findViewById(R.id.woodAmount);
-        stoneAmount = findViewById(R.id.stoneAmount);
 
 
-    }//END OF INITIALIZE
+    private void initializeMaterialTextView (TextView[] _inputText, int _elementCounter){
+        int ID;
+        for (int i = 0;i<_elementCounter;i++){
+            ID = getResources().getIdentifier(amo+Integer.toString(i),"id",getPackageName());
+            _inputText[i]=findViewById(ID);
+        }
 
-    public void initializeTextView(TextView[][] _inputText, String _string, int _id){
+    }
+
+    public void initializeProductionTextView(TextView[][] _inputText, Building _building){
 
         int ID;
         for (int i=0;i<5;i++){
 
-            ID = getResources().getIdentifier(_string + Integer.toString(i),
-                    "id", getPackageName());
-            _inputText[_id][i] = findViewById(ID);
+            ID = getResources().getIdentifier(_building.getName() + Integer.toString(i), "id", getPackageName());
+            _inputText[_building.getId()][i] = findViewById(ID);
 
         }
     }

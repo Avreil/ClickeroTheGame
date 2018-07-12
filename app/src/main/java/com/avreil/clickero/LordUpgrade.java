@@ -63,7 +63,7 @@ public class LordUpgrade extends AppCompatActivity {
         loadData(upgrade2);
 
         //initialize TextViews
-        moneyAmount = findViewById(R.id.moneyAmmount);
+        moneyAmount = findViewById(R.id.amount0);
         boughtCount1 = findViewById(R.id.boughtCount1);
         unitPrice1 = findViewById(R.id.unitPrice1);
         upgradeName1 = findViewById(R.id.upgradeName1);

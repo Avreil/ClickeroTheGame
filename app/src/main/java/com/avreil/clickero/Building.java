@@ -2,18 +2,27 @@ package com.avreil.clickero;
 
 public class Building {
 
-    String name, desc;
+    String name, desc,material;
     Integer counter,price;
     Double perSecond;
     int id;
 
-    public Building(String _name, String _desc,Integer _basePrice,int _id){
+    public Building(String _name, String _desc, String _material,Integer _basePrice,int _id){
         name = _name;
         desc = _desc;
         price = _basePrice;
         counter = 0;
         perSecond = 1.0 ;
         id=_id;
+        material=_material;
+    }
+
+    public String getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
     }
 
     public String getCounterString(){

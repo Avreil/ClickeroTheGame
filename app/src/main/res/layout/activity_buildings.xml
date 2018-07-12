@@ -116,13 +116,13 @@
                         android:layout_marginRight="8dp"
                         android:layout_marginStart="8dp"
                         android:text="Gold"
-                        app:layout_constraintEnd_toStartOf="@+id/moneyAmmount"
+                        app:layout_constraintEnd_toStartOf="@+id/amount0"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
                         tools:layout_editor_absoluteY="74dp" />
 
                     <TextView
-                        android:id="@+id/moneyAmmount"
+                        android:id="@+id/amount0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/textview"
@@ -144,7 +144,7 @@
                         tools:layout_editor_absoluteY="134dp" />
 
                     <TextView
-                        android:id="@+id/woodAmount"
+                        android:id="@+id/amount1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView"
@@ -165,7 +165,7 @@
                         tools:layout_editor_absoluteY="269dp" />
 
                     <TextView
-                        android:id="@+id/stoneAmount"
+                        android:id="@+id/amount2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView"
@@ -202,13 +202,13 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/productionWood0"
+                        android:id="@+id/Wood0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
 
                     <TextView
-                        android:id="@+id/productionWood1"
+                        android:id="@+id/Wood1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
@@ -220,13 +220,13 @@
                     android:layout_height="match_parent" >
 
                     <TextView
-                        android:id="@+id/productionWood2"
+                        android:id="@+id/Wood2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
 
                     <TextView
-                        android:id="@+id/productionWood3"
+                        android:id="@+id/Wood3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
@@ -243,7 +243,7 @@
                         android:text="Build" />
 
                     <TextView
-                        android:id="@+id/productionWood4"
+                        android:id="@+id/Wood4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
