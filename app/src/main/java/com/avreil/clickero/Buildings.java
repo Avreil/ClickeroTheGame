@@ -26,6 +26,10 @@ public class Buildings extends AppCompatActivity {
     private TextView[] amount;
     private String amo = "amount";
 
+
+
+
+    private Integer temp=0;
 /*
 Material List TextViews
 0 gold
@@ -78,21 +82,44 @@ Production
         amount = new TextView[materialCounter];
         buildingProduction = new Building[productionBuildingsCounter];
         materials = new Materials();
-        buildingProduction[0]= new Building("Lumber mill","Produces wood","Wood", 10000,0);
+        buildingProduction[0]= new Building("Lumber mill","Produce wood","Wood", 10000,0);
         buildingProduction[1] = new Building("Quarry", "Mine Stone","Stone", 50000,1);
 
 
             //initialize and preset textViews
         initializeMaterialTextView(amount,materialCounter);
         initializeProductionTextView(production,buildingProduction[0]);
-        //setTextView(production,buildingProduction[0]);
+        setProductionTextView(production,buildingProduction[0]);
+        initializeProductionTextView(production,buildingProduction[1]);
+        setProductionTextView(production,buildingProduction[1]);
 
             //declare amount list TextView
         amount[0].setText(Integer.toString(gold));
         amount[1].setText(Integer.toString(materials.getWood()));
-        //amount[2].setText(Integer.toString(materials.getStone()));
+        amount[2].setText(Integer.toString(materials.getStone()));
+
+        Thread wood = new Thread(){
+            @Override
+            public void run() {
+                while(!isInterrupted()) {
+                    try {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                materials.setWood((int)(materials.getWood()+buildingProduction[0].getPerSecond()));
+                                amount[1].setText(Integer.toString(materials.getWood()));
+
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
 
+                }
+            }
+        };
 
             //DevReset
         Button resetButton = findViewById(R.id.resetBtn);
@@ -114,8 +141,21 @@ Production
                 finish(); }
         });
 
+        Button ProductionBuyBtn1 = findViewById(R.id.productionBuyBtn0);
+        ProductionBuyBtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gold>=buildingProduction[0].getPrice()) {
+                    gold = gold - buildingProduction[0].getPrice();
+                    amount[0].setText(Integer.toString(gold));
+                    buildingProduction[0].upgradeBuilding();
+                    setProductionTextView(production,buildingProduction[0]);
 
+                }
+            }
+        });
 
+        wood.start();
 
 
     }//END OF ON CREATE
@@ -137,13 +177,13 @@ Production
         int ID;
         for (int i=0;i<5;i++){
 
-            ID = getResources().getIdentifier(_building.getName() + Integer.toString(i), "id", getPackageName());
+            ID = getResources().getIdentifier(_building.getMaterial() + Integer.toString(i), "id", getPackageName());
             _inputText[_building.getId()][i] = findViewById(ID);
 
         }
     }
 
-    public void setTextView(TextView[][] _inputText, Building _inputBuilding) {
+    public void setProductionTextView(TextView[][] _inputText, Building _inputBuilding) {
 
         for (int i = 0; i < 5; i++) {
             switch (i) {

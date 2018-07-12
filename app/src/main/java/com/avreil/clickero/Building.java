@@ -12,7 +12,7 @@ public class Building {
         desc = _desc;
         price = _basePrice;
         counter = 0;
-        perSecond = 1.0 ;
+        perSecond = 0.0 ;
         id=_id;
         material=_material;
     }
@@ -39,6 +39,14 @@ public class Building {
         return Double.toString(perSecond);
 
     }
+
+    public void upgradeBuilding() {
+        counter = counter + 1;
+        price = price*2;
+        perSecond = ((double)((int)(100*(perSecond+1.0+(0.2*perSecond)))))/100;
+    }
+
+
 
     public void setId(int id) {
         this.id = id;

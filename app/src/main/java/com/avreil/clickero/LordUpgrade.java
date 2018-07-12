@@ -55,7 +55,7 @@ public class LordUpgrade extends AppCompatActivity {
 
 
         //initialize upgrade Class'es
-        upgrade1 = new LordUpgrades(10,5,"1");
+        upgrade1 = new LordUpgrades(10,20,"1");
         upgrade2 = new LordUpgrades(200,10,"2");
 
         //load upgrade data
