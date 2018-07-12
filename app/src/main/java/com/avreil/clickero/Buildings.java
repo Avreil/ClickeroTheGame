@@ -25,6 +25,8 @@ public class Buildings extends AppCompatActivity {
     //materials
     private TextView[] amount;
     private String amo = "amount";
+    //threads
+    private Thread wood,stone;
 
 /*
 Material List TextViews
@@ -108,20 +110,34 @@ Production
 
             }
         });
+        //DevWood
+
+        Button woodAdd = findViewById(R.id.woodAddBtn);
+        woodAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                materials.setWood(500);
+                amount[1].setText(Integer.toString(materials.getWood()));
+                saveMaterialById(0);
+            }
+        });
+
 
         Button BackButton = findViewById(R.id.backBtn);
         BackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveMaterialById(0);
+                wood.interrupt();
+                stone.interrupt();
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("GoldBack", gold);
                 setResult(RESULT_OK, resultIntent);
                 finish(); }
         });
 
-        Button ProductionBuyBtn1 = findViewById(R.id.productionBuyBtn0);
-        ProductionBuyBtn1.setOnClickListener(new View.OnClickListener() {
+
+        Button ProductionBuyBtn0 = findViewById(R.id.productionBuyBtn0);
+        ProductionBuyBtn0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (gold>=buildingProduction[0].getPrice()) {
@@ -134,10 +150,24 @@ Production
                 }
             }
         });
+        Button ProductionBuyBtn1 = findViewById(R.id.productionBuyBtn1);
+        ProductionBuyBtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gold>=buildingProduction[1].getPrice()) {
+                    gold = gold - buildingProduction[1].getPrice();
+                    amount[0].setText(Integer.toString(gold));
+                    buildingProduction[1].upgradeBuilding();
+                    setProductionTextView(production,buildingProduction[1]);
+                    saveProductionBuildingData(buildingProduction[1]);
+
+                }
+            }
+        });
 
 
         //threads
-        Thread wood = new Thread(){
+        wood = new Thread(){
             @Override
             public void run() {
                 while(!isInterrupted()) {
@@ -148,6 +178,8 @@ Production
                             public void run() {
                                 materials.setWood((int)(materials.getWood()+buildingProduction[0].getPerSecond()));
                                 amount[1].setText(Integer.toString(materials.getWood()));
+                                saveMaterialById(0);
+
 
                             }
                         });
@@ -158,9 +190,9 @@ Production
                 }
             }
         };
-        wood.start();
+       wood.start();
 
-        Thread stone = new Thread(){
+         stone = new Thread(){
             @Override
             public void run() {
                 while(!isInterrupted()) {
@@ -234,7 +266,7 @@ Production
     public void loadProductionBuildingData(Building _building){
 
         _building.setCounter(buildingsSharedPref.getInt(_building.getName()+"2",0));
-        _building.setPerSecond((double)buildingsSharedPref.getLong(_building.getName()+"3",0));
+        _building.setPerSecond(Double.longBitsToDouble(buildingsSharedPref.getLong(_building.getName()+"3",0)));
         _building.setPrice(buildingsSharedPref.getInt(_building.getName()+"4",0));
 
     }
@@ -248,7 +280,7 @@ Production
 
     public void loadMaterialListData(){
 
-        materials.setWood(buildingsSharedPref.getInt("Wood",0));
+        materials.setWood(buildingsSharedPref.getInt("Wood", 0));
         materials.setStone(buildingsSharedPref.getInt("Stone",0));
     }
 
@@ -262,9 +294,11 @@ Production
         switch (_id){
             case 0:
                 editor.putInt("Wood",materials.getWood());
+                editor.apply();
                 break;
             case 1:
                 editor.putInt("Stone",materials.getStone());
+                editor.apply();
                 break;
 
         }
