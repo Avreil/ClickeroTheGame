@@ -3,8 +3,9 @@ package com.avreil.clickero;
 public class Building {
     protected Integer TEMPbaseprice;
 
+
     String name, desc,material;
-    Integer counter,price;
+    Integer counter,price,capacity;
     Double perSecond;
     int id;
 
@@ -17,6 +18,19 @@ public class Building {
         perSecond = 0.0 ;
         id=_id;
         material=_material;
+        capacity = 10000;
+    }
+
+    public void raiseCapacity(){
+        capacity=10000+(10000*(counter*counter));
+    }
+    public String getCapacityString(){ return Integer.toString(capacity); }
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
     }
 
     public String getMaterial() {

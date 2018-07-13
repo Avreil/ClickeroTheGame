@@ -49,35 +49,128 @@
                 android:layout_height="wrap_content"
                 tools:layout_editor_absoluteX="33dp"
                 tools:layout_editor_absoluteY="182dp">
-
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <Button
-                        android:id="@+id/button2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Button" />
-
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/goldStorage0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/goldStorage1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/goldStorage2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
 
                     <TextView
-                        android:id="@+id/textView6"
+                        android:id="@+id/goldStorage3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+                </TableRow>
+                <TableRow><Button
+                    android:id="@+id/infrastructureBuyBtn0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Button" />
+                    <TextView
+                        android:id="@+id/goldStorage4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/woodStorage0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
 
+                    <TextView
+                        android:id="@+id/woodStorage1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+
+                </TableRow>
+                <TableRow>
+                    <TextView
+                    android:id="@+id/woodStorage2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/woodStorage3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+                </TableRow>
+                <TableRow><Button
+                    android:id="@+id/infrastructureBuyBtn1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Button" />
+                    <TextView
+                        android:id="@+id/woodStorage4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/stoneStorage0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/stoneStorage1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/stoneStorage2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/stoneStorage3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+                </TableRow>
+                <TableRow><Button
+                    android:id="@+id/infrastructureBuyBtn2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Button" />
+                    <TextView
+                        android:id="@+id/stoneStorage4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
                 </TableRow>
 
             </TableLayout>
@@ -234,8 +327,10 @@
                 </TableRow>
 
                 <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_width="265dp"
+                    android:layout_height="64dp"
+                    tools:layout_editor_absoluteX="158dp"
+                    tools:layout_editor_absoluteY="217dp">
 
                     <Button
                         android:id="@+id/productionBuyBtn0"
@@ -250,6 +345,7 @@
                         android:text="TextView" />
 
                 </TableRow>
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">

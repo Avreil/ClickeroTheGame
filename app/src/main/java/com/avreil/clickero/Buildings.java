@@ -13,15 +13,15 @@ import android.widget.TextView;
 public class Buildings extends AppCompatActivity {
     private int productionBuildingsCounter = 2;
     private int materialCounter=3;
-    private int infrastructureBuildingsCounter;
+    private int infrastructureBuildingsCounter=3;
     private Integer gold;
     private SharedPreferences buildingsSharedPref;
     private SharedPreferences.Editor editor;
     private Materials materials;
-    private Building[] buildingProduction;
+    private Building[] buildingProduction,buildingInfrastructure;
     //production
     private String prod = "production";
-    private TextView[][] production;
+    private TextView[][] production,infrastructure;
     //materials
     private TextView[] amount;
     private String amo = "amount";
@@ -41,7 +41,7 @@ TEXT VIEWS ON PRODUCTION LIST
 name 0
 description 1
 counter 2
-perSecond 3
+perSecond/storage 3
 price 4
  */
 
@@ -67,21 +67,41 @@ Production
 
             //work classes
         production = new TextView[productionBuildingsCounter][5];
+        infrastructure = new TextView[infrastructureBuildingsCounter][5];
         amount = new TextView[materialCounter];
         buildingProduction = new Building[productionBuildingsCounter];
+        buildingInfrastructure = new Building[infrastructureBuildingsCounter];
         materials = new Materials();
+        //production
         buildingProduction[0]= new Building("Lumber mill","Produce wood","Wood", 100,0);
-        buildingProduction[1] = new Building("Quarry", "Mine Stone","Stone", 500,1);
+        buildingProduction[1] = new Building("Quarry", "Mine Stone","Stone", 250,1);
         loadProductionBuildingData(buildingProduction[0]);
         loadProductionBuildingData(buildingProduction[1]);
+        //infrastructure
+        buildingInfrastructure[0] = new Building("Bank","Increases gold storage", "goldStorage",1000,0);
+        buildingInfrastructure[1] = new Building("Wood Storehouse", "Increases wood storage","woodStorage",2000,1);
+        buildingInfrastructure[2] = new Building("Stone Depot", "Increases stone storage","stoneStorage",4000,2);
+
+
         loadMaterialListData();
 
-            //initialize and preset textViews
+            //initialize and preset textViews |||||
         initializeMaterialTextView(amount,materialCounter);
-        initializeProductionTextView(production,buildingProduction[0]);
+        //production
+        initializeBuildingsTextView(production,buildingProduction[0]);
+        initializeBuildingsTextView(production,buildingProduction[1]);
+
         setProductionTextView(production,buildingProduction[0]);
-        initializeProductionTextView(production,buildingProduction[1]);
         setProductionTextView(production,buildingProduction[1]);
+
+        //infrastructure
+        initializeBuildingsTextView(infrastructure,buildingInfrastructure[0]);
+        initializeBuildingsTextView(infrastructure,buildingInfrastructure[1]);
+        initializeBuildingsTextView(infrastructure,buildingInfrastructure[2]);
+
+        setInfrastructureTextView(infrastructure,buildingInfrastructure[0]);
+        setInfrastructureTextView(infrastructure,buildingInfrastructure[1]);
+        setInfrastructureTextView(infrastructure,buildingInfrastructure[2]);
 
             //declare amount list TextView
         amount[0].setText(Integer.toString(gold));
@@ -112,13 +132,13 @@ Production
         });
         //DevWood
 
-        Button woodAdd = findViewById(R.id.woodAddBtn);
-        woodAdd.setOnClickListener(new View.OnClickListener() {
+        Button DEVGOLD = findViewById(R.id.woodAddBtn);
+        DEVGOLD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                materials.setWood(500);
-                amount[1].setText(Integer.toString(materials.getWood()));
-                saveMaterialById(0);
+                gold=50000;
+                amount[0].setText(Integer.toString(gold));
+
             }
         });
 
@@ -179,8 +199,6 @@ Production
                                 materials.setWood((int)(materials.getWood()+buildingProduction[0].getPerSecond()));
                                 amount[1].setText(Integer.toString(materials.getWood()));
                                 saveMaterialById(0);
-
-
                             }
                         });
                     } catch (InterruptedException e) {
@@ -229,7 +247,7 @@ Production
 
     }
 
-    public void initializeProductionTextView(TextView[][] _inputText, Building _building){
+    public void initializeBuildingsTextView(TextView[][] _inputText, Building _building){
 
         int ID;
         for (int i=0;i<5;i++){
@@ -255,6 +273,28 @@ Production
                     break;
                 case 3:
                     _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getPerSecondString());
+                    break;
+                case 4:
+                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getPriceString());
+                    break;
+            }
+        }
+    }
+    public void setInfrastructureTextView(TextView[][] _inputText, Building _inputBuilding) {
+
+        for (int i = 0; i < 5; i++) {
+            switch (i) {
+                case 0:
+                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getName());
+                    break;
+                case 1:
+                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getDesc());
+                    break;
+                case 2:
+                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getCounterString());
+                    break;
+                case 3:
+                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getCapacityString());
                     break;
                 case 4:
                     _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getPriceString());
