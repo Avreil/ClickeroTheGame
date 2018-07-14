@@ -4,18 +4,27 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class ClickAdder{
-    Integer gold,multiplier,critical;
+    Integer gold,multiplier,critical,capacity;
 
 
 
 
 
 
-    public ClickAdder(Integer _gold){
+    public ClickAdder(){
 
-        gold=_gold;
+        gold=0;
         multiplier=1;
         critical=0;
+        capacity = 10000;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
     }
 
     public Integer getCritical() {

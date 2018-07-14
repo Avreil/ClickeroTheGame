@@ -163,6 +163,7 @@ Production
                 saveMaterialListData();
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("GoldBack", gold);
+                resultIntent.putExtra("GoldCapacityBack",buildingInfrastructure[0].getCapacity());
                 setResult(RESULT_OK, resultIntent);
                 finish(); }
         });

@@ -15,7 +15,7 @@ import android.widget.Toast;
 public class MainGameScreen extends AppCompatActivity {
 
 
-    private String multiplier ="Multiplier",playerGold="Player Gold",critical="Critical";
+    private String multiplier ="Multiplier",playerGold="Player Gold",critical="Critical",capacity="Capacity";
     private TextView goldDisplay,multiplierDisplay;
     private SharedPreferences mainGameSharedPref;
     private SharedPreferences.Editor editor;
@@ -38,7 +38,7 @@ public class MainGameScreen extends AppCompatActivity {
         setContentView(R.layout.activity_main_game_screen);
         mainGameSharedPref = getSharedPreferences("MainGameInfo", MODE_PRIVATE);
         editor = mainGameSharedPref.edit();
-        cash = new ClickAdder(0);
+        cash = new ClickAdder();
         loadData(cash);
 
         //mainGme TextViews
@@ -129,7 +129,7 @@ public class MainGameScreen extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+                cash.setCapacity(data.getIntExtra("GoldCapacityBack", cash.getCapacity()));
                 cash.setGold(data.getIntExtra("GoldBack", cash.getGold()));
                 cash.setMultiplier(data.getIntExtra("MultiplierBack",cash.getMultiplier()));
                 cash.setCritical(data.getIntExtra("CriticalBack",cash.getCritical()));
@@ -146,6 +146,7 @@ public class MainGameScreen extends AppCompatActivity {
         editor.putInt(multiplier, cash.getMultiplier());
         editor.putInt(playerGold, cash.getGold());
         editor.putInt(critical, cash.getCritical());
+        editor.putInt(capacity, cash.getCapacity());
         editor.apply();
 
     }
