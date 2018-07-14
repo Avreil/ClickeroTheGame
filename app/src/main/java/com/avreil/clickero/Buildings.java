@@ -106,9 +106,7 @@ Production
         setInfrastructureTextView(buildingInfrastructure[2]);
 
             //declare amount list TextView
-        amount[0].setText(Integer.toString(gold));
-        amount[1].setText(Integer.toString(materials.getWood()));
-        amount[2].setText(Integer.toString(materials.getStone()));
+        setMaterialTextViews();
 
 
             //DevReset
@@ -117,11 +115,10 @@ Production
             @Override
             public void onClick(View v) {
                 gold = 0;
-                amount[0].setText("0");
                 materials.setWood(0);
-                amount[1].setText("0");
                 materials.setStone(0);
-                amount[2].setText("0");
+                setMaterialTextViews();
+
                 saveMaterialListData();
 
                 buildingProduction[0].reset();
@@ -163,6 +160,7 @@ Production
             public void onClick(View v) {
                 wood.interrupt();
                 stone.interrupt();
+                saveMaterialListData();
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("GoldBack", gold);
                 setResult(RESULT_OK, resultIntent);
@@ -253,7 +251,11 @@ Production
     }//END OF ON CREATE
 
 
-
+    private void setMaterialTextViews(){
+        amount[0].setText(Integer.toString(gold));
+        amount[1].setText(Integer.toString(materials.getWood()));
+        amount[2].setText(Integer.toString(materials.getStone()));
+    }
 
     private void initializeMaterialTextView (){
         int ID;
@@ -349,6 +351,8 @@ Production
         editor.putInt(_building.getName()+"2",_building.getCounter());
         editor.putInt(_building.getName()+"3",_building.getCapacity());
         editor.putInt(_building.getName()+"4",_building.getPrice());
+        editor.putInt(_building.getName()+"5",_building.getPriceWood());
+        editor.putInt(_building.getName()+"6",_building.getPriceStone());
         editor.apply();
     }
 
@@ -356,6 +360,8 @@ Production
         _building.setCounter(buildingsSharedPref.getInt(_building.getName()+"2",0));
         _building.setCapacity(buildingsSharedPref.getInt(_building.getName()+"3",0));
         _building.setPrice(buildingsSharedPref.getInt(_building.getName()+"4",0));
+        _building.setPriceWood(buildingsSharedPref.getInt(_building.getName()+"5",0));
+        _building.setPriceStone(buildingsSharedPref.getInt(_building.getName()+"6",0));
     }
 
     public void loadMaterialListData(){
@@ -386,9 +392,11 @@ Production
 
 
     public void upgrade (Building _building) {
-        if (gold >= _building.getPrice()) {
+        if (gold >= _building.getPrice() && materials.getWood()>=_building.getPriceWood() && materials.getStone()>=_building.getPriceStone()) {
             gold = gold - _building.getPrice();
-            amount[0].setText(Integer.toString(gold));
+            materials.setStone(materials.getStone()-_building.getPriceStone());
+            materials.setWood(materials.getWood()-_building.getPriceWood());
+            setMaterialTextViews();
             _building.upgradeBuilding();
             switch(_building.getType()){
                 case 1:

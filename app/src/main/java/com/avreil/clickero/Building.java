@@ -11,7 +11,7 @@ public class Building {
     protected int type;
 
     String name, desc,material;
-    Integer counter,price,capacity;
+    Integer counter,price,capacity,priceWood,priceStone;
     Double perSecond;
     int id;
 
@@ -26,6 +26,14 @@ public class Building {
         material=_material;
         capacity = 10000;
         type = _type;
+
+        if (type == 2){
+            priceWood = _basePrice/10;
+            priceStone = _basePrice/5;
+        }else{
+            priceWood = 0;
+            priceStone = 0;
+        }
     }
 
     public int getType() {
@@ -66,8 +74,15 @@ public class Building {
     }
 
 
+
+
     public String getPriceString(){
-        return Integer.toString(price);
+        if(priceWood==0 && priceStone ==0){
+            return ("Gold\n"+Integer.toString(price));
+        }else{
+            return ("Gold\tWood\tStone\n"+Integer.toString(price)+"\t"+Integer.toString(priceWood)+"\t"+Integer.toString(priceStone));
+        }
+
     }
 
     public String getPerSecondString(){
@@ -78,6 +93,8 @@ public class Building {
     public void upgradeBuilding() {
         this.counter = this.counter + 1;
         this.price = this.price*2;
+        this.priceWood = this.priceWood*2;
+        this.priceStone = this.priceStone*2;
         switch (this.type){
             case 1:
                 this.raisePerSecond();
@@ -93,6 +110,14 @@ public class Building {
         counter = 0;
         perSecond = 0.0 ;
         capacity = 10000;
+        if (type == 2){
+            priceWood = TEMPbaseprice/10;
+            priceStone = TEMPbaseprice/5;
+        }else{
+            priceWood = 0;
+            priceStone = 0;
+        }
+
 
     }
 
@@ -144,5 +169,20 @@ public class Building {
         return name;
     }
 
+    public Integer getPriceStone() {
+        return priceStone;
+    }
+
+    public Integer getPriceWood() {
+        return priceWood;
+    }
+
+    public void setPriceStone(Integer priceStone) {
+        this.priceStone = priceStone;
+    }
+
+    public void setPriceWood(Integer priceWood) {
+        this.priceWood = priceWood;
+    }
 }
 

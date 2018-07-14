@@ -35,6 +35,8 @@
         android:id="@+id/Infrastructure"
         android:layout_width="225dp"
         android:layout_height="0dp"
+        android:clipToPadding="true"
+        android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@+id/DownGuideLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/UpGuideLine">
@@ -42,13 +44,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TableLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:layout_editor_absoluteX="33dp"
                 tools:layout_editor_absoluteY="182dp">
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -66,7 +69,9 @@
                         android:text="TextView" />
 
                 </TableRow>
+
                 <TableRow>
+
                     <TextView
                         android:id="@+id/goldStorage2"
                         android:layout_width="wrap_content"
@@ -79,17 +84,22 @@
                         android:layout_height="wrap_content"
                         android:text="TextView" />
                 </TableRow>
-                <TableRow><Button
-                    android:id="@+id/infrastructureBuyBtn0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Button" />
+
+                <TableRow>
+
+                    <Button
+                        android:id="@+id/infrastructureBuyBtn0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Button" />
+
                     <TextView
                         android:id="@+id/goldStorage4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
                 </TableRow>
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -107,12 +117,14 @@
                         android:text="TextView" />
 
                 </TableRow>
+
                 <TableRow>
+
                     <TextView
-                    android:id="@+id/woodStorage2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
+                        android:id="@+id/woodStorage2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
 
                     <TextView
                         android:id="@+id/woodStorage3"
@@ -120,17 +132,22 @@
                         android:layout_height="wrap_content"
                         android:text="TextView" />
                 </TableRow>
-                <TableRow><Button
-                    android:id="@+id/infrastructureBuyBtn1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Button" />
+
+                <TableRow>
+
+                    <Button
+                        android:id="@+id/infrastructureBuyBtn1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Button" />
+
                     <TextView
                         android:id="@+id/woodStorage4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView" />
                 </TableRow>
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -148,7 +165,9 @@
                         android:text="TextView" />
 
                 </TableRow>
+
                 <TableRow>
+
                     <TextView
                         android:id="@+id/stoneStorage2"
                         android:layout_width="wrap_content"
@@ -161,11 +180,15 @@
                         android:layout_height="wrap_content"
                         android:text="TextView" />
                 </TableRow>
-                <TableRow><Button
-                    android:id="@+id/infrastructureBuyBtn2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Button" />
+
+                <TableRow>
+
+                    <Button
+                        android:id="@+id/infrastructureBuyBtn2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Button" />
+
                     <TextView
                         android:id="@+id/stoneStorage4"
                         android:layout_width="wrap_content"
@@ -275,6 +298,8 @@
         android:id="@+id/Production"
         android:layout_width="225dp"
         android:layout_height="0dp"
+        android:clipToPadding="true"
+        android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@+id/DownGuideLine"
         app:layout_constraintEnd_toStartOf="@+id/Infrastructure"
         app:layout_constraintTop_toTopOf="@+id/UpGuideLine"
