@@ -1,15 +1,21 @@
 package com.avreil.clickero;
 
+
+
+/*type
+1 - production
+2 - infrastructure
+*/
 public class Building {
     protected Integer TEMPbaseprice;
-
+    protected int type;
 
     String name, desc,material;
     Integer counter,price,capacity;
     Double perSecond;
     int id;
 
-    public Building(String _name, String _desc, String _material,Integer _basePrice,int _id){
+    public Building(String _name, String _desc, String _material,Integer _basePrice,int _id,int _type){
         name = _name;
         desc = _desc;
         price = _basePrice;
@@ -19,10 +25,23 @@ public class Building {
         id=_id;
         material=_material;
         capacity = 10000;
+        type = _type;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public void raiseCapacity(){
-        capacity=10000+(10000*(counter*counter));
+        this.capacity=10000+(10000*(this.counter*this.counter));
+    }
+
+    public void raisePerSecond(){
+        this.perSecond = ((double)((int)(100*(this.perSecond+1.0+(0.2*this.perSecond)))))/100;
     }
     public String getCapacityString(){ return Integer.toString(capacity); }
     public Integer getCapacity() {
@@ -57,15 +76,23 @@ public class Building {
     }
 
     public void upgradeBuilding() {
-        counter = counter + 1;
-        price = price*2;
-        perSecond = ((double)((int)(100*(perSecond+1.0+(0.2*perSecond)))))/100;
+        this.counter = this.counter + 1;
+        this.price = this.price*2;
+        switch (this.type){
+            case 1:
+                this.raisePerSecond();
+                break;
+            case 2:
+                this.raiseCapacity();
+                break;
+        }
     }
 
     public void reset(){
         price = TEMPbaseprice;
         counter = 0;
         perSecond = 0.0 ;
+        capacity = 10000;
 
     }
 

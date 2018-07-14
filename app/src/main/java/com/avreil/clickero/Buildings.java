@@ -73,35 +73,37 @@ Production
         buildingInfrastructure = new Building[infrastructureBuildingsCounter];
         materials = new Materials();
         //production
-        buildingProduction[0]= new Building("Lumber mill","Produce wood","Wood", 100,0);
-        buildingProduction[1] = new Building("Quarry", "Mine Stone","Stone", 250,1);
+        buildingProduction[0]= new Building("Lumber mill","Produce wood","Wood", 100,0,1);
+        buildingProduction[1] = new Building("Quarry", "Mine Stone","Stone", 250,1,1);
         loadProductionBuildingData(buildingProduction[0]);
         loadProductionBuildingData(buildingProduction[1]);
         //infrastructure
-        buildingInfrastructure[0] = new Building("Bank","Increases gold storage", "goldStorage",1000,0);
-        buildingInfrastructure[1] = new Building("Wood Storehouse", "Increases wood storage","woodStorage",2000,1);
-        buildingInfrastructure[2] = new Building("Stone Depot", "Increases stone storage","stoneStorage",4000,2);
-
+        buildingInfrastructure[0] = new Building("Bank","Increases gold storage", "goldStorage",1000,0,2);
+        buildingInfrastructure[1] = new Building("Wood Storehouse", "Increases wood storage","woodStorage",2000,1,2);
+        buildingInfrastructure[2] = new Building("Stone Depot", "Increases stone storage","stoneStorage",4000,2,2);
+        loadInfrastructureBuildingData(buildingInfrastructure[0]);
+        loadInfrastructureBuildingData(buildingInfrastructure[1]);
+        loadInfrastructureBuildingData(buildingInfrastructure[2]);
 
         loadMaterialListData();
 
             //initialize and preset textViews |||||
-        initializeMaterialTextView(amount,materialCounter);
+        initializeMaterialTextView();
         //production
-        initializeBuildingsTextView(production,buildingProduction[0]);
-        initializeBuildingsTextView(production,buildingProduction[1]);
+        initializeProductionBuildingsTextView(buildingProduction[0]);
+        initializeProductionBuildingsTextView(buildingProduction[1]);
 
-        setProductionTextView(production,buildingProduction[0]);
-        setProductionTextView(production,buildingProduction[1]);
+        setProductionTextView(buildingProduction[0]);
+        setProductionTextView(buildingProduction[1]);
 
         //infrastructure
-        initializeBuildingsTextView(infrastructure,buildingInfrastructure[0]);
-        initializeBuildingsTextView(infrastructure,buildingInfrastructure[1]);
-        initializeBuildingsTextView(infrastructure,buildingInfrastructure[2]);
+        initializeInfrastructureBuildingsTextView(buildingInfrastructure[0]);
+        initializeInfrastructureBuildingsTextView(buildingInfrastructure[1]);
+        initializeInfrastructureBuildingsTextView(buildingInfrastructure[2]);
 
-        setInfrastructureTextView(infrastructure,buildingInfrastructure[0]);
-        setInfrastructureTextView(infrastructure,buildingInfrastructure[1]);
-        setInfrastructureTextView(infrastructure,buildingInfrastructure[2]);
+        setInfrastructureTextView(buildingInfrastructure[0]);
+        setInfrastructureTextView(buildingInfrastructure[1]);
+        setInfrastructureTextView(buildingInfrastructure[2]);
 
             //declare amount list TextView
         amount[0].setText(Integer.toString(gold));
@@ -120,13 +122,25 @@ Production
                 amount[1].setText("0");
                 materials.setStone(0);
                 amount[2].setText("0");
+                saveMaterialListData();
+
                 buildingProduction[0].reset();
                 buildingProduction[1].reset();
                 saveProductionBuildingData(buildingProduction[0]);
                 saveProductionBuildingData(buildingProduction[1]);
-                setProductionTextView(production,buildingProduction[0]);
-                setProductionTextView(production,buildingProduction[1]);
-                saveMaterialListData();
+                setProductionTextView(buildingProduction[0]);
+                setProductionTextView(buildingProduction[1]);
+
+                buildingInfrastructure[0].reset();
+                buildingInfrastructure[1].reset();
+                buildingInfrastructure[2].reset();
+                saveInfrastructureBuildingData(buildingInfrastructure[0]);
+                saveInfrastructureBuildingData(buildingInfrastructure[0]);
+                saveInfrastructureBuildingData(buildingInfrastructure[0]);
+                setInfrastructureTextView(buildingInfrastructure[0]);
+                setInfrastructureTextView(buildingInfrastructure[1]);
+                setInfrastructureTextView(buildingInfrastructure[2]);
+
 
             }
         });
@@ -160,29 +174,32 @@ Production
         ProductionBuyBtn0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (gold>=buildingProduction[0].getPrice()) {
-                    gold = gold - buildingProduction[0].getPrice();
-                    amount[0].setText(Integer.toString(gold));
-                    buildingProduction[0].upgradeBuilding();
-                    setProductionTextView(production,buildingProduction[0]);
-                    saveProductionBuildingData(buildingProduction[0]);
-
-                }
-            }
+                upgrade(buildingProduction[0]);}
         });
         Button ProductionBuyBtn1 = findViewById(R.id.productionBuyBtn1);
         ProductionBuyBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (gold>=buildingProduction[1].getPrice()) {
-                    gold = gold - buildingProduction[1].getPrice();
-                    amount[0].setText(Integer.toString(gold));
-                    buildingProduction[1].upgradeBuilding();
-                    setProductionTextView(production,buildingProduction[1]);
-                    saveProductionBuildingData(buildingProduction[1]);
+                    upgrade(buildingProduction[1]);}
+        });
 
-                }
-            }
+        Button InfrastructureBuyBtn0 = findViewById(R.id.infrastructureBuyBtn0);
+        InfrastructureBuyBtn0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                upgrade(buildingInfrastructure[0]); }
+        });
+        Button InfrastructureBuyBtn1 = findViewById(R.id.infrastructureBuyBtn1);
+        InfrastructureBuyBtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                upgrade(buildingInfrastructure[1]);}
+        });
+        Button InfrastructureBuyBtn2 = findViewById(R.id.infrastructureBuyBtn2);
+        InfrastructureBuyBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                upgrade(buildingInfrastructure[2]);}
         });
 
 
@@ -238,66 +255,77 @@ Production
 
 
 
-    private void initializeMaterialTextView (TextView[] _inputText, int _elementCounter){
+    private void initializeMaterialTextView (){
         int ID;
-        for (int i = 0;i<_elementCounter;i++){
+        for (int i = 0;i<materialCounter;i++){
             ID = getResources().getIdentifier(amo+Integer.toString(i),"id",getPackageName());
-            _inputText[i]=findViewById(ID);
+            amount[i]=findViewById(ID);
         }
 
     }
 
-    public void initializeBuildingsTextView(TextView[][] _inputText, Building _building){
+    public void initializeInfrastructureBuildingsTextView(Building _building){
 
         int ID;
         for (int i=0;i<5;i++){
 
             ID = getResources().getIdentifier(_building.getMaterial() + Integer.toString(i), "id", getPackageName());
-            _inputText[_building.getId()][i] = findViewById(ID);
+            infrastructure[_building.getId()][i] = findViewById(ID);
+
+        }
+    }
+    public void initializeProductionBuildingsTextView(Building _building){
+
+        int ID;
+        for (int i=0;i<5;i++){
+
+            ID = getResources().getIdentifier(_building.getMaterial() + Integer.toString(i), "id", getPackageName());
+            production[_building.getId()][i] = findViewById(ID);
 
         }
     }
 
-    public void setProductionTextView(TextView[][] _inputText, Building _inputBuilding) {
+
+    public void setProductionTextView(Building _inputBuilding) {
 
         for (int i = 0; i < 5; i++) {
             switch (i) {
                 case 0:
-                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getName());
+                    production[_inputBuilding.getId()][i].setText(_inputBuilding.getName());
                     break;
                 case 1:
-                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getDesc());
+                    production[_inputBuilding.getId()][i].setText(_inputBuilding.getDesc());
                     break;
                 case 2:
-                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getCounterString());
+                    production[_inputBuilding.getId()][i].setText(_inputBuilding.getCounterString());
                     break;
                 case 3:
-                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getPerSecondString());
+                    production[_inputBuilding.getId()][i].setText(_inputBuilding.getPerSecondString());
                     break;
                 case 4:
-                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getPriceString());
+                    production[_inputBuilding.getId()][i].setText(_inputBuilding.getPriceString());
                     break;
             }
         }
     }
-    public void setInfrastructureTextView(TextView[][] _inputText, Building _inputBuilding) {
+    public void setInfrastructureTextView(Building _inputBuilding) {
 
         for (int i = 0; i < 5; i++) {
             switch (i) {
                 case 0:
-                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getName());
+                    infrastructure[_inputBuilding.getId()][i].setText(_inputBuilding.getName());
                     break;
                 case 1:
-                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getDesc());
+                    infrastructure[_inputBuilding.getId()][i].setText(_inputBuilding.getDesc());
                     break;
                 case 2:
-                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getCounterString());
+                    infrastructure[_inputBuilding.getId()][i].setText(_inputBuilding.getCounterString());
                     break;
                 case 3:
-                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getCapacityString());
+                    infrastructure[_inputBuilding.getId()][i].setText(_inputBuilding.getCapacityString());
                     break;
                 case 4:
-                    _inputText[_inputBuilding.getId()][i].setText(_inputBuilding.getPriceString());
+                    infrastructure[_inputBuilding.getId()][i].setText(_inputBuilding.getPriceString());
                     break;
             }
         }
@@ -316,6 +344,18 @@ Production
         editor.putLong(_building.getName()+"3",Double.doubleToRawLongBits(_building.getPerSecond()));
         editor.putInt(_building.getName()+"4",_building.getPrice());
         editor.apply();
+    }
+    public void saveInfrastructureBuildingData(Building _building){
+        editor.putInt(_building.getName()+"2",_building.getCounter());
+        editor.putInt(_building.getName()+"3",_building.getCapacity());
+        editor.putInt(_building.getName()+"4",_building.getPrice());
+        editor.apply();
+    }
+
+    public void loadInfrastructureBuildingData (Building _building){
+        _building.setCounter(buildingsSharedPref.getInt(_building.getName()+"2",0));
+        _building.setCapacity(buildingsSharedPref.getInt(_building.getName()+"3",0));
+        _building.setPrice(buildingsSharedPref.getInt(_building.getName()+"4",0));
     }
 
     public void loadMaterialListData(){
@@ -340,9 +380,29 @@ Production
                 editor.putInt("Stone",materials.getStone());
                 editor.apply();
                 break;
-
         }
-
     }
+
+
+
+    public void upgrade (Building _building) {
+        if (gold >= _building.getPrice()) {
+            gold = gold - _building.getPrice();
+            amount[0].setText(Integer.toString(gold));
+            _building.upgradeBuilding();
+            switch(_building.getType()){
+                case 1:
+                    setProductionTextView(_building);
+                    saveProductionBuildingData(_building);
+                    break;
+                case 2:
+                    setInfrastructureTextView(_building);
+                    saveInfrastructureBuildingData(_building);
+            }//switch
+        }//if
+    }//function
+
+
+
 
 }//END OF CLASS
