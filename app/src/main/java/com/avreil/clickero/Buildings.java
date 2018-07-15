@@ -19,14 +19,12 @@ public class Buildings extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private Materials materials;
     private Building[] buildingProduction,buildingInfrastructure;
-    //production
     private String prod = "production";
     private TextView[][] production,infrastructure;
-    //materials
     private TextView[] amount;
     private String amo = "amount";
-    //threads
     private Thread wood,stone;
+    private Button[] productionBuyBtn,infrastructureBuyBtn;
 
 /*
 Material List TextViews
@@ -72,38 +70,29 @@ Production
         buildingProduction = new Building[productionBuildingsCounter];
         buildingInfrastructure = new Building[infrastructureBuildingsCounter];
         materials = new Materials();
+        productionBuyBtn = new Button[productionBuildingsCounter];
+        infrastructureBuyBtn = new Button[infrastructureBuildingsCounter];
         //production
         buildingProduction[0]= new Building("Lumber mill","Produce wood","Wood", 100,0,1);
         buildingProduction[1] = new Building("Quarry", "Mine Stone","Stone", 250,1,1);
-        loadProductionBuildingData(buildingProduction[0]);
-        loadProductionBuildingData(buildingProduction[1]);
+            loadProductionBuildingData();
         //infrastructure
         buildingInfrastructure[0] = new Building("Bank","Increases gold storage", "goldStorage",1000,0,2);
         buildingInfrastructure[1] = new Building("Wood Storehouse", "Increases wood storage","woodStorage",2000,1,2);
         buildingInfrastructure[2] = new Building("Stone Depot", "Increases stone storage","stoneStorage",4000,2,2);
-        loadInfrastructureBuildingData(buildingInfrastructure[0]);
-        loadInfrastructureBuildingData(buildingInfrastructure[1]);
-        loadInfrastructureBuildingData(buildingInfrastructure[2]);
+
+            loadInfrastructureBuildingData();
 
         loadMaterialListData();
-
-            //initialize and preset textViews |||||
         initializeMaterialTextView();
-        //production
-        initializeProductionBuildingsTextView(buildingProduction[0]);
-        initializeProductionBuildingsTextView(buildingProduction[1]);
-
-        setProductionTextView(buildingProduction[0]);
-        setProductionTextView(buildingProduction[1]);
+        initializeProductionBuildingsTextView();
+        initializeInfrastructureBuildingsTextView();
+        setProductionTextView();
 
         //infrastructure
-        initializeInfrastructureBuildingsTextView(buildingInfrastructure[0]);
-        initializeInfrastructureBuildingsTextView(buildingInfrastructure[1]);
-        initializeInfrastructureBuildingsTextView(buildingInfrastructure[2]);
 
-        setInfrastructureTextView(buildingInfrastructure[0]);
-        setInfrastructureTextView(buildingInfrastructure[1]);
-        setInfrastructureTextView(buildingInfrastructure[2]);
+
+        setInfrastructureTextView();
 
             //declare amount list TextView
         setMaterialTextViews();
@@ -123,20 +112,14 @@ Production
 
                 buildingProduction[0].reset();
                 buildingProduction[1].reset();
-                saveProductionBuildingData(buildingProduction[0]);
-                saveProductionBuildingData(buildingProduction[1]);
-                setProductionTextView(buildingProduction[0]);
-                setProductionTextView(buildingProduction[1]);
+                saveProductionBuildingData();
+                setProductionTextView();
 
                 buildingInfrastructure[0].reset();
                 buildingInfrastructure[1].reset();
                 buildingInfrastructure[2].reset();
-                saveInfrastructureBuildingData(buildingInfrastructure[0]);
-                saveInfrastructureBuildingData(buildingInfrastructure[1]);
-                saveInfrastructureBuildingData(buildingInfrastructure[2]);
-                setInfrastructureTextView(buildingInfrastructure[0]);
-                setInfrastructureTextView(buildingInfrastructure[1]);
-                setInfrastructureTextView(buildingInfrastructure[2]);
+                saveInfrastructureBuildingData();
+                setInfrastructureTextView();
 
 
             }
@@ -151,8 +134,6 @@ Production
                 materials.setWood(50000);
                 materials.setStone(50000);
                 setMaterialTextViews();
-
-
             }
         });
 
@@ -171,38 +152,11 @@ Production
                 finish(); }
         });
 
+        productionButton();
+        infrastructureButton();
 
-        Button ProductionBuyBtn0 = findViewById(R.id.productionBuyBtn0);
-        ProductionBuyBtn0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                upgrade(buildingProduction[0]);}
-        });
-        Button ProductionBuyBtn1 = findViewById(R.id.productionBuyBtn1);
-        ProductionBuyBtn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    upgrade(buildingProduction[1]);}
-        });
 
-        Button InfrastructureBuyBtn0 = findViewById(R.id.infrastructureBuyBtn0);
-        InfrastructureBuyBtn0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                upgrade(buildingInfrastructure[0]); }
-        });
-        Button InfrastructureBuyBtn1 = findViewById(R.id.infrastructureBuyBtn1);
-        InfrastructureBuyBtn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                upgrade(buildingInfrastructure[1]);}
-        });
-        Button InfrastructureBuyBtn2 = findViewById(R.id.infrastructureBuyBtn2);
-        InfrastructureBuyBtn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                upgrade(buildingInfrastructure[2]);}
-        });
+
 
 
         //threads
@@ -260,6 +214,34 @@ Production
 
 
 
+    private void productionButton (){
+        String btn="productionBuyBtn";
+        int ID;
+        for (int i = 0;i<productionBuildingsCounter;i++){
+            final int k = i;
+            ID = getResources().getIdentifier(btn+Integer.toString(i),"id",getPackageName());
+            productionBuyBtn[i] =findViewById(ID);
+            productionBuyBtn[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    upgrade(buildingProduction[k]);}
+            });
+        }
+    }
+    private void infrastructureButton (){
+        String btn="infrastructureBuyBtn";
+        int ID;
+        for (int i = 0;i<productionBuildingsCounter;i++){
+            final int k = i;
+            ID = getResources().getIdentifier(btn+Integer.toString(i),"id",getPackageName());
+            infrastructureBuyBtn[i] =findViewById(ID);
+            infrastructureBuyBtn[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    upgrade(buildingInfrastructure[k]);}
+            });
+        }
+    }
 
     private void initializeMaterialTextView (){
         int ID;
@@ -274,12 +256,12 @@ Production
         amount[1].setText(Integer.toString(materials.getWood()));
         amount[2].setText(Integer.toString(materials.getStone()));
     }
-    public void saveMaterialListData(){
+    private void saveMaterialListData(){
         editor.putInt("Wood",materials.getWood());
         editor.putInt("Stone",materials.getStone());
         editor.apply();
     }
-    public void loadMaterialListData(){
+    private void loadMaterialListData(){
 
         materials.setWood(buildingsSharedPref.getInt("Wood", 0));
         materials.setStone(buildingsSharedPref.getInt("Stone",0));
@@ -297,102 +279,115 @@ Production
         }
     }
 
-    public void initializeInfrastructureBuildingsTextView(Building _building){
+    private void initializeInfrastructureBuildingsTextView(){
 
         int ID;
-        for (int i=0;i<5;i++){
+        for (int j=0;j<infrastructureBuildingsCounter;j++) {
+            for (int i = 0; i < 5; i++) {
 
-            ID = getResources().getIdentifier(_building.getMaterial() + Integer.toString(i), "id", getPackageName());
-            infrastructure[_building.getId()][i] = findViewById(ID);
+                ID = getResources().getIdentifier(buildingInfrastructure[j].getMaterial() + Integer.toString(i), "id", getPackageName());
+                infrastructure[buildingInfrastructure[j].getId()][i] = findViewById(ID);
 
-        }
-    }
-    public void setInfrastructureTextView(Building _inputBuilding) {
-
-        for (int i = 0; i < 5; i++) {
-            switch (i) {
-                case 0:
-                    infrastructure[_inputBuilding.getId()][i].setText(_inputBuilding.getName());
-                    break;
-                case 1:
-                    infrastructure[_inputBuilding.getId()][i].setText(_inputBuilding.getDesc());
-                    break;
-                case 2:
-                    infrastructure[_inputBuilding.getId()][i].setText("Level:  "+_inputBuilding.getCounterString());
-                    break;
-                case 3:
-                    infrastructure[_inputBuilding.getId()][i].setText(_inputBuilding.getCapacityString());
-                    break;
-                case 4:
-                    infrastructure[_inputBuilding.getId()][i].setText(_inputBuilding.getPriceString());
-                    break;
             }
         }
     }
-    public void saveInfrastructureBuildingData(Building _building){
-        editor.putInt(_building.getName()+"2",_building.getCounter());
-        editor.putInt(_building.getName()+"3",_building.getCapacity());
-        editor.putInt(_building.getName()+"4",_building.getPrice());
-        editor.putInt(_building.getName()+"5",_building.getPriceWood());
-        editor.putInt(_building.getName()+"6",_building.getPriceStone());
-        editor.apply();
-    }
-    public void loadInfrastructureBuildingData (Building _building){
-        _building.setCounter(buildingsSharedPref.getInt(_building.getName()+"2",0));
-        _building.setCapacity(buildingsSharedPref.getInt(_building.getName()+"3",0));
-        _building.setPrice(buildingsSharedPref.getInt(_building.getName()+"4",0));
-        _building.setPriceWood(buildingsSharedPref.getInt(_building.getName()+"5",0));
-        _building.setPriceStone(buildingsSharedPref.getInt(_building.getName()+"6",0));
-    }
-
-    public void initializeProductionBuildingsTextView(Building _building){
-
-        int ID;
-        for (int i=0;i<5;i++){
-
-            ID = getResources().getIdentifier(_building.getMaterial() + Integer.toString(i), "id", getPackageName());
-            production[_building.getId()][i] = findViewById(ID);
-
-        }
-    }
-    public void setProductionTextView(Building _inputBuilding) {
-
+    private void setInfrastructureTextView() {
+        for(int j=0;j<infrastructureBuildingsCounter;j++){
         for (int i = 0; i < 5; i++) {
             switch (i) {
                 case 0:
-                    production[_inputBuilding.getId()][i].setText(_inputBuilding.getName());
+                    infrastructure[buildingInfrastructure[j].getId()][i].setText(buildingInfrastructure[j].getName());
                     break;
                 case 1:
-                    production[_inputBuilding.getId()][i].setText(_inputBuilding.getDesc());
+                    infrastructure[buildingInfrastructure[j].getId()][i].setText(buildingInfrastructure[j].getDesc());
                     break;
                 case 2:
-                    production[_inputBuilding.getId()][i].setText("Level:  "+_inputBuilding.getCounterString());
+                    infrastructure[buildingInfrastructure[j].getId()][i].setText("Level:  " + buildingInfrastructure[j].getCounterString());
                     break;
                 case 3:
-                    production[_inputBuilding.getId()][i].setText(_inputBuilding.getPerSecondString());
+                    infrastructure[buildingInfrastructure[j].getId()][i].setText(buildingInfrastructure[j].getCapacityString());
                     break;
                 case 4:
-                    production[_inputBuilding.getId()][i].setText(_inputBuilding.getPriceString());
+                    infrastructure[buildingInfrastructure[j].getId()][i].setText(buildingInfrastructure[j].getPriceString());
                     break;
             }
         }
+        }
     }
-    public void saveProductionBuildingData(Building _building){
-        editor.putInt(_building.getName()+"2",_building.getCounter());
-        editor.putLong(_building.getName()+"3",Double.doubleToRawLongBits(_building.getPerSecond()));
-        editor.putInt(_building.getName()+"4",_building.getPrice());
-        editor.apply();
+    private void saveInfrastructureBuildingData(){
+        for(int i=0;i<infrastructureBuildingsCounter;i++) {
+            editor.putInt(buildingInfrastructure[i].getName() + "2", buildingInfrastructure[i].getCounter());
+            editor.putInt(buildingInfrastructure[i].getName() + "3", buildingInfrastructure[i].getCapacity());
+            editor.putInt(buildingInfrastructure[i].getName() + "4", buildingInfrastructure[i].getPrice());
+            editor.putInt(buildingInfrastructure[i].getName() + "5", buildingInfrastructure[i].getPriceWood());
+            editor.putInt(buildingInfrastructure[i].getName() + "6", buildingInfrastructure[i].getPriceStone());
+            editor.apply();
+        }
     }
-    public void loadProductionBuildingData(Building _building){
+    private void loadInfrastructureBuildingData (){
+        for(int i = 0; i< infrastructureBuildingsCounter;i++) {
+            buildingInfrastructure[i].setCounter(buildingsSharedPref.getInt(buildingInfrastructure[i].getName() + "2", 0));
+            buildingInfrastructure[i].setCapacity(buildingsSharedPref.getInt(buildingInfrastructure[i].getName() + "3", 0));
+            buildingInfrastructure[i].setPrice(buildingsSharedPref.getInt(buildingInfrastructure[i].getName() + "4", 0));
+            buildingInfrastructure[i].setPriceWood(buildingsSharedPref.getInt(buildingInfrastructure[i].getName() + "5", 0));
+            buildingInfrastructure[i].setPriceStone(buildingsSharedPref.getInt(buildingInfrastructure[i].getName() + "6", 0));
+        }
+    }
 
-        _building.setCounter(buildingsSharedPref.getInt(_building.getName()+"2",0));
-        _building.setPerSecond(Double.longBitsToDouble(buildingsSharedPref.getLong(_building.getName()+"3",0)));
-        _building.setPrice(buildingsSharedPref.getInt(_building.getName()+"4",0));
+    private void initializeProductionBuildingsTextView(){
 
+        int ID;
+        for(int j = 0; j<productionBuildingsCounter;j++) {
+            for (int i = 0; i < 5; i++) {
+
+                ID = getResources().getIdentifier(buildingProduction[j].getMaterial() + Integer.toString(i), "id", getPackageName());
+                production[buildingProduction[j].getId()][i] = findViewById(ID);
+
+            }
+        }
+    }
+    private void setProductionTextView() {
+
+        for (int j = 0; j<productionBuildingsCounter;j++) {
+            for (int i = 0; i < 5; i++) {
+                switch (i) {
+                    case 0:
+                        production[buildingProduction[j].getId()][i].setText(buildingProduction[j].getName());
+                        break;
+                    case 1:
+                        production[buildingProduction[j].getId()][i].setText(buildingProduction[j].getDesc());
+                        break;
+                    case 2:
+                        production[buildingProduction[j].getId()][i].setText("Level:  " + buildingProduction[j].getCounterString());
+                        break;
+                    case 3:
+                        production[buildingProduction[j].getId()][i].setText(buildingProduction[j].getPerSecondString());
+                        break;
+                    case 4:
+                        production[buildingProduction[j].getId()][i].setText(buildingProduction[j].getPriceString());
+                        break;
+                }
+            }
+        }
+    }
+    private void saveProductionBuildingData(){
+        for(int i = 0;i<productionBuildingsCounter;i++) {
+            editor.putInt(buildingProduction[i].getName() + "2", buildingProduction[i].getCounter());
+            editor.putLong(buildingProduction[i].getName() + "3", Double.doubleToRawLongBits(buildingProduction[i].getPerSecond()));
+            editor.putInt(buildingProduction[i].getName() + "4", buildingProduction[i].getPrice());
+            editor.apply();
+        }
+    }
+    private void loadProductionBuildingData(){
+        for (int i = 0;i<productionBuildingsCounter;i++) {
+            buildingProduction[i].setCounter(buildingsSharedPref.getInt(buildingProduction[i].getName() + "2", 0));
+            buildingProduction[i].setPerSecond(Double.longBitsToDouble(buildingsSharedPref.getLong(buildingProduction[i].getName() + "3", 0)));
+            buildingProduction[i].setPrice(buildingsSharedPref.getInt(buildingProduction[i].getName() + "4", 0));
+        }
     }
 
 
-    public void upgrade (Building _building) {
+    private void upgrade (Building _building) {
         if (gold >= _building.getPrice() && materials.getWood()>=_building.getPriceWood() && materials.getStone()>=_building.getPriceStone()) {
             gold = gold - _building.getPrice();
             materials.setStone(materials.getStone()-_building.getPriceStone());
@@ -401,14 +396,14 @@ Production
             _building.upgradeBuilding();
             switch(_building.getType()){
                 case 1:
-                    setProductionTextView(_building);
-                    saveProductionBuildingData(_building);
+                    setProductionTextView();
                     break;
                 case 2:
-                    setInfrastructureTextView(_building);
-                    saveInfrastructureBuildingData(_building);
-            }//switch
+                    setInfrastructureTextView();
+                    break;
+                }//switch
         }//if
+
     }//function
 
 
