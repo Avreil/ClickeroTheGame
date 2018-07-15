@@ -9,13 +9,15 @@
 
     <Button
         android:id="@+id/backBtn"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:text="@string/back"
         app:layout_constraintBottom_toTopOf="@+id/Resources"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/resetBtn"
@@ -93,7 +95,7 @@
                         android:id="@+id/infrastructureBuyBtn0"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Button" />
+                        android:text="@string/build" />
 
                     <TextView
                         android:id="@+id/goldStorage4"
@@ -145,7 +147,7 @@
                         android:id="@+id/infrastructureBuyBtn1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Button" />
+                        android:text="@string/build" />
 
                     <TextView
                         android:id="@+id/woodStorage4"
@@ -197,7 +199,7 @@
                         android:id="@+id/infrastructureBuyBtn2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Button" />
+                        android:text="@string/build" />
 
                     <TextView
                         android:id="@+id/stoneStorage4"
@@ -243,8 +245,10 @@
         android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@+id/DownGuideLine"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="@+id/UpGuideLine">
+        app:layout_constraintTop_toTopOf="@+id/UpGuideLine"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -302,7 +306,7 @@
                         android:id="@+id/productionBuyBtn0"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Build" />
+                        android:text="@string/build" />
 
                     <TextView
                         android:id="@+id/Wood4"
@@ -355,7 +359,7 @@
                         android:id="@+id/productionBuyBtn1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Build" />
+                        android:text="@string/build" />
 
                     <TextView
                         android:id="@+id/Stone4"
@@ -380,22 +384,22 @@
         app:layout_constraintTop_toTopOf="@+id/UpGuideLine">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TableLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <TableRow
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/goldDesc"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginEnd="8dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
@@ -409,7 +413,7 @@
                     <TextView
                         android:id="@+id/amount0"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="@string/textview"
                         app:layout_constraintEnd_toStartOf="@+id/Production"
                         tools:layout_editor_absoluteY="66dp" />
@@ -417,13 +421,13 @@
                 </TableRow>
 
                 <TableRow
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/woodDesc"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="Wood"
                         tools:layout_editor_absoluteX="30dp"
                         tools:layout_editor_absoluteY="134dp" />
@@ -431,20 +435,20 @@
                     <TextView
                         android:id="@+id/amount1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="TextView"
                         tools:layout_editor_absoluteX="30dp"
                         tools:layout_editor_absoluteY="200dp" />
                 </TableRow>
 
                 <TableRow
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/stoneDesc"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="Stone"
                         tools:layout_editor_absoluteX="30dp"
                         tools:layout_editor_absoluteY="269dp" />
@@ -452,7 +456,7 @@
                     <TextView
                         android:id="@+id/amount2"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="TextView"
                         tools:layout_editor_absoluteX="30dp"
                         tools:layout_editor_absoluteY="305dp" />
@@ -467,13 +471,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="320dp" />
+        app:layout_constraintGuide_begin="340dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="70dp" />
+        app:layout_constraintGuide_begin="120dp" />
 
 </android.support.constraint.ConstraintLayout>

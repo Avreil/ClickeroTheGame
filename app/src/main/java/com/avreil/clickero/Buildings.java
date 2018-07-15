@@ -58,35 +58,12 @@ Production
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_buildings);
-        Intent intent = getIntent();
-        gold = intent.getIntExtra("GoldToActivity", 0);
-        buildingsSharedPref = getSharedPreferences("BuildingsUpgradeInfo",0);
-        editor = buildingsSharedPref.edit();
-
-            //work classes
-        production = new TextView[productionBuildingsCounter][5];
-        infrastructure = new TextView[infrastructureBuildingsCounter][5];
-        amount = new TextView[materialCounter];
-        buildingProduction = new Building[productionBuildingsCounter];
-        buildingInfrastructure = new Building[infrastructureBuildingsCounter];
-        materials = new Materials();
-        productionBuyBtn = new Button[productionBuildingsCounter];
-        infrastructureBuyBtn = new Button[infrastructureBuildingsCounter];
-        //production
-        buildingProduction[0]= new Building("Lumber mill","Produce wood","Wood", 100,0,1);
-        buildingProduction[1] = new Building("Quarry", "Mine Stone","Stone", 250,1,1);
-
-        //infrastructure
-        buildingInfrastructure[0] = new Building("Bank","Increases gold storage", "goldStorage",1000,0,2);
-        buildingInfrastructure[1] = new Building("Wood Storehouse", "Increases wood storage","woodStorage",2000,1,2);
-        buildingInfrastructure[2] = new Building("Stone Depot", "Increases stone storage","stoneStorage",4000,2,2);
-
-
-
-        loadAll();          //load Data
-        initializeAll();    //initialize textViews
-        setAll();           //set textViews
-        production();       //start per second thread
+        initializeAndSetGameCore(); //initialize Intent/workClasses/TextViews/Buttons
+        buildClasses();              //build classes
+        loadAll();                  //load Data
+        initializeAll();            //initialize textViews
+        setAll();                   //set textViews
+        production();               //start per second thread
 
         Button BackButton = findViewById(R.id.backBtn);
         BackButton.setOnClickListener(new View.OnClickListener() {
@@ -107,9 +84,43 @@ Production
     }//END OF ON CREATE
 
 
-    private void initializeTables (){
-        
+    private void initializeAndSetGameCore (){
+        Intent intent = getIntent();
+        gold = intent.getIntExtra("GoldToActivity", 0);
+        buildingsSharedPref = getSharedPreferences("BuildingsUpgradeInfo",0);
+        editor = buildingsSharedPref.edit();
+
+        //work classes
+        production = new TextView[productionBuildingsCounter][5];
+        infrastructure = new TextView[infrastructureBuildingsCounter][5];
+        amount = new TextView[materialCounter];
+
+        buildingProduction = new Building[productionBuildingsCounter];
+        buildingInfrastructure = new Building[infrastructureBuildingsCounter];
+        materials = new Materials();
+
+        productionBuyBtn = new Button[productionBuildingsCounter];
+        infrastructureBuyBtn = new Button[infrastructureBuildingsCounter];
+
     }
+
+    private void buildClasses(){
+        prepareProductionBuildings();
+        prepareInfrastructureBuildings();
+    }
+    private void prepareProductionBuildings(){
+        buildingProduction[0]= new Building("Lumber mill","Produce wood","Wood", 100,0,1);
+        buildingProduction[1] = new Building("Quarry", "Mine Stone","Stone", 250,1,1);
+
+    }
+    private void prepareInfrastructureBuildings(){
+        buildingInfrastructure[0] = new Building("Bank","Increases gold storage", "goldStorage",1000,0,2);
+        buildingInfrastructure[1] = new Building("Wood Storehouse", "Increases wood storage","woodStorage",2000,1,2);
+        buildingInfrastructure[2] = new Building("Stone Depot", "Increases stone storage","stoneStorage",4000,2,2);
+
+    }
+
+
     private void initializeAndSetProductionButtons(){
         String btn="productionBuyBtn";
         int ID;

@@ -3,7 +3,7 @@
     <string name="startgame">New Game Button</string>
     <string name="new_game">New Game</string>
     <string name="textview">TextView</string>
-    <string name="playergoldammount">playerGoldAmmount</string>
+    <string name="playergoldammount">playerGoldAmount</string>
     <string name="dev_reset">DEV:Reset</string>
     <string name="back">Back</string>
     <string name="upgrade">Upgrade</string>
@@ -11,5 +11,6 @@
     <string name="title_activity_buildings">Buildings</string>
     <string name="upgrade_the_lord">Upgrade the Lord</string>
     <string name="buildings">Upgrade the Town</string>
+    <string name="build">Buy</string>
 
 </resources>
