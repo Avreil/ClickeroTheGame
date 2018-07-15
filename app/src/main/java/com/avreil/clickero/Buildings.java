@@ -59,28 +59,13 @@ Production
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_buildings);
         initializeAndSetGameCore(); //initialize Intent/workClasses/TextViews/Buttons
-        buildClasses();              //build classes
+        buildClasses();             //build classes
         loadAll();                  //load Data
         initializeAll();            //initialize textViews
         setAll();                   //set textViews
         production();               //start per second thread
-
-        Button BackButton = findViewById(R.id.backBtn);
-        BackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { goBack(); }});
-
-
-        //DEV BUTTON
-        Button resetButton = findViewById(R.id.resetBtn);
-        resetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { reset(); }});
-
-        Button devRise = findViewById(R.id.woodAddBtn);
-        devRise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { devAdd(); }});
+        goBack();                   //back to previous activity
+        developer();                //buttons to delete after development finish
     }//END OF ON CREATE
 
 
@@ -281,7 +266,7 @@ Production
         }
     }
 
-    //finished parts of code
+
     private void upgrade (Building _building) {
         if (gold >= _building.getPrice() && materials.getWood()>=_building.getPriceWood() && materials.getStone()>=_building.getPriceStone()) {
             gold = gold - _building.getPrice();
@@ -350,34 +335,43 @@ Production
         initializeAndSetInfrastructureButtons();
     }
 
-    //buttonSetUp's
+
     private void goBack(){
-        product.interrupt();
-        saveAll();
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("GoldBack", gold);
-        resultIntent.putExtra("GoldCapacityBack",buildingInfrastructure[0].getCapacity());
-        setResult(RESULT_OK, resultIntent);
-        finish();
-    }
-    private void devAdd(){
-        gold=500000;
-        materials.setWood(50000);
-        materials.setStone(50000);
-        setMaterialTextViews();
-    }
-    private void reset(){
-        gold = 0;
-        materials.reset();
-        for (int i=0;i<productionBuildingsCounter;i++){
-            buildingProduction[i].reset(); }
-        for (int i=0;i<infrastructureBuildingsCounter;i++){
-            buildingInfrastructure[i].reset();}
-        saveAll();
-        setAll();
+        Button BackButton = findViewById(R.id.backBtn);
+        BackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                product.interrupt();
+                saveAll();
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("GoldBack", gold);
+                resultIntent.putExtra("GoldCapacityBack",buildingInfrastructure[0].getCapacity());
+                setResult(RESULT_OK, resultIntent);
+                finish(); }});
 
     }
+    private void developer(){
+        Button resetButton = findViewById(R.id.resetBtn);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { gold = 0;
+                materials.reset();
+                for (int i=0;i<productionBuildingsCounter;i++){
+                    buildingProduction[i].reset(); }
+                for (int i=0;i<infrastructureBuildingsCounter;i++){
+                    buildingInfrastructure[i].reset();}
+                saveAll();
+                setAll(); }});
 
+        Button devRise = findViewById(R.id.woodAddBtn);
+        devRise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { gold=500000;
+                materials.setWood(50000);
+                materials.setStone(50000);
+                setMaterialTextViews(); }});
+
+    }
 
 }//END OF CLASS
 
