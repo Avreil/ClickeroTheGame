@@ -9,6 +9,10 @@ public class Materials {
         Wood=0;
     }
 
+    public void reset (){
+        this.Stone = 0;
+        this.Wood = 0;
+    }
     public Integer getStone() {
         return Stone;
     }

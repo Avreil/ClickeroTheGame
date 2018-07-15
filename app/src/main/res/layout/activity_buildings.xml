@@ -4,197 +4,367 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Buildings">
+    tools:context=".Buildings"
+    tools:layout_editor_absoluteY="25dp">
 
     <Button
         android:id="@+id/backBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:text="@string/back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/Resources"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/resetBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:text="@string/dev_reset"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.927"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.98" />
+        app:layout_constraintTop_toTopOf="@+id/DownGuideLine" />
 
     <ScrollView
         android:id="@+id/Infrastructure"
-        android:layout_width="225dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="true"
         android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@+id/DownGuideLine"
+        app:layout_constraintBottom_toTopOf="@+id/woodAddBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="@+id/UpGuideLine">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <TableLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 tools:layout_editor_absoluteX="33dp"
                 tools:layout_editor_absoluteY="182dp">
 
                 <TableRow
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/goldStorage0"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/goldStorage1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="TextView" />
 
                 </TableRow>
 
-                <TableRow>
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/goldStorage2"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/goldStorage3"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="TextView" />
                 </TableRow>
 
-                <TableRow>
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
 
                     <Button
                         android:id="@+id/infrastructureBuyBtn0"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="Button" />
 
                     <TextView
                         android:id="@+id/goldStorage4"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="TextView" />
                 </TableRow>
 
                 <TableRow
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/woodStorage0"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/woodStorage1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="TextView" />
 
                 </TableRow>
 
-                <TableRow>
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/woodStorage2"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/woodStorage3"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="TextView" />
                 </TableRow>
 
-                <TableRow>
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
 
                     <Button
                         android:id="@+id/infrastructureBuyBtn1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="Button" />
 
                     <TextView
                         android:id="@+id/woodStorage4"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="TextView" />
                 </TableRow>
 
                 <TableRow
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/stoneStorage0"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/stoneStorage1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="TextView" />
 
                 </TableRow>
 
-                <TableRow>
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/stoneStorage2"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="TextView" />
 
                     <TextView
                         android:id="@+id/stoneStorage3"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="TextView" />
                 </TableRow>
 
-                <TableRow>
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
 
                     <Button
                         android:id="@+id/infrastructureBuyBtn2"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="Button" />
 
                     <TextView
                         android:id="@+id/stoneStorage4"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="TextView" />
                 </TableRow>
+
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/UpGuideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="66dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/DownGuideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="301dp" />
+
+    <Button
+        android:id="@+id/woodAddBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DEV:WOOD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/resetBtn"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/DownGuideLine" />
+
+    <ScrollView
+        android:id="@+id/Production"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="true"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/DownGuideLine"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/UpGuideLine">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="420dp"
+                tools:layout_editor_absoluteY="75dp">
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/Wood0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/Wood1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/Wood2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/Wood3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    tools:layout_editor_absoluteX="158dp"
+                    tools:layout_editor_absoluteY="217dp">
+
+                    <Button
+                        android:id="@+id/productionBuyBtn0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Build" />
+
+                    <TextView
+                        android:id="@+id/Wood4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/Stone0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/Stone1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/Stone2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/Stone3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/productionBuyBtn1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Build" />
+
+                    <TextView
+                        android:id="@+id/Stone4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                </TableRow>
+
 
             </TableLayout>
         </LinearLayout>
@@ -205,11 +375,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/DownGuideLine"
-        app:layout_constraintEnd_toStartOf="@+id/Production"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/UpGuideLine"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toTopOf="@+id/UpGuideLine">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -294,171 +462,18 @@
         </LinearLayout>
     </ScrollView>
 
-    <ScrollView
-        android:id="@+id/Production"
-        android:layout_width="225dp"
-        android:layout_height="0dp"
-        android:clipToPadding="true"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@+id/DownGuideLine"
-        app:layout_constraintEnd_toStartOf="@+id/Infrastructure"
-        app:layout_constraintTop_toTopOf="@+id/UpGuideLine"
-        app:layout_constraintVertical_bias="1.0">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:layout_editor_absoluteX="34dp"
-                tools:layout_editor_absoluteY="181dp">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/Wood0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView" />
-
-                    <TextView
-                        android:id="@+id/Wood1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/Wood2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView" />
-
-                    <TextView
-                        android:id="@+id/Wood3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="265dp"
-                    android:layout_height="64dp"
-                    tools:layout_editor_absoluteX="158dp"
-                    tools:layout_editor_absoluteY="217dp">
-
-                    <Button
-                        android:id="@+id/productionBuyBtn0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Build" />
-
-                    <TextView
-                        android:id="@+id/Wood4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/Stone0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView" />
-
-                    <TextView
-                        android:id="@+id/Stone1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/Stone2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView" />
-
-                    <TextView
-                        android:id="@+id/Stone3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <Button
-                        android:id="@+id/productionBuyBtn1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Build" />
-
-                    <TextView
-                        android:id="@+id/Stone4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView" />
-
-                </TableRow>
-
-
-            </TableLayout>
-        </LinearLayout>
-    </ScrollView>
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="320dp" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/UpGuideLine"
+        android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="66dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/DownGuideLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="301dp" />
-
-    <Button
-        android:id="@+id/woodAddBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="DEV:WOOD"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/resetBtn"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="70dp" />
 
 </android.support.constraint.ConstraintLayout>

@@ -29,7 +29,7 @@ public class Building {
 
         if (type == 2){
             priceWood = _basePrice/10;
-            priceStone = _basePrice/5;
+            priceStone = _basePrice/20;
         }else{
             priceWood = 0;
             priceStone = 0;
@@ -73,9 +73,6 @@ public class Building {
 
     }
 
-
-
-
     public String getPriceString(){
         if(priceWood==0 && priceStone ==0){
             return ("Gold\n"+Integer.toString(price));
@@ -112,7 +109,7 @@ public class Building {
         capacity = 10000;
         if (type == 2){
             priceWood = TEMPbaseprice/10;
-            priceStone = TEMPbaseprice/5;
+            priceStone = TEMPbaseprice/20;
         }else{
             priceWood = 0;
             priceStone = 0;
