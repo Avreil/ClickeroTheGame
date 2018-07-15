@@ -75,6 +75,8 @@ public class MainGameScreen extends AppCompatActivity {
                 cash.setMultiplier(1);
                 cash.setCritical(0);
                 goldDisplay.setText(Integer.toString(cash.getGold()));
+                multiplierDisplay.setText("Per Click: "+Integer.toString(cash.getMultiplier()));
+
                 saveData();
 
             }
