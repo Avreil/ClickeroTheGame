@@ -143,8 +143,10 @@ Production
             @Override
             public void onClick(View v) {
                 wood.interrupt();
-                stone.interrupt();
-                saveMaterialListData();
+                //stone.interrupt();
+                saveMaterialById(0);
+                saveInfrastructureBuildingData();
+                saveProductionBuildingData();
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("GoldBack", gold);
                 resultIntent.putExtra("GoldCapacityBack",buildingInfrastructure[0].getCapacity());
@@ -184,7 +186,8 @@ Production
             }
         };
        wood.start();
-
+       production();
+/*
          stone = new Thread(){
             @Override
             public void run() {
@@ -208,6 +211,7 @@ Production
             }
         };
         stone.start();
+        */
 
 
     }//END OF ON CREATE
@@ -406,7 +410,30 @@ Production
 
     }//function
 
-
-
+    public void production() {
+        Thread stone = new Thread() {
+            @Override
+            public void run() {
+                while (!isInterrupted()) {
+                    try {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (materials.getStone() < buildingInfrastructure[2].getCapacity()) {
+                                    materials.setStone((int) (materials.getStone() + buildingProduction[1].getPerSecond()));
+                                    amount[2].setText(Integer.toString(materials.getStone()));
+                                    saveMaterialById(1);
+                                }
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        stone.start();
+    }
 
 }//END OF CLASS
