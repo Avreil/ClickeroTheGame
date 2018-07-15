@@ -9,18 +9,17 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainGameScreen extends AppCompatActivity {
+public class MainGameScreenActivity extends AppCompatActivity {
 
 
     private String multiplier ="Multiplier",playerGold="Player Gold",critical="Critical",capacity="Capacity";
     private TextView goldDisplay,multiplierDisplay;
     private SharedPreferences mainGameSharedPref;
     private SharedPreferences.Editor editor;
-    private ClickAdder cash;
+    private MainGameScreenClass cash;
     private Toast criticalToast,bankFull;
 
 
@@ -39,7 +38,7 @@ public class MainGameScreen extends AppCompatActivity {
         setContentView(R.layout.activity_main_game_screen);
         mainGameSharedPref = getSharedPreferences("MainGameInfo", MODE_PRIVATE);
         editor = mainGameSharedPref.edit();
-        cash = new ClickAdder();
+        cash = new MainGameScreenClass();
         loadData(cash);
 
         //mainGme TextViews
@@ -99,7 +98,7 @@ public class MainGameScreen extends AppCompatActivity {
         lordUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent startLordUpgrades= new Intent(getApplicationContext(), LordUpgrade.class);
+                Intent startLordUpgrades= new Intent(getApplicationContext(), LordUpgradeActivity.class);
                 startLordUpgrades.putExtra("GoldToActivity", cash.getGold());
                 startLordUpgrades.putExtra("MultiplierToLord", cash.getMultiplier());
                 startLordUpgrades.putExtra("CriticalToLord",cash.getCritical());
@@ -113,7 +112,7 @@ public class MainGameScreen extends AppCompatActivity {
         buildUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent startBuildingUpgrades= new Intent(getApplicationContext(), Buildings.class);
+                Intent startBuildingUpgrades= new Intent(getApplicationContext(), BuildingActivity.class);
                 startBuildingUpgrades.putExtra("GoldToActivity", cash.getGold());
                 startActivityForResult(startBuildingUpgrades,1);
 
@@ -149,7 +148,7 @@ public class MainGameScreen extends AppCompatActivity {
 
     }
 
-    public void loadData(ClickAdder _cash){
+    public void loadData(MainGameScreenClass _cash){
         _cash.setGold(mainGameSharedPref.getInt(playerGold,0));
         _cash.setMultiplier(mainGameSharedPref.getInt(multiplier,0));
         _cash.setCritical(mainGameSharedPref.getInt(critical,0));

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".GameStartActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,13 +19,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainGameScreen"
+            android:name=".MainGameScreenActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".LordUpgrade"
+            android:name=".LordUpgradeActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".Buildings"
+            android:name=".BuildingActivity"
             android:screenOrientation="landscape"  >
         </activity>
     </application>

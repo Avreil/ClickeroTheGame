@@ -10,15 +10,15 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class Buildings extends AppCompatActivity {
+public class BuildingActivity extends AppCompatActivity {
     private int productionBuildingsCounter = 2;
     private int materialCounter=3;
     private int infrastructureBuildingsCounter=3;
     private Integer gold;
     private SharedPreferences buildingsSharedPref;
     private SharedPreferences.Editor editor;
-    private Materials materials;
-    private Building[] buildingProduction,buildingInfrastructure;
+    private MaterialsClass materialsClass;
+    private BuildingClass[] buildingClassProduction, buildingClassInfrastructure;
     private TextView[][] production,infrastructure;
     private TextView[] amount;
     private String amo = "amount";
@@ -80,9 +80,9 @@ Production
         infrastructure = new TextView[infrastructureBuildingsCounter][5];
         amount = new TextView[materialCounter];
 
-        buildingProduction = new Building[productionBuildingsCounter];
-        buildingInfrastructure = new Building[infrastructureBuildingsCounter];
-        materials = new Materials();
+        buildingClassProduction = new BuildingClass[productionBuildingsCounter];
+        buildingClassInfrastructure = new BuildingClass[infrastructureBuildingsCounter];
+        materialsClass = new MaterialsClass();
 
         productionBuyBtn = new Button[productionBuildingsCounter];
         infrastructureBuyBtn = new Button[infrastructureBuildingsCounter];
@@ -94,14 +94,14 @@ Production
         prepareInfrastructureBuildings();
     }
     private void prepareProductionBuildings(){
-        buildingProduction[0]= new Building("Lumber mill","Produce wood","Wood", 100,0,1);
-        buildingProduction[1] = new Building("Quarry", "Mine Stone","Stone", 250,1,1);
+        buildingClassProduction[0]= new BuildingClass("Lumber mill","Produce wood","Wood", 100,0,1);
+        buildingClassProduction[1] = new BuildingClass("Quarry", "Mine Stone","Stone", 250,1,1);
 
     }
     private void prepareInfrastructureBuildings(){
-        buildingInfrastructure[0] = new Building("Bank","Increases gold storage", "goldStorage",1000,0,2);
-        buildingInfrastructure[1] = new Building("Wood Storehouse", "Increases wood storage","woodStorage",2000,1,2);
-        buildingInfrastructure[2] = new Building("Stone Depot", "Increases stone storage","stoneStorage",4000,2,2);
+        buildingClassInfrastructure[0] = new BuildingClass("Bank","Increases gold storage", "goldStorage",1000,0,2);
+        buildingClassInfrastructure[1] = new BuildingClass("Wood Storehouse", "Increases wood storage","woodStorage",2000,1,2);
+        buildingClassInfrastructure[2] = new BuildingClass("Stone Depot", "Increases stone storage","stoneStorage",4000,2,2);
 
     }
 
@@ -116,7 +116,7 @@ Production
             productionBuyBtn[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    upgrade(buildingProduction[k]);}
+                    upgrade(buildingClassProduction[k]);}
             });
         }
     }
@@ -130,7 +130,7 @@ Production
             infrastructureBuyBtn[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    upgrade(buildingInfrastructure[k]);}
+                    upgrade(buildingClassInfrastructure[k]);}
             });
         }
     }
@@ -145,18 +145,18 @@ Production
     }
     private void setMaterialTextViews(){
         amount[0].setText(Integer.toString(gold));
-        amount[1].setText(Integer.toString(materials.getWood()));
-        amount[2].setText(Integer.toString(materials.getStone()));
+        amount[1].setText(Integer.toString(materialsClass.getWood()));
+        amount[2].setText(Integer.toString(materialsClass.getStone()));
     }
     private void saveMaterialListData(){
-        editor.putInt("Wood",materials.getWood());
-        editor.putInt("Stone",materials.getStone());
+        editor.putInt("Wood", materialsClass.getWood());
+        editor.putInt("Stone", materialsClass.getStone());
         editor.apply();
     }
     private void loadMaterialListData(){
 
-        materials.setWood(buildingsSharedPref.getInt("Wood", 0));
-        materials.setStone(buildingsSharedPref.getInt("Stone",0));
+        materialsClass.setWood(buildingsSharedPref.getInt("Wood", 0));
+        materialsClass.setStone(buildingsSharedPref.getInt("Stone",0));
     }
 
     private void initializeProductionBuildingsTextView(){
@@ -165,8 +165,8 @@ Production
         for(int j = 0; j<productionBuildingsCounter;j++) {
             for (int i = 0; i < 5; i++) {
 
-                ID = getResources().getIdentifier(buildingProduction[j].getMaterial() + Integer.toString(i), "id", getPackageName());
-                production[buildingProduction[j].getId()][i] = findViewById(ID);
+                ID = getResources().getIdentifier(buildingClassProduction[j].getMaterial() + Integer.toString(i), "id", getPackageName());
+                production[buildingClassProduction[j].getId()][i] = findViewById(ID);
 
             }
         }
@@ -177,19 +177,19 @@ Production
             for (int i = 0; i < 5; i++) {
                 switch (i) {
                     case 0:
-                        production[buildingProduction[j].getId()][i].setText(buildingProduction[j].getName());
+                        production[buildingClassProduction[j].getId()][i].setText(buildingClassProduction[j].getName());
                         break;
                     case 1:
-                        production[buildingProduction[j].getId()][i].setText(buildingProduction[j].getDesc());
+                        production[buildingClassProduction[j].getId()][i].setText(buildingClassProduction[j].getDesc());
                         break;
                     case 2:
-                        production[buildingProduction[j].getId()][i].setText("Level:  " + buildingProduction[j].getCounterString());
+                        production[buildingClassProduction[j].getId()][i].setText("Level:  " + buildingClassProduction[j].getCounterString());
                         break;
                     case 3:
-                        production[buildingProduction[j].getId()][i].setText(buildingProduction[j].getPerSecondString());
+                        production[buildingClassProduction[j].getId()][i].setText(buildingClassProduction[j].getPerSecondString());
                         break;
                     case 4:
-                        production[buildingProduction[j].getId()][i].setText(buildingProduction[j].getPriceString());
+                        production[buildingClassProduction[j].getId()][i].setText(buildingClassProduction[j].getPriceString());
                         break;
                 }
             }
@@ -197,17 +197,17 @@ Production
     }
     private void saveProductionBuildingData(){
         for(int i = 0;i<productionBuildingsCounter;i++) {
-            editor.putInt(buildingProduction[i].getName() + "2", buildingProduction[i].getCounter());
-            editor.putLong(buildingProduction[i].getName() + "3", Double.doubleToRawLongBits(buildingProduction[i].getPerSecond()));
-            editor.putInt(buildingProduction[i].getName() + "4", buildingProduction[i].getPrice());
+            editor.putInt(buildingClassProduction[i].getName() + "2", buildingClassProduction[i].getCounter());
+            editor.putLong(buildingClassProduction[i].getName() + "3", Double.doubleToRawLongBits(buildingClassProduction[i].getPerSecond()));
+            editor.putInt(buildingClassProduction[i].getName() + "4", buildingClassProduction[i].getPrice());
             editor.apply();
         }
     }
     private void loadProductionBuildingData(){
         for (int i = 0;i<productionBuildingsCounter;i++) {
-            buildingProduction[i].setCounter(buildingsSharedPref.getInt(buildingProduction[i].getName() + "2", 0));
-            buildingProduction[i].setPerSecond(Double.longBitsToDouble(buildingsSharedPref.getLong(buildingProduction[i].getName() + "3", 0)));
-            buildingProduction[i].setPrice(buildingsSharedPref.getInt(buildingProduction[i].getName() + "4", 0));
+            buildingClassProduction[i].setCounter(buildingsSharedPref.getInt(buildingClassProduction[i].getName() + "2", 0));
+            buildingClassProduction[i].setPerSecond(Double.longBitsToDouble(buildingsSharedPref.getLong(buildingClassProduction[i].getName() + "3", 0)));
+            buildingClassProduction[i].setPrice(buildingsSharedPref.getInt(buildingClassProduction[i].getName() + "4", 0));
         }
     }
 
@@ -217,8 +217,8 @@ Production
         for (int j=0;j<infrastructureBuildingsCounter;j++) {
             for (int i = 0; i < 5; i++) {
 
-                ID = getResources().getIdentifier(buildingInfrastructure[j].getMaterial() + Integer.toString(i), "id", getPackageName());
-                infrastructure[buildingInfrastructure[j].getId()][i] = findViewById(ID);
+                ID = getResources().getIdentifier(buildingClassInfrastructure[j].getMaterial() + Integer.toString(i), "id", getPackageName());
+                infrastructure[buildingClassInfrastructure[j].getId()][i] = findViewById(ID);
 
             }
         }
@@ -228,19 +228,19 @@ Production
         for (int i = 0; i < 5; i++) {
             switch (i) {
                 case 0:
-                    infrastructure[buildingInfrastructure[j].getId()][i].setText(buildingInfrastructure[j].getName());
+                    infrastructure[buildingClassInfrastructure[j].getId()][i].setText(buildingClassInfrastructure[j].getName());
                     break;
                 case 1:
-                    infrastructure[buildingInfrastructure[j].getId()][i].setText(buildingInfrastructure[j].getDesc());
+                    infrastructure[buildingClassInfrastructure[j].getId()][i].setText(buildingClassInfrastructure[j].getDesc());
                     break;
                 case 2:
-                    infrastructure[buildingInfrastructure[j].getId()][i].setText("Level:  " + buildingInfrastructure[j].getCounterString());
+                    infrastructure[buildingClassInfrastructure[j].getId()][i].setText("Level:  " + buildingClassInfrastructure[j].getCounterString());
                     break;
                 case 3:
-                    infrastructure[buildingInfrastructure[j].getId()][i].setText(buildingInfrastructure[j].getCapacityString());
+                    infrastructure[buildingClassInfrastructure[j].getId()][i].setText(buildingClassInfrastructure[j].getCapacityString());
                     break;
                 case 4:
-                    infrastructure[buildingInfrastructure[j].getId()][i].setText(buildingInfrastructure[j].getPriceString());
+                    infrastructure[buildingClassInfrastructure[j].getId()][i].setText(buildingClassInfrastructure[j].getPriceString());
                     break;
             }
         }
@@ -248,33 +248,33 @@ Production
     }
     private void saveInfrastructureBuildingData(){
         for(int i=0;i<infrastructureBuildingsCounter;i++) {
-            editor.putInt(buildingInfrastructure[i].getName() + "2", buildingInfrastructure[i].getCounter());
-            editor.putInt(buildingInfrastructure[i].getName() + "3", buildingInfrastructure[i].getCapacity());
-            editor.putInt(buildingInfrastructure[i].getName() + "4", buildingInfrastructure[i].getPrice());
-            editor.putInt(buildingInfrastructure[i].getName() + "5", buildingInfrastructure[i].getPriceWood());
-            editor.putInt(buildingInfrastructure[i].getName() + "6", buildingInfrastructure[i].getPriceStone());
+            editor.putInt(buildingClassInfrastructure[i].getName() + "2", buildingClassInfrastructure[i].getCounter());
+            editor.putInt(buildingClassInfrastructure[i].getName() + "3", buildingClassInfrastructure[i].getCapacity());
+            editor.putInt(buildingClassInfrastructure[i].getName() + "4", buildingClassInfrastructure[i].getPrice());
+            editor.putInt(buildingClassInfrastructure[i].getName() + "5", buildingClassInfrastructure[i].getPriceWood());
+            editor.putInt(buildingClassInfrastructure[i].getName() + "6", buildingClassInfrastructure[i].getPriceStone());
             editor.apply();
         }
     }
     private void loadInfrastructureBuildingData (){
         for(int i = 0; i< infrastructureBuildingsCounter;i++) {
-            buildingInfrastructure[i].setCounter(buildingsSharedPref.getInt(buildingInfrastructure[i].getName() + "2", 0));
-            buildingInfrastructure[i].setCapacity(buildingsSharedPref.getInt(buildingInfrastructure[i].getName() + "3", 0));
-            buildingInfrastructure[i].setPrice(buildingsSharedPref.getInt(buildingInfrastructure[i].getName() + "4", 0));
-            buildingInfrastructure[i].setPriceWood(buildingsSharedPref.getInt(buildingInfrastructure[i].getName() + "5", 0));
-            buildingInfrastructure[i].setPriceStone(buildingsSharedPref.getInt(buildingInfrastructure[i].getName() + "6", 0));
+            buildingClassInfrastructure[i].setCounter(buildingsSharedPref.getInt(buildingClassInfrastructure[i].getName() + "2", 0));
+            buildingClassInfrastructure[i].setCapacity(buildingsSharedPref.getInt(buildingClassInfrastructure[i].getName() + "3", 0));
+            buildingClassInfrastructure[i].setPrice(buildingsSharedPref.getInt(buildingClassInfrastructure[i].getName() + "4", 0));
+            buildingClassInfrastructure[i].setPriceWood(buildingsSharedPref.getInt(buildingClassInfrastructure[i].getName() + "5", 0));
+            buildingClassInfrastructure[i].setPriceStone(buildingsSharedPref.getInt(buildingClassInfrastructure[i].getName() + "6", 0));
         }
     }
 
 
-    private void upgrade (Building _building) {
-        if (gold >= _building.getPrice() && materials.getWood()>=_building.getPriceWood() && materials.getStone()>=_building.getPriceStone()) {
-            gold = gold - _building.getPrice();
-            materials.setStone(materials.getStone()-_building.getPriceStone());
-            materials.setWood(materials.getWood()-_building.getPriceWood());
+    private void upgrade (BuildingClass _buildingClass) {
+        if (gold >= _buildingClass.getPrice() && materialsClass.getWood()>= _buildingClass.getPriceWood() && materialsClass.getStone()>= _buildingClass.getPriceStone()) {
+            gold = gold - _buildingClass.getPrice();
+            materialsClass.setStone(materialsClass.getStone()- _buildingClass.getPriceStone());
+            materialsClass.setWood(materialsClass.getWood()- _buildingClass.getPriceWood());
             setMaterialTextViews();
-            _building.upgradeBuilding();
-            switch(_building.getType()){
+            _buildingClass.upgradeBuilding();
+            switch(_buildingClass.getType()){
                 case 1:
                     setProductionTextView();
                     break;
@@ -295,12 +295,12 @@ Production
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (materials.getWood()< buildingInfrastructure[1].getCapacity()) {
-                                    materials.setWood((int) (materials.getWood() + buildingProduction[0].getPerSecond()));
-                                    amount[1].setText(Integer.toString(materials.getWood())); }
-                                if (materials.getStone() < buildingInfrastructure[2].getCapacity()) {
-                                    materials.setStone((int) (materials.getStone() + buildingProduction[1].getPerSecond()));
-                                    amount[2].setText(Integer.toString(materials.getStone())); }
+                                if (materialsClass.getWood()< buildingClassInfrastructure[1].getCapacity()) {
+                                    materialsClass.setWood((int) (materialsClass.getWood() + buildingClassProduction[0].getPerSecond()));
+                                    amount[1].setText(Integer.toString(materialsClass.getWood())); }
+                                if (materialsClass.getStone() < buildingClassInfrastructure[2].getCapacity()) {
+                                    materialsClass.setStone((int) (materialsClass.getStone() + buildingClassProduction[1].getPerSecond()));
+                                    amount[2].setText(Integer.toString(materialsClass.getStone())); }
                             }
                         });
                     } catch (InterruptedException e) {
@@ -345,7 +345,7 @@ Production
                 saveAll();
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("GoldBack", gold);
-                resultIntent.putExtra("GoldCapacityBack",buildingInfrastructure[0].getCapacity());
+                resultIntent.putExtra("GoldCapacityBack", buildingClassInfrastructure[0].getCapacity());
                 setResult(RESULT_OK, resultIntent);
                 finish(); }});
 
@@ -355,11 +355,11 @@ Production
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { gold = 0;
-                materials.reset();
+                materialsClass.reset();
                 for (int i=0;i<productionBuildingsCounter;i++){
-                    buildingProduction[i].reset(); }
+                    buildingClassProduction[i].reset(); }
                 for (int i=0;i<infrastructureBuildingsCounter;i++){
-                    buildingInfrastructure[i].reset();}
+                    buildingClassInfrastructure[i].reset();}
                 saveAll();
                 setAll(); }});
 
@@ -367,8 +367,8 @@ Production
         devRise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { gold=500000;
-                materials.setWood(50000);
-                materials.setStone(50000);
+                materialsClass.setWood(50000);
+                materialsClass.setStone(50000);
                 setMaterialTextViews(); }});
 
     }
@@ -382,11 +382,11 @@ Production
 public void saveMaterialById(int _id){
         switch (_id){
             case 0:
-                editor.putInt("Wood",materials.getWood());
+                editor.putInt("Wood",materialsClass.getWood());
                 editor.apply();
                 break;
             case 1:
-                editor.putInt("Stone",materials.getStone());
+                editor.putInt("Stone",materialsClass.getStone());
                 editor.apply();
                 break;
         }

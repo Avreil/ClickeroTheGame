@@ -1,11 +1,11 @@
 package com.avreil.clickero;
 
-public class LordUpgrades {
+public class LordUpgradeClass {
 
     public Integer price, basePrice, counter, limit;
     public String idNumber;
 
-    public LordUpgrades(Integer _basePrice,Integer _limit,String _idNumber)
+    public LordUpgradeClass(Integer _basePrice, Integer _limit, String _idNumber)
     {
         basePrice=_basePrice;
         idNumber=_idNumber;

@@ -5,7 +5,7 @@
     android:id="@+id/MainGameScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainGameScreen">
+    tools:context=".MainGameScreenActivity">
 
     <TextView
         android:id="@+id/multiplierAmount"

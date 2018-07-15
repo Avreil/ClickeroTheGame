@@ -1,10 +1,10 @@
 package com.avreil.clickero;
 
-public class Materials {
+public class MaterialsClass {
 
     Integer Stone,Wood;
 
-    public Materials(){
+    public MaterialsClass(){
         Stone=0;
         Wood=0;
     }

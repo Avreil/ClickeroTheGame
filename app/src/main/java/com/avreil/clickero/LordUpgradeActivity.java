@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class LordUpgrade extends AppCompatActivity {
+public class LordUpgradeActivity extends AppCompatActivity {
 
     private Integer gold, multiplier, critical;
     private double calculatedPrice;
@@ -18,7 +18,7 @@ public class LordUpgrade extends AppCompatActivity {
     private TextView upgradeName1, boughtCount1, unitPrice1;
     private TextView upgradeName2, boughtCount2, unitPrice2;
     private SharedPreferences.Editor editor;
-    private LordUpgrades upgrade1,upgrade2;
+    private LordUpgradeClass upgrade1,upgrade2;
     private SharedPreferences lordSharedPref;
     private String counter = "counter",price="price";
 
@@ -55,8 +55,8 @@ public class LordUpgrade extends AppCompatActivity {
 
 
         //initialize upgrade Class'es
-        upgrade1 = new LordUpgrades(10,5,"1");
-        upgrade2 = new LordUpgrades(200,10,"2");
+        upgrade1 = new LordUpgradeClass(10,5,"1");
+        upgrade2 = new LordUpgradeClass(200,10,"2");
 
         //load upgrade data
         loadData(upgrade1);
@@ -144,18 +144,18 @@ public class LordUpgrade extends AppCompatActivity {
     }
 
 
-    public void loadData(LordUpgrades _upgrade){
+    public void loadData(LordUpgradeClass _upgrade){
         _upgrade.setCounter(lordSharedPref.getInt(counter+_upgrade.getIdNumber(),_upgrade.getCounter()));
         _upgrade.setPrice(lordSharedPref.getInt(price+_upgrade.getIdNumber(),_upgrade.getPrice()));
     }
 
-    public void saveData (LordUpgrades _upgrade){
+    public void saveData (LordUpgradeClass _upgrade){
         editor.putInt(counter+_upgrade.getIdNumber(), _upgrade.getCounter());
         editor.putInt(price+_upgrade.getIdNumber(), _upgrade.getPrice());
         editor.apply();
     }
 
-    public void itemBought(LordUpgrades _upgrade) {
+    public void itemBought(LordUpgradeClass _upgrade) {
         gold=gold-_upgrade.getPrice();
         moneyAmount.setText(Integer.toString(gold));
         calculatedPrice = (_upgrade.getBasePrice()+(_upgrade.getBasePrice() * _upgrade.getCounter()) + (0.4 * _upgrade.getPrice()));

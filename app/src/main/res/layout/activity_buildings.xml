@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Buildings"
+    tools:context=".BuildingActivity"
     tools:layout_editor_absoluteY="25dp">
 
     <Button
@@ -95,7 +95,7 @@
                         android:id="@+id/infrastructureBuyBtn0"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="@string/build" />
+                        android:text="build" />
 
                     <TextView
                         android:id="@+id/goldStorage4"
@@ -147,7 +147,7 @@
                         android:id="@+id/infrastructureBuyBtn1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="@string/build" />
+                        android:text="build" />
 
                     <TextView
                         android:id="@+id/woodStorage4"
@@ -199,7 +199,7 @@
                         android:id="@+id/infrastructureBuyBtn2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="@string/build" />
+                        android:text="build" />
 
                     <TextView
                         android:id="@+id/stoneStorage4"
@@ -306,7 +306,7 @@
                         android:id="@+id/productionBuyBtn0"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="@string/build" />
+                        android:text="build" />
 
                     <TextView
                         android:id="@+id/Wood4"
@@ -359,7 +359,7 @@
                         android:id="@+id/productionBuyBtn1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="@string/build" />
+                        android:text="build" />
 
                     <TextView
                         android:id="@+id/Stone4"

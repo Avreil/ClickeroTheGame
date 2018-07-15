@@ -6,7 +6,7 @@ package com.avreil.clickero;
 1 - production
 2 - infrastructure
 */
-public class Building {
+public class BuildingClass {
     protected Integer TEMPbaseprice;
     protected int type;
 
@@ -15,7 +15,7 @@ public class Building {
     Double perSecond;
     int id;
 
-    public Building(String _name, String _desc, String _material,Integer _basePrice,int _id,int _type){
+    public BuildingClass(String _name, String _desc, String _material, Integer _basePrice, int _id, int _type){
         name = _name;
         desc = _desc;
         price = _basePrice;

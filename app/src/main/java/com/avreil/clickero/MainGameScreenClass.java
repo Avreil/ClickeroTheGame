@@ -3,7 +3,7 @@ package com.avreil.clickero;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ClickAdder{
+public class MainGameScreenClass {
     Integer gold,multiplier,critical,capacity;
 
 
@@ -11,7 +11,7 @@ public class ClickAdder{
 
 
 
-    public ClickAdder(){
+    public MainGameScreenClass(){
 
         gold=0;
         multiplier=1;
