@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +21,7 @@ public class MainGameScreen extends AppCompatActivity {
     private SharedPreferences mainGameSharedPref;
     private SharedPreferences.Editor editor;
     private ClickAdder cash;
-    private Toast criticalToast;
+    private Toast criticalToast,bankFull;
 
 
 
@@ -55,17 +56,12 @@ public class MainGameScreen extends AppCompatActivity {
         gameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(((int)(Math.random()*100)) <= cash.critical) {
-                    criticalToast.makeText(getApplicationContext(), "Critical Hit! +"+Integer.toString(5*cash.getMultiplier()),
-                            Toast.LENGTH_SHORT).show();
-                    cash.raiseGoldCrit();
-
+                if (cash.getGold()<cash.getCapacity()){
+                    clickOnScreen();
                 }else{
-                    cash.raiseGold();}
+                    bankFull.makeText(getApplicationContext(),"Bank is Full",Toast.LENGTH_SHORT).show();
+                }
 
-                goldDisplay.setText(Integer.toString(cash.getGold()));
-                saveData();
 
             }
         });
@@ -155,6 +151,22 @@ public class MainGameScreen extends AppCompatActivity {
         _cash.setGold(mainGameSharedPref.getInt(playerGold,0));
         _cash.setMultiplier(mainGameSharedPref.getInt(multiplier,0));
         _cash.setCritical(mainGameSharedPref.getInt(critical,0));
+        _cash.setCapacity(mainGameSharedPref.getInt(capacity,0));
+    }
+
+    public void clickOnScreen(){
+
+            if(((int)(Math.random()*100)) < cash.critical) {
+                criticalToast.makeText(getApplicationContext(), "Critical Hit! +"+Integer.toString(5*cash.getMultiplier()),
+                        Toast.LENGTH_SHORT).show();
+                cash.raiseGoldCrit();
+
+            }else{
+                cash.raiseGold();}
+
+            goldDisplay.setText(Integer.toString(cash.getGold()));
+            saveData();
+
     }
 
 }
