@@ -54,18 +54,17 @@ Production
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_buildings);
-        initializeAndSetGameCore(); //initialize Intent/workClasses/TextViews/Buttons
+
+        basicActivitySetup();       //set GameScreen
+        initializeAndSetGameCore(); //initialize Intent/workClasses/TextViews[][]/Buttons[]
         buildClasses();             //build classes
         loadAll();                  //load Data
         initializeAll();            //initialize textViews
         setAll();                   //set textViews
-        production();               //start per second thread
+        production();               //start perSecond thread
         goBack();                   //back to previous activity
         developer();                //buttons to delete after development finish
+
     }//END OF ON CREATE
 
 
@@ -108,11 +107,13 @@ Production
 
     private void initializeAndSetProductionButtons(){
         String btn="productionBuyBtn";
+        String tmpBtn;
         int ID;
         for (int i = 0;i<productionBuildingsCounter;i++){
             final int k = i;
-            ID = getResources().getIdentifier(btn+Integer.toString(i),"id",getPackageName());
-            productionBuyBtn[i] =findViewById(ID);
+            tmpBtn =(btn+String.valueOf(i));
+            ID = getResources().getIdentifier(tmpBtn,"id",getPackageName());
+            productionBuyBtn[i] = findViewById(ID);
             productionBuyBtn[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -285,7 +286,7 @@ Production
         }//if
 
     }
-    private void production() {
+    public void production() {
         product = new Thread() {
             @Override
             public void run() {
@@ -373,7 +374,11 @@ Production
 
     }
 
-}//END OF CLASS
+    private void basicActivitySetup(){
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_main_game_screen);}}//END OF CLASS
 
 
 

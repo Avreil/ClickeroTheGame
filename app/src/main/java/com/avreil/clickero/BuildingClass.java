@@ -7,7 +7,7 @@ package com.avreil.clickero;
 2 - infrastructure
 */
 public class BuildingClass {
-    protected Integer TEMPbaseprice;
+    protected Integer TempBasePrice;
     protected int type;
 
     String name, desc,material;
@@ -19,7 +19,7 @@ public class BuildingClass {
         name = _name;
         desc = _desc;
         price = _basePrice;
-        TEMPbaseprice=_basePrice;
+        TempBasePrice =_basePrice;
         counter = 0;
         perSecond = 0.0 ;
         id=_id;
@@ -36,56 +36,7 @@ public class BuildingClass {
         }
     }
 
-    public int getType() {
-        return type;
-    }
 
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public void raiseCapacity(){
-        this.capacity=10000+(10000*(this.counter*this.counter));
-    }
-
-    public void raisePerSecond(){
-        this.perSecond = ((double)((int)(100*(this.perSecond+1.0+(0.2*this.perSecond)))))/100;
-    }
-    public String getCapacityString(){ return Integer.toString(capacity); }
-    public Integer getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
-    }
-
-    public String getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(String material) {
-        this.material = material;
-    }
-
-    public String getCounterString(){
-        return Integer.toString(counter);
-
-    }
-
-    public String getPriceString(){
-        if(priceWood==0 && priceStone ==0){
-            return ("Gold\n"+Integer.toString(price));
-        }else{
-            return ("Gold\tWood\tStone\n"+Integer.toString(price)+"\t"+Integer.toString(priceWood)+"\t"+Integer.toString(priceStone));
-        }
-
-    }
-
-    public String getPerSecondString(){
-        return Double.toString(perSecond);
-
-    }
 
     public void upgradeBuilding() {
         this.counter = this.counter + 1;
@@ -101,15 +52,14 @@ public class BuildingClass {
                 break;
         }
     }
-
     public void reset(){
-        price = TEMPbaseprice;
+        price = TempBasePrice;
         counter = 0;
         perSecond = 0.0 ;
         capacity = 10000;
         if (type == 2){
-            priceWood = TEMPbaseprice/10;
-            priceStone = TEMPbaseprice/20;
+            priceWood = TempBasePrice /10;
+            priceStone = TempBasePrice /20;
         }else{
             priceWood = 0;
             priceStone = 0;
@@ -118,68 +68,99 @@ public class BuildingClass {
 
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+
 
     public int getId() {
         return id;
     }
-
-    public void setCounter(Integer counter) {
-        this.counter = counter;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPerSecond(Double perSecond) {
-        this.perSecond = perSecond;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
     public Double getPerSecond() {
         return perSecond;
     }
-
     public Integer getCounter() {
         return counter;
     }
-
     public Integer getPrice() {
         return price;
     }
-
     public String getDesc() {
         return desc;
     }
-
     public String getName() {
         return name;
     }
-
     public Integer getPriceStone() {
         return priceStone;
     }
-
     public Integer getPriceWood() {
         return priceWood;
     }
+    public String getCounterString(){
+        return Integer.toString(counter);
 
+    }
+    public String getPriceString(){
+        if(priceWood==0 && priceStone ==0){
+            return ("Gold\n"+Integer.toString(price));
+        }else{
+            return ("Gold\tWood\tStone\n"+Integer.toString(price)+"\t"+Integer.toString(priceWood)+"\t"+Integer.toString(priceStone));
+        }
+
+    }
+    public String getPerSecondString(){
+        return Double.toString(perSecond);
+
+    }
+    public String getMaterial() {
+        return material;
+    }
+    public String getCapacityString(){ return Integer.toString(capacity); }
+    public Integer getCapacity() {
+        return capacity;
+    }
+    public int getType() {
+        return type;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     public void setPriceStone(Integer priceStone) {
         this.priceStone = priceStone;
     }
-
     public void setPriceWood(Integer priceWood) {
         this.priceWood = priceWood;
     }
+    public void setCounter(Integer counter) {
+        this.counter = counter;
+    }
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setPerSecond(Double perSecond) {
+        this.perSecond = perSecond;
+    }
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+    public void setMaterial(String material) {
+        this.material = material;
+    }
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public void raiseCapacity(){
+        this.capacity=10000+(10000*(this.counter*this.counter));
+    }
+    public void raisePerSecond(){
+        this.perSecond = ((double)((int)(100*(this.perSecond+1.0+(0.2*this.perSecond)))))/100;
+    }
+
 }
 
