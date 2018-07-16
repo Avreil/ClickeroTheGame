@@ -107,12 +107,10 @@ Production
 
     private void initializeAndSetProductionButtons(){
         String btn="productionBuyBtn";
-        String tmpBtn;
         int ID;
         for (int i = 0;i<productionBuildingsCounter;i++){
             final int k = i;
-            tmpBtn =(btn+String.valueOf(i));
-            ID = getResources().getIdentifier(tmpBtn,"id",getPackageName());
+            ID = getResources().getIdentifier(btn+String.valueOf(i),"id",getPackageName());
             productionBuyBtn[i] = findViewById(ID);
             productionBuyBtn[i].setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -286,7 +284,7 @@ Production
         }//if
 
     }
-    public void production() {
+    private void production() {
         product = new Thread() {
             @Override
             public void run() {
@@ -378,7 +376,8 @@ Production
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main_game_screen);}}//END OF CLASS
+        setContentView(R.layout.activity_main_game_screen);}
+}//END OF CLASS
 
 
 
