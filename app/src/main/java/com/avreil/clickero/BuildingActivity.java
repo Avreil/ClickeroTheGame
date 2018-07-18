@@ -54,11 +54,9 @@ Production
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_buildings);
-        initializeAndSetGameCore(); //initialize Intent/workClasses/TextViews/Buttons
+
+        basicActivitySetup();       //set GameScreen
+        initializeAndSetGameCore(); //initialize Intent/workClasses/TextViews[][]/Buttons[]
         buildClasses();             //build classes
         loadAll();                  //load Data
         initializeAll();            //initialize textViews
@@ -88,6 +86,13 @@ Production
         infrastructureBuyBtn = new Button[infrastructureBuildingsCounter];
 
     }
+    private void basicActivitySetup(){
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_buildings);
+    }
+
 
     private void buildClasses(){
         prepareProductionBuildings();
