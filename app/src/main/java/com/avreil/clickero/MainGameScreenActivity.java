@@ -23,7 +23,7 @@ public class MainGameScreenActivity extends AppCompatActivity {
     private Toast criticalToast,bankFull;
 
 
-
+//a
 
 
 

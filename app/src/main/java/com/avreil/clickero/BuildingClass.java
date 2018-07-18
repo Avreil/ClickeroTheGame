@@ -14,7 +14,7 @@ public class BuildingClass {
     Integer counter,price,capacity,priceWood,priceStone;
     Double perSecond;
     int id;
-
+ //a
     public BuildingClass(String _name, String _desc, String _material, Integer _basePrice, int _id, int _type){
         name = _name;
         desc = _desc;
