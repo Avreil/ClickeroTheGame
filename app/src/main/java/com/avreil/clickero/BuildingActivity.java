@@ -4,11 +4,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+
+import org.apache.commons.net.ntp.NTPUDPClient;
+import org.apache.commons.net.ntp.TimeInfo;
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.util.Date;
+
 
 public class BuildingActivity extends AppCompatActivity {
     private int productionBuildingsCounter = 2;
@@ -50,6 +59,11 @@ Production
 1 = Stone
 
  */
+
+
+    
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
