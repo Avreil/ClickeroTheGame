@@ -33,7 +33,11 @@ public class BuildingActivity extends AppCompatActivity {
     private String amo = "amount";
     private Thread product;
     private Button[] productionBuyBtn,infrastructureBuyBtn;
-    private String TIME_SERVER = "pl.pool.ntp.org";
+    private String TIME_SERVER = "time-a.nist.gov";
+    private TimeInfo timeInfo;
+
+
+    private long output;
 
 
 /*
@@ -66,7 +70,7 @@ Production
     public long getNetworkTime() throws IOException {
         NTPUDPClient timeClient = new NTPUDPClient();
         InetAddress inetAddress = InetAddress.getByName(TIME_SERVER);
-        TimeInfo timeInfo = timeClient.getTime(inetAddress);
+        timeInfo = timeClient.getTime(inetAddress);
         return timeInfo.getMessage().getReceiveTimeStamp().getTime();
     }
 
@@ -86,7 +90,7 @@ Production
         developer();                //buttons to delete after development finish
 
         try {
-            getNetworkTime();
+            output=getNetworkTime();
         } catch (IOException e) {
             e.printStackTrace();
         }
