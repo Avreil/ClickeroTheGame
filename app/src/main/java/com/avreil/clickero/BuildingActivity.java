@@ -33,6 +33,7 @@ public class BuildingActivity extends AppCompatActivity {
     private String amo = "amount";
     private Thread product;
     private Button[] productionBuyBtn,infrastructureBuyBtn;
+    private String TIME_SERVER = "pl.pool.ntp.org";
 
 
 /*
@@ -61,8 +62,13 @@ Production
  */
 
 
-    
 
+    public long getNetworkTime() throws IOException {
+        NTPUDPClient timeClient = new NTPUDPClient();
+        InetAddress inetAddress = InetAddress.getByName(TIME_SERVER);
+        TimeInfo timeInfo = timeClient.getTime(inetAddress);
+        return timeInfo.getMessage().getReceiveTimeStamp().getTime();
+    }
 
 
     @Override
@@ -78,6 +84,13 @@ Production
         production();               //start per second thread
         goBack();                   //back to previous activity
         developer();                //buttons to delete after development finish
+
+        try {
+            getNetworkTime();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }//END OF ON CREATE
 
 
