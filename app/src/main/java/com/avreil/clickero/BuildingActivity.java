@@ -75,7 +75,7 @@ private long calculateElapsedTime(){
     openTime = getDateFromInternet();
     elapsedTime = openTime - closeTime;
     return elapsedTime;
-} 
+}
 private long getDateFromInternet(){
 
     Thread thread = new Thread(new Runnable() {
