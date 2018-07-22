@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -13,10 +12,10 @@ import android.widget.TextView;
 
 import org.apache.commons.net.ntp.NTPUDPClient;
 import org.apache.commons.net.ntp.TimeInfo;
+import org.apache.commons.net.time.TimeTCPClient;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.util.Date;
 
 
 public class BuildingActivity extends AppCompatActivity {
@@ -37,7 +36,7 @@ public class BuildingActivity extends AppCompatActivity {
     private TimeInfo timeInfo;
 
 
-    private long output;
+    private long currentSeconds,openTime,closeTime, elapsedTime;
 
 
 /*
@@ -65,14 +64,37 @@ Production
 
  */
 
+/*
+checkTheTime DONE
+closeTime   DONE
+openTime
+elapsedTime == openTime-CloseTime
+wood and stone production sum
+ */
+private long calculateElapsedTime(){
+    openTime = getDateFromInternet();
+    elapsedTime = openTime - closeTime;
+    return elapsedTime;
+} 
+private long getDateFromInternet(){
 
+    Thread thread = new Thread(new Runnable() {
 
-    public long getNetworkTime() throws IOException {
-        NTPUDPClient timeClient = new NTPUDPClient();
-        InetAddress inetAddress = InetAddress.getByName(TIME_SERVER);
-        timeInfo = timeClient.getTime(inetAddress);
-        return timeInfo.getMessage().getReceiveTimeStamp().getTime();
-    }
+        @Override
+        public void run() {
+            try  {
+                try {
+                    TimeTCPClient client = new TimeTCPClient();
+                    try {
+                        client.setDefaultTimeout(60000);
+                        client.connect("time.nist.gov");
+                        currentSeconds = client.getTime();
+                    } finally { client.disconnect(); }
+                } catch (IOException e) { e.printStackTrace(); }
+            } catch (Exception e) { e.printStackTrace(); } }});
+    thread.start();
+    return currentSeconds;
+}
 
 
     @Override
@@ -89,11 +111,11 @@ Production
         goBack();                   //back to previous activity
         developer();                //buttons to delete after development finish
 
-        try {
-            output=getNetworkTime();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+
+
+
+
 
     }//END OF ON CREATE
 
@@ -302,7 +324,15 @@ Production
         }
     }
 
+    private void saveTime(){
 
+    closeTime = getDateFromInternet();
+    editor.putLong("CloseTime",closeTime );
+    editor.apply();
+    }
+    private void loadTime(){
+    closeTime = buildingsSharedPref.getLong("CloseTime",0);
+}
     private void upgrade (BuildingClass _buildingClass) {
         if (gold >= _buildingClass.getPrice() && materialsClass.getWood()>= _buildingClass.getPriceWood() && materialsClass.getStone()>= _buildingClass.getPriceStone()) {
             gold = gold - _buildingClass.getPrice();
@@ -351,7 +381,7 @@ Production
         saveMaterialListData();
         saveProductionBuildingData();
         saveInfrastructureBuildingData();
-
+        saveTime();
     }
     private void setAll(){
         setMaterialTextViews();
@@ -362,6 +392,7 @@ Production
         loadMaterialListData();
         loadInfrastructureBuildingData();
         loadProductionBuildingData();
+        loadTime();
     }
     private void initializeAll(){
         initializeInfrastructureBuildingsTextView();
