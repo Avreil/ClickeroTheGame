@@ -72,6 +72,9 @@ wood and stone production sum
 private void calculateElapsedTime(){
     openTime = getDateFromInternet();
     elapsedTime = openTime - closeTime;
+    System.out.println("OpenTime"+openTime);
+    System.out.println("Close Time"+closeTime);
+    System.out.println("ElapsedTime"+elapsedTime);
 
 }
 
@@ -87,11 +90,14 @@ private long getDateFromInternet(){
                         client.setDefaultTimeout(60000);
                         client.connect("time.nist.gov");
                         currentSeconds = client.getTime();
+                        System.out.println("currentSeconds"+currentSeconds);
                     } finally { client.disconnect(); }
                 } catch (IOException e) { e.printStackTrace(); }
             } catch (Exception e) { e.printStackTrace(); } }});
     thread.start();
+    System.out.println("currentSeconds"+currentSeconds);
     return currentSeconds;
+
 }
 
 public void materialsForElapsedTime(){
