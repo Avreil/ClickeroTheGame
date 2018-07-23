@@ -162,4 +162,5 @@ public class BuildingClass {
         this.perSecond = ((double)((int)(100*(this.perSecond+1.0+(0.2*this.perSecond)))))/100;
     }
 
+
 }

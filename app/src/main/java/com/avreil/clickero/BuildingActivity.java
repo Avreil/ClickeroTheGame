@@ -10,12 +10,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.apache.commons.net.ntp.NTPUDPClient;
 import org.apache.commons.net.ntp.TimeInfo;
 import org.apache.commons.net.time.TimeTCPClient;
 
 import java.io.IOException;
-import java.net.InetAddress;
 
 
 public class BuildingActivity extends AppCompatActivity {
@@ -71,13 +69,13 @@ openTime
 elapsedTime == openTime-CloseTime
 wood and stone production sum
  */
-private long calculateElapsedTime(){
+private void calculateElapsedTime(){
     openTime = getDateFromInternet();
     elapsedTime = openTime - closeTime;
-    return elapsedTime;
-}
-private long getDateFromInternet(){
 
+}
+
+private long getDateFromInternet(){
     Thread thread = new Thread(new Runnable() {
 
         @Override
@@ -96,6 +94,12 @@ private long getDateFromInternet(){
     return currentSeconds;
 }
 
+public void materialsForElapsedTime(){
+    calculateElapsedTime();
+    materialsClass.setWood((int) (materialsClass.getWood() + (buildingClassProduction[0].getPerSecond()*elapsedTime)));
+
+}
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +110,7 @@ private long getDateFromInternet(){
         buildClasses();             //build classes
         loadAll();                  //load Data
         initializeAll();            //initialize textViews
+        materialsForElapsedTime();  //Add the materials for offline play
         setAll();                   //set textViews
         production();               //start per second thread
         goBack();                   //back to previous activity
