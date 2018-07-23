@@ -34,7 +34,7 @@ public class BuildingActivity extends AppCompatActivity {
     private TimeInfo timeInfo;
 
 
-    private long currentSeconds,openTime,closeTime, elapsedTime;
+    private long openTime,closeTime, elapsedTime;
 
 
 /*
@@ -72,9 +72,10 @@ wood and stone production sum
 private void calculateElapsedTime(){
     openTime = getDateFromInternet();
     elapsedTime = openTime - closeTime;
-    System.out.println("OpenTime"+openTime);
-    System.out.println("Close Time"+closeTime);
-    System.out.println("ElapsedTime"+elapsedTime);
+
+    System.out.println("DEV---------OpenTime"+openTime);
+    System.out.println("DEV---------Close Time"+closeTime);
+    System.out.println("DEV---------ElapsedTime"+elapsedTime);
 
 }
 
@@ -89,14 +90,16 @@ private long getDateFromInternet(){
                     try {
                         client.setDefaultTimeout(60000);
                         client.connect("time.nist.gov");
-                        currentSeconds = client.getTime();
-                        System.out.println("currentSeconds"+currentSeconds);
+                        materialsClass.setTime(client.getTime());
+
+                       System.out.println("DEV---------CurrentSecondsClassThread"+materialsClass.getTime());
                     } finally { client.disconnect(); }
-                } catch (IOException e) { e.printStackTrace(); }
-            } catch (Exception e) { e.printStackTrace(); } }});
+                } catch (IOException e) {  }
+            } catch (Exception e) {  } }});
     thread.start();
-    System.out.println("currentSeconds"+currentSeconds);
-    return currentSeconds;
+    try { thread.join(); } catch (InterruptedException e) {  }
+    System.out.println("DEV---------CurrentSeondsClass"+materialsClass.getTime());
+    return materialsClass.getTime();
 
 }
 
@@ -381,7 +384,7 @@ public void materialsForElapsedTime(){
                             }
                         });
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+
                     }
                 }
             }

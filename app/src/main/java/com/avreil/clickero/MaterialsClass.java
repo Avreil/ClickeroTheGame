@@ -3,10 +3,12 @@ package com.avreil.clickero;
 public class MaterialsClass {
 
     Integer Stone,Wood;
+    long time;
 
     public MaterialsClass(){
         Stone=0;
         Wood=0;
+        time=0;
     }
 
     public void reset (){
@@ -29,4 +31,11 @@ public class MaterialsClass {
         Wood = _wood;
     }
 
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public long getTime() {
+        return time;
+    }
 }
