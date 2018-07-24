@@ -164,4 +164,14 @@ public class LordUpgradeActivity extends AppCompatActivity {
         saveData(_upgrade);
 
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("GoldBack", gold);
+        resultIntent.putExtra("MultiplierBack", multiplier);
+        resultIntent.putExtra("CriticalBack",critical);
+        setResult(RESULT_OK, resultIntent);
+        finish(); }
+
 }

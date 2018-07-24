@@ -69,45 +69,6 @@ openTime
 elapsedTime == openTime-CloseTime
 wood and stone production sum
  */
-private void calculateElapsedTime(){
-    openTime = getDateFromInternet();
-    elapsedTime = openTime - closeTime;
-
-    System.out.println("DEV---------OpenTime"+openTime);
-    System.out.println("DEV---------Close Time"+closeTime);
-    System.out.println("DEV---------ElapsedTime"+elapsedTime);
-
-}
-
-private long getDateFromInternet(){
-    Thread thread = new Thread(new Runnable() {
-
-        @Override
-        public void run() {
-            try  {
-                try {
-                    TimeTCPClient client = new TimeTCPClient();
-                    try {
-                        client.setDefaultTimeout(60000);
-                        client.connect("time.nist.gov");
-                        materialsClass.setTime(client.getTime());
-
-                       System.out.println("DEV---------CurrentSecondsClassThread"+materialsClass.getTime());
-                    } finally { client.disconnect(); }
-                } catch (IOException e) {  }
-            } catch (Exception e) {  } }});
-    thread.start();
-    try { thread.join(); } catch (InterruptedException e) {  }
-    System.out.println("DEV---------CurrentSeondsClass"+materialsClass.getTime());
-    return materialsClass.getTime();
-
-}
-
-public void materialsForElapsedTime(){
-    calculateElapsedTime();
-    materialsClass.setWood((int) (materialsClass.getWood() + (buildingClassProduction[0].getPerSecond()*elapsedTime)));
-
-}
 
 
     @Override
@@ -175,6 +136,7 @@ public void materialsForElapsedTime(){
         buildingClassInfrastructure[1] = new BuildingClass("Wood Storehouse", "Increases wood storage","woodStorage",2000,1,2);
         buildingClassInfrastructure[2] = new BuildingClass("Stone Depot", "Increases stone storage","stoneStorage",4000,2,2);
 
+
     }
 
 
@@ -227,8 +189,8 @@ public void materialsForElapsedTime(){
     }
     private void loadMaterialListData(){
 
-        materialsClass.setWood(buildingsSharedPref.getInt("Wood", 0));
-        materialsClass.setStone(buildingsSharedPref.getInt("Stone",0));
+        materialsClass.setWood(buildingsSharedPref.getInt("Wood", materialsClass.getWood()));
+        materialsClass.setStone(buildingsSharedPref.getInt("Stone",materialsClass.getStone()));
     }
 
     private void initializeProductionBuildingsTextView(){
@@ -277,9 +239,9 @@ public void materialsForElapsedTime(){
     }
     private void loadProductionBuildingData(){
         for (int i = 0;i<productionBuildingsCounter;i++) {
-            buildingClassProduction[i].setCounter(buildingsSharedPref.getInt(buildingClassProduction[i].getName() + "2", 0));
+            buildingClassProduction[i].setCounter(buildingsSharedPref.getInt(buildingClassProduction[i].getName() + "2", buildingClassProduction[i].getCounter()));
             buildingClassProduction[i].setPerSecond(Double.longBitsToDouble(buildingsSharedPref.getLong(buildingClassProduction[i].getName() + "3", 0)));
-            buildingClassProduction[i].setPrice(buildingsSharedPref.getInt(buildingClassProduction[i].getName() + "4", 0));
+            buildingClassProduction[i].setPrice(buildingsSharedPref.getInt(buildingClassProduction[i].getName() + "4", buildingClassProduction[i].getPrice()));
         }
     }
 
@@ -330,11 +292,11 @@ public void materialsForElapsedTime(){
     }
     private void loadInfrastructureBuildingData (){
         for(int i = 0; i< infrastructureBuildingsCounter;i++) {
-            buildingClassInfrastructure[i].setCounter(buildingsSharedPref.getInt(buildingClassInfrastructure[i].getName() + "2", 0));
-            buildingClassInfrastructure[i].setCapacity(buildingsSharedPref.getInt(buildingClassInfrastructure[i].getName() + "3", 0));
-            buildingClassInfrastructure[i].setPrice(buildingsSharedPref.getInt(buildingClassInfrastructure[i].getName() + "4", 0));
-            buildingClassInfrastructure[i].setPriceWood(buildingsSharedPref.getInt(buildingClassInfrastructure[i].getName() + "5", 0));
-            buildingClassInfrastructure[i].setPriceStone(buildingsSharedPref.getInt(buildingClassInfrastructure[i].getName() + "6", 0));
+            buildingClassInfrastructure[i].setCounter(buildingsSharedPref.getInt(buildingClassInfrastructure[i].getName() + "2", buildingClassInfrastructure[i].getCounter()));
+            buildingClassInfrastructure[i].setCapacity(buildingsSharedPref.getInt(buildingClassInfrastructure[i].getName() + "3", buildingClassInfrastructure[i].getCapacity()));
+            buildingClassInfrastructure[i].setPrice(buildingsSharedPref.getInt(buildingClassInfrastructure[i].getName() + "4", buildingClassInfrastructure[i].getPrice()));
+            buildingClassInfrastructure[i].setPriceWood(buildingsSharedPref.getInt(buildingClassInfrastructure[i].getName() + "5", buildingClassInfrastructure[i].getPriceWood()));
+            buildingClassInfrastructure[i].setPriceStone(buildingsSharedPref.getInt(buildingClassInfrastructure[i].getName() + "6", buildingClassInfrastructure[i].getPriceStone()));
         }
     }
 
@@ -416,8 +378,58 @@ public void materialsForElapsedTime(){
         initializeAndSetInfrastructureButtons();
     }
 
+    private void calculateElapsedTime(){
+        openTime = getDateFromInternet();
+        elapsedTime = openTime - closeTime;
+
+        System.out.println("DEV---------OpenTime"+openTime);
+        System.out.println("DEV---------Close Time"+closeTime);
+        System.out.println("DEV---------ElapsedTime"+elapsedTime);
+
+    }
+    private long getDateFromInternet(){
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try  {
+                    try {
+                        TimeTCPClient client = new TimeTCPClient();
+                        try {
+                            client.setDefaultTimeout(60000);
+                            client.connect("time.nist.gov");
+                            materialsClass.setTime(client.getTime());
+
+                            System.out.println("DEV---------CurrentSecondsClassThread"+materialsClass.getTime());
+                        } finally { client.disconnect(); }
+                    } catch (IOException e) {  }
+                } catch (Exception e) {  } }});
+        thread.start();
+        try { thread.join(); } catch (InterruptedException e) {  }
+        System.out.println("DEV---------CurrentSeondsClass"+materialsClass.getTime());
+        return materialsClass.getTime();
+
+    }
+    public void materialsForElapsedTime(){
+        calculateElapsedTime();
+        materialsClass.setWood((int) (materialsClass.getWood() + (buildingClassProduction[0].getPerSecond()*elapsedTime)));
+
+    }
+
+    @Override
+    public void onBackPressed(){
+        product.interrupt();
+        saveAll();
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("GoldBack", gold);
+        resultIntent.putExtra("GoldCapacityBack", buildingClassInfrastructure[0].getCapacity());
+        setResult(RESULT_OK, resultIntent);
+        finish();
+
+    }
 
     private void goBack(){
+
         Button BackButton = findViewById(R.id.backBtn);
         BackButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -24,7 +24,7 @@ public class BuildingClass {
         perSecond = 0.0 ;
         id=_id;
         material=_material;
-        capacity = 10000;
+        capacity=10000;
         type = _type;
 
         if (type == 2){
@@ -34,6 +34,8 @@ public class BuildingClass {
             priceWood = 0;
             priceStone = 0;
         }
+
+
     }
 
 
