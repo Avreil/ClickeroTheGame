@@ -11,7 +11,7 @@ public class BuildingClass {
     protected int type;
 
     String name, desc,material;
-    Integer counter,price,capacity,priceWood,priceStone;
+    Integer counter,price,capacity,priceWood,priceStone,priceCoal;
     Double perSecond;
     int id;
 
@@ -30,9 +30,11 @@ public class BuildingClass {
         if (type == 2){
             priceWood = _basePrice/10;
             priceStone = _basePrice/20;
+            priceCoal = _basePrice/25;
         }else{
             priceWood = 0;
             priceStone = 0;
+            priceCoal = 0;
         }
 
 
@@ -45,6 +47,7 @@ public class BuildingClass {
         this.price = this.price*2;
         this.priceWood = this.priceWood*2;
         this.priceStone = this.priceStone*2;
+        this.priceCoal = this.priceCoal*2;
         switch (this.type){
             case 1:
                 this.raisePerSecond();
@@ -62,9 +65,11 @@ public class BuildingClass {
         if (type == 2){
             priceWood = TempBasePrice /10;
             priceStone = TempBasePrice /20;
+            priceCoal = TempBasePrice/25;
         }else{
             priceWood = 0;
             priceStone = 0;
+            priceCoal = 0;
         }
 
 
@@ -104,7 +109,7 @@ public class BuildingClass {
         if(priceWood==0 && priceStone ==0){
             return ("Gold\n"+Integer.toString(price));
         }else{
-            return ("Gold\tWood\tStone\n"+Integer.toString(price)+"\t"+Integer.toString(priceWood)+"\t"+Integer.toString(priceStone));
+            return ("Gold\tWood\tStone\tCoal\n"+Integer.toString(price)+"\t"+Integer.toString(priceWood)+"\t"+Integer.toString(priceStone)+"\t"+Integer.toString(priceCoal));
         }
 
     }
@@ -164,5 +169,11 @@ public class BuildingClass {
         this.perSecond = ((double)((int)(100*(this.perSecond+1.0+(0.2*this.perSecond)))))/100;
     }
 
+    public Integer getPriceCoal() {
+        return priceCoal;
+    }
 
+    public void setPriceCoal(Integer priceCoal) {
+        this.priceCoal = priceCoal;
+    }
 }

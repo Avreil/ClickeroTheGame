@@ -369,6 +369,59 @@
 
                 </TableRow>
 
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/Coal0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/Coal1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/Coal2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/Coal3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/productionBuyBtn2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="build" />
+
+                    <TextView
+                        android:id="@+id/Coal4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                </TableRow>
+
 
             </TableLayout>
         </LinearLayout>
@@ -455,6 +508,26 @@
 
                     <TextView
                         android:id="@+id/amount2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView"
+                        tools:layout_editor_absoluteX="30dp"
+                        tools:layout_editor_absoluteY="305dp" />
+                </TableRow>
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/coalDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Stone"
+                        tools:layout_editor_absoluteX="30dp"
+                        tools:layout_editor_absoluteY="269dp" />
+
+                    <TextView
+                        android:id="@+id/amount3"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="TextView"

@@ -2,18 +2,20 @@ package com.avreil.clickero;
 
 public class MaterialsClass {
 
-    Integer Stone,Wood;
+    Integer Stone,Wood,Coal;
     long time;
 
     public MaterialsClass(){
         Stone=0;
         Wood=0;
         time=0;
+        Coal=0;
     }
 
     public void reset (){
         this.Stone = 0;
         this.Wood = 0;
+        this.Coal = 0;
     }
     public Integer getStone() {
         return Stone;
@@ -37,5 +39,13 @@ public class MaterialsClass {
 
     public long getTime() {
         return time;
+    }
+
+    public Integer getCoal() {
+        return Coal;
+    }
+
+    public void setCoal(Integer coal) {
+        Coal = coal;
     }
 }

@@ -17,8 +17,8 @@ import java.io.IOException;
 
 
 public class BuildingActivity extends AppCompatActivity {
-    private int productionBuildingsCounter = 2;
-    private int materialCounter=3;
+    private int productionBuildingsCounter = 3;
+    private int materialCounter=4;
     private int infrastructureBuildingsCounter=3;
     private Integer gold;
     private SharedPreferences buildingsSharedPref;
@@ -128,7 +128,8 @@ wood and stone production sum
     }
     private void prepareProductionBuildings(){
         buildingClassProduction[0]= new BuildingClass("Lumber mill","Produce wood","Wood", 100,0,1);
-        buildingClassProduction[1] = new BuildingClass("Quarry", "Mine Stone","Stone", 250,1,1);
+        buildingClassProduction[1]= new BuildingClass("Quarry", "Gather Stone","Stone", 250,1,1);
+        buildingClassProduction[2]= new BuildingClass("Coal mine","Mine Coal","Coal",500,2,1);
 
     }
     private void prepareInfrastructureBuildings(){
@@ -181,16 +182,19 @@ wood and stone production sum
         amount[0].setText(Integer.toString(gold));
         amount[1].setText(Integer.toString(materialsClass.getWood()));
         amount[2].setText(Integer.toString(materialsClass.getStone()));
+        amount[3].setText(Integer.toString(materialsClass.getCoal()));
     }
     private void saveMaterialListData(){
         editor.putInt("Wood", materialsClass.getWood());
         editor.putInt("Stone", materialsClass.getStone());
+        editor.putInt("Coal",materialsClass.getCoal());
         editor.apply();
     }
     private void loadMaterialListData(){
 
         materialsClass.setWood(buildingsSharedPref.getInt("Wood", materialsClass.getWood()));
         materialsClass.setStone(buildingsSharedPref.getInt("Stone",materialsClass.getStone()));
+        materialsClass.setCoal(buildingsSharedPref.getInt("Coal",materialsClass.getCoal()));
     }
 
     private void initializeProductionBuildingsTextView(){
@@ -310,10 +314,8 @@ wood and stone production sum
     closeTime = buildingsSharedPref.getLong("CloseTime",0);
 }
     private void upgrade (BuildingClass _buildingClass) {
-        if (gold >= _buildingClass.getPrice() && materialsClass.getWood()>= _buildingClass.getPriceWood() && materialsClass.getStone()>= _buildingClass.getPriceStone()) {
-            gold = gold - _buildingClass.getPrice();
-            materialsClass.setStone(materialsClass.getStone()- _buildingClass.getPriceStone());
-            materialsClass.setWood(materialsClass.getWood()- _buildingClass.getPriceWood());
+        if (upgradeCheck(_buildingClass)) {
+            upgradeChanges(_buildingClass);
             setMaterialTextViews();
             _buildingClass.upgradeBuilding();
             switch(_buildingClass.getType()){
@@ -388,7 +390,7 @@ wood and stone production sum
 
     }
     private long getDateFromInternet(){
-        Thread thread = new Thread(new Runnable() {
+        Thread thr = new Thread(new Runnable() {
 
             @Override
             public void run() {
@@ -396,16 +398,19 @@ wood and stone production sum
                     try {
                         TimeTCPClient client = new TimeTCPClient();
                         try {
-                            client.setDefaultTimeout(60000);
-                            client.connect("time.nist.gov");
-                            materialsClass.setTime(client.getTime());
 
+                            do {
+                                client.setDefaultTimeout(60000);
+                                client.connect("time.nist.gov");
+                                materialsClass.setTime(client.getTime());
+                            }while (materialsClass.getTime()==0);
                             System.out.println("DEV---------CurrentSecondsClassThread"+materialsClass.getTime());
                         } finally { client.disconnect(); }
                     } catch (IOException e) {  }
                 } catch (Exception e) {  } }});
-        thread.start();
-        try { thread.join(); } catch (InterruptedException e) {  }
+        thr.start();
+
+        try {thr.join(); } catch (InterruptedException e) { e.printStackTrace(); }
         System.out.println("DEV---------CurrentSeondsClass"+materialsClass.getTime());
         return materialsClass.getTime();
 
@@ -426,6 +431,25 @@ wood and stone production sum
         setResult(RESULT_OK, resultIntent);
         finish();
 
+    }
+
+    private void upgradeChanges(BuildingClass _buildingClass){
+        gold = gold - _buildingClass.getPrice();
+        materialsClass.setStone(materialsClass.getStone()- _buildingClass.getPriceStone());
+        materialsClass.setWood(materialsClass.getWood()- _buildingClass.getPriceWood());
+        materialsClass.setCoal(materialsClass.getCoal()- _buildingClass.getPriceCoal());
+    }
+    private boolean upgradeCheck(BuildingClass _buildingClass){
+        boolean result=false;
+                if(
+                                   gold >= _buildingClass.getPrice()
+                                && materialsClass.getWood()>= _buildingClass.getPriceWood()
+                                && materialsClass.getStone()>= _buildingClass.getPriceStone()
+                                && materialsClass.getCoal()>= _buildingClass.getPriceCoal()
+                        ){
+                    result=true;
+                }
+                return result;
     }
 
     private void goBack(){
@@ -462,6 +486,7 @@ wood and stone production sum
             public void onClick(View view) { gold=500000;
                 materialsClass.setWood(50000);
                 materialsClass.setStone(50000);
+                materialsClass.setCoal(50000);
                 setMaterialTextViews(); }});
 
     }
