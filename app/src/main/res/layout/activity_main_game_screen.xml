@@ -13,17 +13,15 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintHorizontal_bias="0.345"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.602"
+        app:layout_constraintTop_toBottomOf="@+id/goldAmmount"
+        app:layout_constraintVertical_bias="0.137"
         tools:text="0" />
 
     <TextView
@@ -41,10 +39,10 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintHorizontal_bias="0.336"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.37"
+        app:layout_constraintVertical_bias="0.258"
         tools:text="0" />
 
     <Button
@@ -53,17 +51,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="@string/dev_reset"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.488" />
 
     <Button
         android:id="@+id/lordUpgrades"
@@ -71,42 +66,229 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="@string/upgrade_the_lord"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.135" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/buildings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
         android:text="@string/buildings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.23" />
+        app:layout_constraintVertical_bias="0.162" />
 
     <Button
         android:id="@+id/devGoldBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="DEV:GOLD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.089"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.316" />
+
+    <ScrollView
+        android:id="@+id/Infrastructure"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginRight="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginStart="0dp"
+        android:clipToPadding="true"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="33dp"
+                tools:layout_editor_absoluteY="182dp">
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/goldStorage0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/goldStorage1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/goldStorage2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/goldStorage3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/infrastructureBuyBtn0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="build" />
+
+                    <TextView
+                        android:id="@+id/goldStorage4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/woodStorage0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/woodStorage1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/woodStorage2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/woodStorage3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/infrastructureBuyBtn1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="build" />
+
+                    <TextView
+                        android:id="@+id/woodStorage4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/stoneStorage0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/stoneStorage1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/stoneStorage2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/stoneStorage3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/infrastructureBuyBtn2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="build" />
+
+                    <TextView
+                        android:id="@+id/stoneStorage4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="TextView" />
+                </TableRow>
+
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="370dp" />
 </android.support.constraint.ConstraintLayout>
