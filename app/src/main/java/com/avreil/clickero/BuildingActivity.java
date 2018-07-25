@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.apache.commons.net.ntp.TimeInfo;
@@ -87,7 +88,24 @@ wood and stone production sum
         developer();                //buttons to delete after development finish
 
 
+        Button devHideBtn = findViewById(R.id.devHideBtn);
+        devHideBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ScrollView infrastructure = findViewById(R.id.Infrastructure);
+                infrastructure.setVisibility(View.INVISIBLE);
 
+
+            }
+        });
+        Button devShowBtn = findViewById(R.id.devShowBtn);
+        devShowBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ScrollView infrastructure = findViewById(R.id.Infrastructure);
+                infrastructure.setVisibility(View.VISIBLE);
+            }
+        });
 
 
 
